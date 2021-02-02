@@ -44,6 +44,7 @@ https://www.figma.com/proto/TsOhGFEXfMAnvmyfFpfbXI/tsp2?node-id=0%3A3&frame-pres
 #### Overview - Roles
 
 We analysed our strengths and weaknesses and for the next 2 weeks have allocated roles which will be reviewed and re-evaluated as the project progresses.
+
     Evan Dunbar - Sentiment Analysis research and development
     Conor McGavin - Back-end, infrastructure
     Conor Heeney - Front-end design and development
