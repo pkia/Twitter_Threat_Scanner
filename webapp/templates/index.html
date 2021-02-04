@@ -3,6 +3,25 @@
 {% block main %}
     <h1> Tweet Guard </h1>
     <div class="container">
+        <p class="lead">
+            In digital times, digital crimes are also rocketing. 
+            People need a way to keep themselves safe from online threats. 
+            This application will warn you whenever a “threatening account” tries 
+            to interact with you. The scan function can be used in two different ways:
+
+            <ul>
+                <li>
+                    You can search for a specific account and receive a full report on the account. 
+                </li>
+                <li>
+                    You can enter your own Twitter handle and be given analysis of 
+                    all of your followers under a selected criteria on which you choose to search, 
+                    documented as a full report which highlights the dangerous users, and, if possible, 
+                    will give an option to unfollow a specific user or mass unfollow all threatening accounts. 
+                </li>
+            </ul>
+
+        </p>
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <a class="btn btn-primary btn-lg btn-block" type="button" href="{{url_for('login')}}">Log In</a>
