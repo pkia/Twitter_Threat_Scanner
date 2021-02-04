@@ -30,22 +30,8 @@ body {
     outline: none;
 }
 
-h1 {
-	font-size: 5em;
-	text-align: center;
-	margin-top: 1em;
-}
-
 .btn-primary {
 	 font-size: 2em;
 	 background-color: #216ca3;
 	 border: #216ca3;
-}
-
-.row {
-	margin-top:3em;
-}
-
-p {
-	text-align: center;
 }
