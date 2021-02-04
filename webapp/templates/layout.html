@@ -8,6 +8,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='site.css') }}">
+
     {% if title %}
       <title>Tweet Guard - {{ title }}</title>
     {% else %}
@@ -15,24 +17,23 @@
     {% endif %}
   </head>
   <body>
-    <header>
-      <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #ee8442;">
-        <a class="navbar-brand" href="/">
-          <!--img src="" alt=""-->
-          Tweet Guard
+    <header class="site-header p-3">
+      <nav class="navbar navbar-expand-md">
+        <a class="navbar-brand mr-5" href="/">
+          <img src="{{ url_for('static', filename='twitter-bird-pixy.png') }}" alt="Tweet Guard">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarContent">
-          <div class="navbar-nav">
-            <a class="nav-item nav-link" href="{{ url_for('scan') }}">SCAN</a>
-            <a class="nav-item nav-link" href="{{ url_for('report') }}">REPORT</a>
-            <a class="nav-item nav-link" href="{{ url_for('database') }}">DATABASE</a>
+          <div class="navbar-nav ml-5 mr-auto">
+            <a class="nav-item nav-link mx-3" href="{{ url_for('scan') }}">SCAN</a>
+            <a class="nav-item nav-link mx-3" href="{{ url_for('report') }}">REPORT</a>
+            <a class="nav-item nav-link mx-3" href="{{ url_for('database') }}">DATABASE</a>
           </div>
           <div class="navbar-nav">
-            <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
-            <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
+            <a class="nav-item nav-link mx-2" href="{{ url_for('login') }}">Login</a>
+            <a class="nav-item nav-link mx-2" href="{{ url_for('register') }}">Register</a>
           </div>
         </div>
       </nav>
@@ -43,6 +44,14 @@
     <footer>
       
     </footer>
+      <script type="text/javascript">
+        anchors = document.getElementsByClassName("nav-link");
+        for (i = 0; i < anchors.length; i++) {
+          if (anchors[i] == window.location.href) {
+            anchors[i].style.color = '#1d9bf0';
+          }
+        }
+    </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
