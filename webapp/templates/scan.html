@@ -1,1 +1,23 @@
 {% extends "layout.html" %}
+
+{% block main %}
+    <form method="POST" action="" class="w-25 mx-auto mt-5">
+        {{ form.hidden_tag() }}
+        <fieldset class=form-group>
+            <legend class="border-bottom mb-4">Scan</legend>
+            {% for field in  form %}
+                {% if field.name == "submit_my_handle" or field.name == "submit_other_handle"%}
+                    <div class="mb-4">
+                        {{field(class="btn btn-outline-info")}}
+                    </div>
+                {% else %}
+                    <div class="form-group">
+                        {{field.label(class="form-control-label")}}
+                        {{field(class="form-control form-control-lg")}}
+                    </div>
+                    
+                {% endif %}
+            {% endfor %}
+        </fieldset>
+    </form>
+{% endblock main %}

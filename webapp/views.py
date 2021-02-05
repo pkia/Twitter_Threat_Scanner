@@ -1,5 +1,6 @@
 from webapp import app
 from flask import render_template, url_for
+from webapp.forms import ScanForm
 
 @app.route("/")
 @app.route("/index")
@@ -8,7 +9,8 @@ def index():
 
 @app.route("/scan")
 def scan():
-	return render_template('scan.html', title='Scan')
+	form = ScanForm()
+	return render_template('scan.html', title='Scan', form=form)
 
 @app.route("/report")
 def report():
