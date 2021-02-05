@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block main %}
+    <h1> All results for {{ user_profile[0] }}</h1>
+    <h2>Name: {{ user_profile[1] }}</h2>
+    <h2><img src={{ user_profile[2] }} alt="User's Picture"</h2>
+    <h2> total reports in database: {{ reports.total }} </h2>
+    {% for report in reports.items %}
+        <h2>Report on {{ report.account_id }}</h2>
+        <h3>Time: {{ report.date_submitted.strftime("%d-%m-%Y at %H:%M:%S") }} </h3>
+        <h3>Threat Type: {{ report.threat_type}}
+        <p><b>Summary: </b>{{ report.summary }}</p>
+    {% endfor %}
+    
+    {% for page_num in reports.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+        {% if page_num %}
+            {% if reports.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for("database_search", username=reports.items[0].account_id, page=page_num)}} "> {{page_num}} </a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for("database_search", username=reports.items[0].account_id, page=page_num)}} "> {{page_num}} </a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+{% endblock %}

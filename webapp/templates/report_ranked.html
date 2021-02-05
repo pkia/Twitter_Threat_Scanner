@@ -1,0 +1,25 @@
+{% extends "database.html" %}
+{% block main %}
+    <h2>Total Reports Made on Accounts With Danger Level</h2>
+    
+    
+    {% for i in range(length) %}
+        <p>{{user_profiles[i][1]}}</p>
+        <img src={{user_profiles[i][2]}}>
+        <p><a href="{{ url_for("database_search", username=count[i][0], page=1)}}"><b>{{ count[i][0] }}</b></a> : {{ count[i][1] }}</p>
+
+    {% endfor %}
+    
+
+    {% for page_num in counts2.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+        {% if page_num %}
+            {% if counts2.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for("report_ranked", page=page_num)}} "> {{page_num}} </a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for("report_ranked", page=page_num)}} "> {{page_num}} </a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+{% endblock %}

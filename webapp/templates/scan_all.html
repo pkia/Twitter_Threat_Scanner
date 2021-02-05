@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block main %}
+
+    <h1> Scan follower results for {{ user_profile[0] }}</h1>
+    <h2>Name: {{ user_profile[1] }}</h2>
+    <h2><img src={{ user_profile[2] }} alt="User's Picture"</h2>
+    
+    {% for i in range(length) %}
+    <section>
+        <h2><b>{{bad_user_profiles[i][1]}}</b></h2>
+        <img src="{{bad_user_profiles[i][2]}}">
+        <p><b>{{ results[i][0] }}</b></p>
+        <p> Date: {{ results[i][1].date_scanned}} </p>
+        <p> {{results[i][1].threat_level}}</p>
+        <p> {{results[i][1].threat_detected}}</p>
+        
+    </section>
+    {% endfor %}
+    
+    
+{% endblock %}

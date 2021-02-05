@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block main %}
+
+    <h1> Scan results for <a href="{{ url_for("database_search", username=user_profile[0])}}">{{ user_profile[0] }}</a></h1>
+    <h2>Name: {{ user_profile[1] }}</h2>
+    <h2><img src={{ user_profile[2] }} alt="User's Picture"</h2>
+    
+    <p>{{ result.date_scanned}}</p>
+    <p>{{ result.threat_detected}}</p>
+    <p>{{ result.threat_level }}</p>
+    
+    {% if clearScan == True %}
+        <p>Nothing bad reported on this user. Hurray!</p>
+    {% endif %}
+{% endblock %}
