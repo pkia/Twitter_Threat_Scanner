@@ -1,6 +1,6 @@
 from webapp import app
 from flask import render_template, url_for, redirect, flash
-from webapp.forms import ScanForm
+from webapp.forms import ScanSelfForm, ScanOtherForm
 
 @app.route("/")
 @app.route("/index")
@@ -9,14 +9,13 @@ def index():
 
 @app.route("/scan", methods=["GET", "POST"])
 def scan():
-	form = ScanForm()
-	if form.your_handle.data and form.user_handle.data:
-		flash("Only one field required", "danger")
-	elif form.your_handle.data:
-		return redirect(url_for('personal_scan'))
-	elif form.submit_other_handle.data:
-		return redirect(url_for('report'))
-	return render_template('scan.html', title='Scan', form=form)
+    scan_self_form = ScanSelfForm()
+    scan_other_form = ScanOtherForm()
+    if scan_self_form.validate_on_submit():
+        return redirect(url_for('personal_scan'))
+    elif scan_other_form.validate_on_submit():
+        return redirect(url_for('report'))
+    return render_template('scan.html', title='Scan', scan_self_form=scan_self_form, scan_other_form=scan_other_form)
 
 @app.route("/personal_scan")
 def personal_scan():
