@@ -6,9 +6,9 @@
     <section>
         <h2><b>Scan Results</b></h2>
         {% if scan_results %}
-            <p>Threat Detected: {{scan_result.threat_detected}}</p>
-            <p>Date Scanned: {{scan_result.date_scanned}}</p>
-            <p>Danger Level: {{scan_result.threat_level}}</p>
+            <p>Threat Detected: {{scan_results.threat_detected}}</p>
+            <p>Date Scanned: {{scan_results.date_scanned}}</p>
+            <p>Danger Level: {{scan_results.threat_level}}</p>
         {% else %}
             <p>User has no scan results! <a href="{{url_for('scan')}}">Scan a user now?</a></p>
         {% endif %}
