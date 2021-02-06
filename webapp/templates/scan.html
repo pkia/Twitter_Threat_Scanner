@@ -15,11 +15,28 @@
         </div>
     </div>
     <form method="POST" action="" class="w-25 mx-auto mt-5">
-        {{ form.hidden_tag() }}
+        {{ scan_self_form.hidden_tag() }}
         <fieldset class=form-group>
-            <legend class="border-bottom mb-4">Scan</legend>
-            {% for field in form %}
-                {% if field.name == "submit_my_handle" or field.name == "submit_other_handle"%}
+            {% for field in scan_self_form %}
+                {% if field.name == "submit"%}
+                    <div class="mb-4">
+                        {{field(class="btn btn-outline-info")}}
+                    </div>
+                {% elif field.name != "csrf_token" %}
+                    <div class="form-group">
+                        {{field.label(class="form-control-label")}}
+                        {{field(class="form-control form-control-lg")}}
+                    </div>
+                    
+                {% endif %}
+            {% endfor %}
+        </fieldset>
+    </form>
+    <form method="POST" action="" class="w-25 mx-auto mt-5">
+        {{ scan_other_form.hidden_tag() }}
+        <fieldset class=form-group>
+            {% for field in scan_other_form %}
+                {% if field.name == "submit"%}
                     <div class="mb-4">
                         {{field(class="btn btn-outline-info")}}
                     </div>
