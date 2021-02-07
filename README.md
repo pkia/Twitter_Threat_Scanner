@@ -1,4 +1,4 @@
-## Twitter Guard Threat Scanner
+## Twitter Guard Threat Scanner Group 2
 
 #### Overview:
 Within our project, we aim to create a threat-analysing scanner for Twitter. The scanner will be created as a web application that will allow users to scan accounts for potential threatening behaviour that is considered to be anti-social, and provide the user with a detailed report at the click of a button on what the algorithm has determined to be dangerous. The user then has the option to disregard the report, or review it and make changes based on what they consider to be the main threat.
