@@ -1,6 +1,6 @@
 from webapp import app
-from flask import render_template, url_for, redirect, flash
-from webapp.forms import ScanSelfForm, ScanOtherForm
+from flask import render_template, url_for, redirect
+from webapp.forms import ScanSelfForm, ScanOtherForm, RegisterForm, LoginForm
 
 @app.route("/")
 @app.route("/index")
@@ -29,10 +29,17 @@ def report():
 def database():
 	return render_template('database.html', title='Database')
 
-@app.route("/register")
+@app.route("/register", methods=['GET', 'POST'])
 def register():
-	return render_template('register.html', title='Register')
+    form = RegisterForm()
+    if form.validate_on_submit():
+        return redirect(url_for('scan'))
+    return render_template('register.html', title='Register', form=form)
 
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login():
-	return render_template('login.html', title='Login')
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == '123456@gmail.com' and form.password.data == '123456':
+            return redirect(url_for('scan'))
+    return render_template('login.html', title='Login', form=form)
