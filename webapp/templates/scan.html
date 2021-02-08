@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block main %}
     <div class="content-section">
-        <form method="POST" action="">
+        <form method="POST" action="" class="w-25 mx-auto mt-5">
             {{ scan_all_form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Enter your handle to get started scanning your followers</legend>
@@ -16,8 +16,8 @@
             </div>
         </form>
     </div>
-    <div class="content-section">
-        <form method="POST" action="">
+    <div class="content-section" >
+        <form method="POST" action=""class="w-25 mx-auto mt-5">
             {{ scan_user_form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Or enter a user's handle to scan them individually and to see their report information</legend>
@@ -33,55 +33,3 @@
         </form>
     </div>
 {% endblock %}
-
-{% block main1 %}
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            {%with messages = get_flashed_messages(with_categories=true)%}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-        </div>
-    </div>
-    <form method="POST" action="" class="w-25 mx-auto mt-5">
-        {{ scan_self_form.hidden_tag() }}
-        <fieldset class=form-group>
-            {% for field in scan_self_form %}
-                {% if field.name == "submit"%}
-                    <div class="mb-4">
-                        {{field(class="btn btn-outline-info")}}
-                    </div>
-                {% elif field.name != "csrf_token" %}
-                    <div class="form-group">
-                        {{field.label(class="form-control-label")}}
-                        {{field(class="form-control form-control-lg")}}
-                    </div>
-                    
-                {% endif %}
-            {% endfor %}
-        </fieldset>
-    </form>
-    <form method="POST" action="" class="w-25 mx-auto mt-5">
-        {{ scan_other_form.hidden_tag() }}
-        <fieldset class=form-group>
-            {% for field in scan_other_form %}
-                {% if field.name == "submit"%}
-                    <div class="mb-4">
-                        {{field(class="btn btn-outline-info")}}
-                    </div>
-                {% elif field.name != "csrf_token" %}
-                    <div class="form-group">
-                        {{field.label(class="form-control-label")}}
-                        {{field(class="form-control form-control-lg")}}
-                    </div>
-                    
-                {% endif %}
-            {% endfor %}
-        </fieldset>
-    </form>
-{% endblock main1 %}
