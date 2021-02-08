@@ -24,10 +24,6 @@ def scan1():
     elif scan_other_form.validate_on_submit():
         return redirect(url_for('report'))
     return render_template('scan.html', title='Scan', scan_self_form=scan_self_form, scan_other_form=scan_other_form)
-
-@app.route("/personal_scan")
-def personal_scan():
-	return render_template('personal_scan.html', title='Personal Scan')
   
   
 @app.route("/scan", methods=["GET", "POST"])
