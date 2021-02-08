@@ -10,9 +10,9 @@ from webapp import tweepy
 import random
 
 @app.route("/")
-@app.route("/home")
-def home():
-    return render_template('index.html', title="Home Page")
+@app.route("/index")
+def index():
+    return render_template('index.html')
 
 @app.route("/scan", methods=["GET", "POST"])
 def scan():
