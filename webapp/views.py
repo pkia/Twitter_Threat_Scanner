@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request
-from webapp.form import ReportForm, SearchForm, ScanForm1, ScanForm2, LoginForm, RegisterForm
+from webapp.forms import ReportForm, SearchForm, ScanForm1, ScanForm2, LoginForm, RegisterForm
 from webapp.models import Account, Report, ScanResult
 from webapp import app
 from webapp import db
@@ -39,7 +39,7 @@ def scan():
         except:
              flash(f"Sorry. That account does not exist", "Failure")
              
-    return render_template('scan_home.html', scan_all_form=scan_all_form, scan_user_form=scan_user_form, title="Scan")
+    return render_template('scan.html', scan_all_form=scan_all_form, scan_user_form=scan_user_form, title="Scan")
 
 
 @app.route("/scan/user/<string:username>")
