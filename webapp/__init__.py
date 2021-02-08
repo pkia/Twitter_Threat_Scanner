@@ -20,6 +20,10 @@ auth.set_access_token(access_key, access_secret)
 api = tweepy.API(auth) 
 
 app = Flask(__name__)
+#import secrets
+#secrets.token_hex(16)
+app.config['SECRET_KEY'] = '3efb586753c505b1b6dc3672351a27cf'
+
 
 
 app.config["SECRET_KEY"] = '0e1892da231b615d2c3144c49ed3fe69'
