@@ -2,7 +2,7 @@
 {% block main %}
     
     <div class="content-section">
-        <form method="POST" action="">
+        <form method="POST" action="" class="w-25 mx-auto mt-5">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Search For A Twitter User</legend>
@@ -17,28 +17,30 @@
         </form>
     </div>
     
-    <p><a href="{{ url_for("report_ranked", page=1)}} ">See Our Total Reports List</a></p>
-    <p><a href="{{ url_for("report")}} ">Make A Report</a></p>
+    <p class="w-25 mx-auto"><a href="{{ url_for("report_ranked", page=1)}} ">See Our Total Reports List</a></p>
+    <p class="w-25 mx-auto"><a href="{{ url_for("report")}} ">Make A Report</a></p>
+
+    <div class="w-25 mx-auto mt-5">
+        <h2><b>Recent Reports</b></h2>
+        {% for report in reports.items %}
+            <h2>Report on <a href ="{{url_for('database_search', username=report.account_id)}}"> {{ report.account_id }} </a></h2>
+            <h3>Time: {{ report.date_submitted.strftime("%d-%m-%Y at %H:%M:%S") }} </h3>
+            <h3>Threat Type: {{ report.threat_type}}
+            <p><b>Summary: </b>{{ report.summary }}</p>
+        {% endfor %}
     
-    <h2><b>Recent Reports</b></h2>
-    {% for report in reports.items %}
-        <h2>Report on <a href ="{{url_for('database_search', username=report.account_id)}}"> {{ report.account_id }} </a></h2>
-        <h3>Time: {{ report.date_submitted.strftime("%d-%m-%Y at %H:%M:%S") }} </h3>
-        <h3>Threat Type: {{ report.threat_type}}
-        <p><b>Summary: </b>{{ report.summary }}</p>
-    {% endfor %}
+        {% for page_num in reports.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
     
-    {% for page_num in reports.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
-    
-        {% if page_num %}
-            {% if reports.page == page_num %}
-                <a class="btn btn-info mb-4" href="{{ url_for("database", page=page_num)}} "> {{page_num}} </a>
+            {% if page_num %}
+                {% if reports.page == page_num %}
+                    <a class="btn btn-info mb-4" href="{{ url_for("database", page=page_num)}} "> {{page_num}} </a>
+                {% else %}
+                    <a class="btn btn-outline-info mb-4" href="{{ url_for("database", page=page_num)}} "> {{page_num}} </a>
+                {% endif %}
             {% else %}
-                <a class="btn btn-outline-info mb-4" href="{{ url_for("database", page=page_num)}} "> {{page_num}} </a>
+                ...
             {% endif %}
-        {% else %}
-            ...
-        {% endif %}
-    {% endfor %}
+        {% endfor %}
+    </div>
     
 {% endblock %}
