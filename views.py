@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request
-from webapp.forms import ReportForm, SearchForm, ScanForm1, ScanForm2, ScanSelfForm, ScanOtherForm, LoginForm, RegisterForm
+from webapp.form import ReportForm, SearchForm, ScanForm1, ScanForm2, LoginForm, RegisterForm
 from webapp.models import Account, Report, ScanResult
 from webapp import app
 from webapp import db
@@ -9,27 +9,11 @@ from datetime import datetime, timedelta
 from webapp import tweepy
 import random
 
-
 @app.route("/")
-@app.route("/index")
-def index():
-    return render_template('index.html')
-  
-@app.route("/scan1", methods=["GET", "POST"])
-def scan1():
-    scan_self_form = ScanSelfForm()
-    scan_other_form = ScanOtherForm()
-    if scan_self_form.validate_on_submit():
-        return redirect(url_for('personal_scan'))
-    elif scan_other_form.validate_on_submit():
-        return redirect(url_for('report'))
-    return render_template('scan.html', title='Scan', scan_self_form=scan_self_form, scan_other_form=scan_other_form)
+@app.route("/home")
+def home():
+    return render_template('index.html', title="Home Page")
 
-@app.route("/personal_scan")
-def personal_scan():
-	return render_template('personal_scan.html', title='Personal Scan')
-  
-  
 @app.route("/scan", methods=["GET", "POST"])
 def scan():
     
@@ -146,12 +130,14 @@ def report_ranked():
     length = len(user_profiles)
     return render_template('report_ranked.html', count=count, counts2=counts2, user_profiles=user_profiles, length=length, title="Reports Ranked")
 
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
         return redirect(url_for('scan'))
     return render_template('register.html', title='Register', form=form)
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -160,6 +146,7 @@ def login():
         if form.email.data == '123456@gmail.com' and form.password.data == '123456':
             return redirect(url_for('scan'))
     return render_template('login.html', title='Login', form=form)
+
 
 
 def scan(username):

@@ -1,6 +1,40 @@
 {% extends "layout.html" %}
-
 {% block main %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ scan_all_form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Enter your handle to get started scanning your followers</legend>
+                <div class="form-group">
+                    {{ scan_all_form.username.label(class="form-control-label") }}
+                    {{ scan_all_form.username(class="form-control form-control-lg") }}
+                </div>
+            </fieldset>
+            
+            <div class="form-group">
+                {{ scan_all_form.submit1(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ scan_user_form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Or enter a user's handle to scan them individually and to see their report information</legend>
+                <div class="form-group">
+                    {{ scan_user_form.username.label(class="form-control-label") }}
+                    {{ scan_user_form.username(class="form-control form-control-lg") }}
+                </div>
+            </fieldset>
+            
+            <div class="form-group">
+                {{ scan_user_form.submit2(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block main1 %}
     <div class="row justify-content-center">
         <div class="col-md-4">
             {%with messages = get_flashed_messages(with_categories=true)%}
@@ -50,4 +84,4 @@
             {% endfor %}
         </fieldset>
     </form>
-{% endblock main %}
+{% endblock main1 %}
