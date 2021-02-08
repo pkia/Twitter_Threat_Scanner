@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField, TextAreaField
-from wtforms.validators import DataRequired, Length
+from wtforms import StringField, SubmitField, SelectField, TextAreaField, PasswordField, BooleanField
+from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 
 class ReportForm(FlaskForm):
@@ -28,8 +28,23 @@ class ScanForm1(FlaskForm):
                            validators=[DataRequired(), Length(min=4, max=15)])
     submit1 = SubmitField("Go!")
     
+    
 class ScanForm2(FlaskForm):
     username = StringField('', 
                            validators=[DataRequired(), Length(min=4, max=15)])
     submit2 = SubmitField("Go!")
     
+
+class RegisterForm(FlaskForm):
+	username = StringField('Username', validators=[DataRequired(), Length(min=1, max=15)])
+	email = StringField('Email', validators=[DataRequired(), Email()])
+	password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])
+	retype_password = PasswordField('Retype Password', validators=[DataRequired(), EqualTo('password')])
+	submit = SubmitField('Register')
+
+
+class LoginForm(FlaskForm):
+	email = StringField('Email', validators=[DataRequired(), Email()])
+	password = PasswordField('Password', validators=[DataRequired()])
+	remember = BooleanField('Remember Me')
+	submit = SubmitField('Login')

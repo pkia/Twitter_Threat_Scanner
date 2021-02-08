@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request
-from webapp.form import ReportForm, SearchForm, ScanForm1, ScanForm2
+from webapp.form import ReportForm, SearchForm, ScanForm1, ScanForm2, LoginForm, RegisterForm
 from webapp.models import Account, Report, ScanResult
 from webapp import app
 from webapp import db
@@ -106,14 +106,12 @@ def database():
 @app.route("/database/<string:username>")
 def database_search(username):
     page = request.args.get("page", 1, type=int)
-    try:
-        scan_results = ScanResult.query.filter_by(account_id=username).first()
-    except:
-        scan_results = None
-    try:
-        reports = Report.query.filter_by(account_holder=account).order_by(Report.date_submitted.desc()).paginate(per_page=5)
-    except:
-        reports = None
+    scan_results = ScanResult.query.filter_by(account_id=username).first()
+    print(scan_results)
+    if Report.query.filter_by(account_id=username).first() != None:
+        reports = Report.query.filter_by(account_id=username).order_by(Report.date_submitted.desc()).paginate(per_page=5)
+    else:
+    	reports = None
     user_profile = get_twitter_info(username)
     return render_template('database_search.html', reports=reports, scan_results=scan_results, user_profile=user_profile, title="Database Search")
 
@@ -132,17 +130,28 @@ def report_ranked():
     length = len(user_profiles)
     return render_template('report_ranked.html', count=count, counts2=counts2, user_profiles=user_profiles, length=length, title="Reports Ranked")
 
-@app.route("/register")
-def register():
-	return render_template('register.html', title='Register')
 
-@app.route("/login")
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        return redirect(url_for('scan'))
+    return render_template('register.html', title='Register', form=form)
+
+
+@app.route("/login", methods=['GET', 'POST'])
 def login():
-	return render_template('login.html', title='Login')
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == '123456@gmail.com' and form.password.data == '123456':
+            return redirect(url_for('scan'))
+    return render_template('login.html', title='Login', form=form)
 
 
 
 def scan(username):
+    ScanResult.query.filter_by(account_id=username).delete()
+    db.session.commit()
     ran = random.randint(0,5)
     if ran <= 2:
         return None
@@ -152,37 +161,20 @@ def scan(username):
     result = ScanResult(threat_detected="racist", threat_level=9, account_id=username)
     db.session.add(result)
     db.session.commit()
+    scan_results = ScanResult.query.filter_by(account_id=username).first()
     return result
 
-#TODO: implement something that deletes old scan results if new one given
-
-
-def scan_user_function(username, redo=True):
-    account = Account.query.filter_by(id=username).first() # searches for account
-    if account != None: 
-        scan_result = ScanResult.query.filter_by(account_id=username).first() # if present and scanned less than two weeks ago, return that scan
-        if scan_result != None:
-            date = scan_result.date_scanned
-            date_two_weeks_ago = date - timedelta(days=14)
-        
-            if date > date_two_weeks_ago:
-                if redo == True:
-                    scan_result = scan(username)
-            else:
-                scan_result = scan(username)
-        else: # if not scanned ever
-                scan_result = scan(username) # evan's side of stuff
-            
-    else:
-        scan_result = scan(username)
+def scan_user_function(username): 
+    scan_result = scan(username)
     return scan_result
     
 def scan_all_function(username):
     followers = get_followers(username) # get all a user's followers
     bad = [] # list of usernames where something bad was found
     for follower in followers:
-        if get_twitter_info(follower) == False:
-            continue
+        if get_twitter_info(follower) == False: # make this a standalone get_if_priv() func
+        	print("private")
+        	continue
         scan_result = scan_user_function(follower) # get scan_results of every follower
         if scan_result != None:
             results = [follower, scan_result, Account.query.filter_by(id=follower)] # 
@@ -191,11 +183,17 @@ def scan_all_function(username):
 
 def get_twitter_info(screen_name):
     user_info = api.get_user(screen_name)
+    if user_info.protected == True:
+    	return False
     profile = [user_info.screen_name, user_info.name, user_info.profile_image_url]
     return profile
 
-def get_followers(username):
-    followersList = []
-    for follower in api.followers_ids(username, include_user_entities=False):
-        followersList.append(follower)
-    return followersList
+def get_followers(screenname, limit=50):
+    follower_list = []
+    if limit < 0:
+        raise Exception("Enter a number above 0!")
+    elif limit > 50:  # Basic error control
+        raise Exception("Max limit 50")
+    for follower in tweepy.Cursor(api.followers, screenname).items(int(limit)):  # Uses tweepys cursor function to add most recent followers to a list
+        follower_list.append(follower.screen_name)
+    return follower_list
