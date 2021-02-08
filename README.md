@@ -53,6 +53,21 @@ We analysed our strengths and weaknesses and for the next 2 weeks have allocated
     
 We aim to understand each other’s roles and work closely and collaboratively to produce an environment where one team member will be able to work independently of another, but know what is expected of them to produce from other team members. This ensures fairness and that there is never one person that feels they are doing everything. We aim to closely follow a plan and reassess on a weekly basis on where the project is, and where it needs to be.
 
+#### Project Progression and Implementation
+
+We decided on the Flask framework for building our lightweight web application.
+We used bootstrap in order to create a full-featured front-end with professional looking style.
+Inside Flask, we used SQLAlchemy in order to create and manage the database, which was SQLite, but will be converted to PostgreSQL when the site is finally deployed.
+The TweePy library proved to be extremely important in fetching twitter profiles, displaying them and pulling tweets from a user.
+
+#### Possible Limitations
+
+The fetching and scanning of an entire account with a very high amount of followers can be extremely slow from first impressions and this is something that must be looked at 
+Maximum of 3000 tweets pulled per user at a time, however this should be ok as recent tweets are the most important.
+
+
+
+
 
 
 
