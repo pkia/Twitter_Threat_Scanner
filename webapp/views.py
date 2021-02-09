@@ -15,16 +15,6 @@ import random
 def index():
     return render_template('index.html')
   
-@app.route("/scan1", methods=["GET", "POST"])
-def scan1():
-    scan_self_form = ScanSelfForm()
-    scan_other_form = ScanOtherForm()
-    if scan_self_form.validate_on_submit():
-        return redirect(url_for('personal_scan'))
-    elif scan_other_form.validate_on_submit():
-        return redirect(url_for('report'))
-    return render_template('scan.html', title='Scan', scan_self_form=scan_self_form, scan_other_form=scan_other_form)
-  
   
 @app.route("/scan", methods=["GET", "POST"])
 def scan():
