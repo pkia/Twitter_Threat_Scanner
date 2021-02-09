@@ -4,7 +4,7 @@
         <form method="POST" action="" class="w-50 mx-auto mt-5">
             {{ scan_all_form.hidden_tag() }}
             <fieldset>
-                <legend class="border-bottom mb-4"><span class="mx-auto">Enter your handle to start scanning your followers</span></legend>
+                <legend class="border-bottom mb-4">Enter your handle to start scanning your followers</legend>
                 <div class="form-group">
                     {{ scan_all_form.username.label(class="form-control-label") }}
                     {{ scan_all_form.username(class="form-control form-control-lg") }}
@@ -20,7 +20,7 @@
         <form method="POST" action=""class="w-50 mx-auto mt-5">
             {{ scan_user_form.hidden_tag() }}
             <fieldset>
-                <legend class="border-bottom mb-4"><span class="mx-auto">Enter a user's handle to see their report information</span></legend>
+                <legend class="border-bottom mb-4">Enter a user's handle to see their report information</legend>
                 <div class="form-group">
                     {{ scan_user_form.username.label(class="form-control-label") }}
                     {{ scan_user_form.username(class="form-control form-control-lg") }}

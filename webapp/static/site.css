@@ -66,16 +66,6 @@ form > div > .btn-primary:hover {
 	border-radius: 20px;
 }
 
-legend > span {
-	display: block;
-	width: 93%;
-}
-
-legend > span {
-	display: block;
-	width: 93%;
-}
-
-#report_legend > span {
-	display: block;
+legend {
+	text-align: center;
 }
