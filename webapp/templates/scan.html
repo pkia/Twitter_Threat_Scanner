@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block main %}
     <div class="content-section">
-        <form method="POST" action="" class="w-25 mx-auto mt-5">
+        <form method="POST" action="" class="w-50 mx-auto mt-5">
             {{ scan_all_form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Enter your handle to get started scanning your followers</legend>
+            <fieldset>
+                <legend class="border-bottom mb-4"><span class="mx-auto">Enter your handle to start scanning your followers</span></legend>
                 <div class="form-group">
                     {{ scan_all_form.username.label(class="form-control-label") }}
                     {{ scan_all_form.username(class="form-control form-control-lg") }}
@@ -12,15 +12,15 @@
             </fieldset>
             
             <div class="form-group">
-                {{ scan_all_form.submit1(class="btn btn-outline-info") }}
+                {{ scan_all_form.submit1(class="btn btn-primary") }}
             </div>
         </form>
     </div>
     <div class="content-section" >
-        <form method="POST" action=""class="w-25 mx-auto mt-5">
+        <form method="POST" action=""class="w-50 mx-auto mt-5">
             {{ scan_user_form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Or enter a user's handle to scan them individually and to see their report information</legend>
+            <fieldset>
+                <legend class="border-bottom mb-4"><span class="mx-auto">Enter a user's handle to see their report information</span></legend>
                 <div class="form-group">
                     {{ scan_user_form.username.label(class="form-control-label") }}
                     {{ scan_user_form.username(class="form-control form-control-lg") }}
@@ -28,7 +28,7 @@
             </fieldset>
             
             <div class="form-group">
-                {{ scan_user_form.submit2(class="btn btn-outline-info") }}
+                {{ scan_user_form.submit2(class="btn btn-primary") }}
             </div>
         </form>
     </div>
