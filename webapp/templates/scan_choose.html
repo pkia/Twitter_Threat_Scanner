@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block main %}
+    <form method="POST" action="">
+    <fieldset class="form-group">
+        <legend>Choose up to 50 of your most recent followers to scan</legend>
+        <div>
+            {{ form.follower_count.label }}:
+            {{ form.follower_count(min=0, max=50, oninput="outputUpdate(value)") }}
+            <output for="follower_count" id="selected-followers">{{ form.follower_count.data }}</output>
+        </div>
+    </fieldset>
+        <div>
+                {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+    <div>
+        <h2>Or select from recent followers using the list below!</h2>
+        {% for follower in follower_list %}
+            <p><img src="{{follower[2]}}">{{follower[0]}}</p>
+        {% endfor %}
+    </div>
+    <script>
+        function outputUpdate(age) {
+            document.querySelector('#selected-followers').value = follower_count.value;
+        }
+    </script>
+{% endblock %}
