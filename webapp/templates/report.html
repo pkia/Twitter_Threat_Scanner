@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block main %}
     <div class="content-section">
-        <form method="POST" action="" class="w-25 mx-auto mt-5">
+        <form method="POST" action="" class="w-50 mx-auto mt-5">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Report A Twitter User</legend>
+                <legend id="report_legend" class="border-bottom mb-4"><span class="w-50 mx-auto">Report A Twitter User</span></legend>
                 <div class="form-group">
                     {{ form.username.label(class="form-control-label") }}
                     {{ form.username(class="form-control form-control-lg") }}
@@ -20,7 +20,7 @@
             </fieldset>
             
             <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+                {{ form.submit(class="btn btn-primary") }}
             </div>
         </form>
     </div>
