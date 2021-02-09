@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request
-from webapp.forms import ReportForm, SearchForm, ScanForm1, ScanForm2, ScanSelfForm, ScanOtherForm, LoginForm, RegisterForm
+from webapp.forms import ReportForm, SearchForm, ScanForm1, ScanForm2, LoginForm, RegisterForm
 from webapp.models import Account, Report, ScanResult
 from webapp import app
 from webapp import db
@@ -9,27 +9,11 @@ from datetime import datetime, timedelta
 from webapp import tweepy
 import random
 
-
 @app.route("/")
-@app.route("/index")
-def index():
-    return render_template('index.html')
-  
-@app.route("/scan1", methods=["GET", "POST"])
-def scan1():
-    scan_self_form = ScanSelfForm()
-    scan_other_form = ScanOtherForm()
-    if scan_self_form.validate_on_submit():
-        return redirect(url_for('personal_scan'))
-    elif scan_other_form.validate_on_submit():
-        return redirect(url_for('report'))
-    return render_template('scan.html', title='Scan', scan_self_form=scan_self_form, scan_other_form=scan_other_form)
+@app.route("/home")
+def home():
+    return render_template('index.html', title="Home Page")
 
-@app.route("/personal_scan")
-def personal_scan():
-	return render_template('personal_scan.html', title='Personal Scan')
-  
-  
 @app.route("/scan", methods=["GET", "POST"])
 def scan():
     
@@ -62,18 +46,11 @@ def scan():
 def scan_user(username):
     result = scan_user_function(username)
     user_profile = get_twitter_info(username)
-    
-    if result != None:
-        account = Account.query.filter_by(id=username).first()
-    else:
-        account = None
-    return render_template('scan_user.html', result=result, user_profile=user_profile, account=account, title="Scan A User")
+    return render_template('scan_user.html', result=result, user_profile=user_profile, title="Scan A User")
 
-# make scan_all_function return an account rather than a username so i can include reports
 
 @app.route("/scan/all/<string:username>")
 def scan_all(username):
-    
     results = scan_all_function(username)
     user_profile = get_twitter_info(username)
     bad_user_profiles=[]
@@ -123,7 +100,6 @@ def database():
 def database_search(username):
     page = request.args.get("page", 1, type=int)
     scan_results = ScanResult.query.filter_by(account_id=username).first()
-    print(scan_results)
     if Report.query.filter_by(account_id=username).first() != None:
         reports = Report.query.filter_by(account_id=username).order_by(Report.date_submitted.desc()).paginate(per_page=5)
     else:
@@ -146,12 +122,14 @@ def report_ranked():
     length = len(user_profiles)
     return render_template('report_ranked.html', count=count, counts2=counts2, user_profiles=user_profiles, length=length, title="Reports Ranked")
 
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
         return redirect(url_for('scan'))
     return render_template('register.html', title='Register', form=form)
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -160,6 +138,7 @@ def login():
         if form.email.data == '123456@gmail.com' and form.password.data == '123456':
             return redirect(url_for('scan'))
     return render_template('login.html', title='Login', form=form)
+
 
 
 def scan(username):
@@ -174,7 +153,6 @@ def scan(username):
     result = ScanResult(threat_detected="racist", threat_level=9, account_id=username)
     db.session.add(result)
     db.session.commit()
-    scan_results = ScanResult.query.filter_by(account_id=username).first()
     return result
 
 def scan_user_function(username): 
@@ -185,7 +163,8 @@ def scan_all_function(username):
     followers = get_followers(username) # get all a user's followers
     bad = [] # list of usernames where something bad was found
     for follower in followers:
-        if get_twitter_info(follower) == False: # make this a standalone get_if_priv() func
+        profile = get_twitter_info(username)
+        if profile[3] == True:
         	print("private")
         	continue
         scan_result = scan_user_function(follower) # get scan_results of every follower
@@ -196,9 +175,7 @@ def scan_all_function(username):
 
 def get_twitter_info(screen_name):
     user_info = api.get_user(screen_name)
-    if user_info.protected == True:
-    	return False
-    profile = [user_info.screen_name, user_info.name, user_info.profile_image_url]
+    profile = [user_info.screen_name, user_info.name, user_info.profile_image_url, user_info.protected]
     return profile
 
 def get_followers(screenname, limit=50):
