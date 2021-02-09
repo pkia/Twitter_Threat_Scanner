@@ -35,3 +35,8 @@ body {
 	 background-color: #216ca3;
 	 border: #216ca3;
 }
+
+.border {
+	border-width: 3px !important;
+	border-radius: 20px;
+}
