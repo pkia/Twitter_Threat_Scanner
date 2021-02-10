@@ -1,18 +1,53 @@
 from flask import render_template, url_for, flash, redirect, request
 from webapp.forms import ReportForm, SearchForm, ScanForm1, ScanForm2, SliderForm
-from webapp.models import Account, Report, ScanResult
+from webapp.models import Account, Report, ScanResult, User, OAuth
+from flask_login import login_user, current_user, logout_user, login_required
+from flask_dance.contrib.twitter import twitter
+from flask_dance.consumer import oauth_authorized
+from sqlalchemy.orm.exc import NoResultFound
 from webapp import app
-from webapp import db
+from webapp import db, twitter_blueprint
 from sqlalchemy import func, desc
 from webapp import api
 from datetime import datetime, timedelta
 from webapp import tweepy
 import random
 
+
 @app.route("/")
-@app.route("/home")
-def home():
-    return render_template('index.html', title="Home Page")
+@app.route("/index")
+def index():
+    return render_template('index.html')
+
+@app.route("/login")
+def login():
+    if not twitter.authorized:
+        return redirect(url_for('twitter.login'))
+    settings = twitter.get('account/settings.json')
+    settings_json = settings.json() # convert to dictionary
+    return '@{} is logged in to Tweet Guard'.format(settings_json['screen_name'])
+
+@oauth_authorized.connect_via(twitter_blueprint)
+def logged_in(blueprint, token):
+    settings = blueprint.session.get('account/settings.json')
+    if settings.ok:
+        settings_json = settings.json()
+        username = settings_json['screen_name']
+        query = User.query.filter_by(username=username)
+        try:
+            user = query.one()
+        except NoResultFound:
+            user = User(username=username)
+            db.session.add(user)
+            db.session.commit()
+        login_user(user)
+        
+@app.route("/logout")
+def logout():
+    logout_user()
+    del twitter_blueprint.token
+    return redirect(url_for('index'))
+
 
 @app.route("/scan", methods=["GET", "POST"])
 def scan():
