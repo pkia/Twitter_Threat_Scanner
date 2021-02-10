@@ -9,10 +9,10 @@ app = Flask(__name__)
 #secrets.token_hex(16)
 app.config["SECRET_KEY"] = '0e1892da231b615d2c3144c49ed3fe69'
 
-consumer_key = '7fpeLe1tRyCRZVQJXWbAg2Gtw'
-consumer_secret = 'RgV6j3Lw4Q1rMnjRiI7o4eFUVyFpb018PvgcGodjyoFHJzsQ5g'
-access_key = '2370053247-7ekzTGu6iihSjE4wtB6TEUeGvTzwm1utj5Swmdd'
-access_secret = 'AoIFIBPYi2IcEAgrJne2Eem2MeXpKym3FGmK2TxfY3Vzi'
+consumer_key = 'GjjvbJew47BO9z7NaML7QfvkR'
+consumer_secret = '6Llv4LplqMvm3vBXycPI64pgEyTzAXPkPNJe0bQHtWqZFpKULr'
+access_key = '1354421821744029700-k2IIBGBQs5T0pJJDUkMoI5qfpBqdSS'
+access_secret = 'Ed7V4uOq7PwBGcoEKccz6lSSu6TnFWm9M0drE7NzL2ueS'
 
 import tweepy
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
