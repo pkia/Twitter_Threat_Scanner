@@ -66,6 +66,10 @@ form > div > .btn-primary:hover {
 	border-radius: 20px;
 }
 
-legend {
+.border-report {
+	border-radius: 5px !important;
+}
+
+legend, h2, h2 ~ h3, h2 ~ p {
 	text-align: center;
 }
