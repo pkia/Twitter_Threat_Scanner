@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request
-from webapp.form import ReportForm, SearchForm, ScanForm1, ScanForm2, LoginForm, RegisterForm
+from webapp.forms import ReportForm, SearchForm, ScanForm1, ScanForm2, LoginForm, RegisterForm
 from webapp.models import Account, Report, ScanResult
 from webapp import app
 from webapp import db
