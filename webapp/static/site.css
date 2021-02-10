@@ -70,6 +70,10 @@ form > div > .btn-primary:hover {
 	border-radius: 5px !important;
 }
 
-legend, h2, h2 ~ h3, h2 ~ p {
+h1, h2, h3 + div > h3 ,h2 ~ h3, h2 ~ p, legend, .num-reports, #num-reports-title {
 	text-align: center;
+}
+
+.num-reports {
+	font-size: 2em;
 }
