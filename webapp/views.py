@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request
-from webapp.forms import ReportForm, SearchForm, ScanForm1, ScanForm2, LoginForm, RegisterForm, SliderForm
+from webapp.forms import ReportForm, SearchForm, ScanForm1, ScanForm2, SliderForm
 from webapp.models import Account, Report, ScanResult
 from webapp import app
 from webapp import db
@@ -140,23 +140,6 @@ def report_ranked():
         user_profiles.append(user_profile)
     length = len(user_profiles)
     return render_template('report_ranked.html', count=count, counts2=counts2, user_profiles=user_profiles, length=length, title="Reports Ranked")
-
-
-@app.route("/register", methods=['GET', 'POST'])
-def register():
-    form = RegisterForm()
-    if form.validate_on_submit():
-        return redirect(url_for('scan'))
-    return render_template('register.html', title='Register', form=form)
-
-
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        if form.email.data == '123456@gmail.com' and form.password.data == '123456':
-            return redirect(url_for('scan'))
-    return render_template('login.html', title='Login', form=form)
 
 
 
