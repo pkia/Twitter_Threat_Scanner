@@ -50,6 +50,7 @@ def logout():
 
 
 @app.route("/scan", methods=["GET", "POST"])
+@login_required
 def scan():
     
     scan_all_form = ScanForm1()
@@ -115,6 +116,7 @@ def scan_all(username, follower_count):
 
 
 @app.route("/report", methods=["GET", "POST"])
+@login_required
 def report():
     form = ReportForm()
     if form.validate_on_submit():
@@ -135,6 +137,7 @@ def report():
 
 
 @app.route("/database", methods=["GET", "POST"])
+@login_required
 def database():
     form = SearchForm()
     if form.validate_on_submit():
