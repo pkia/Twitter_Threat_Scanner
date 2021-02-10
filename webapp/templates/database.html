@@ -17,16 +17,18 @@
         </form>
     </div>
     
-    <p class="w-25 mx-auto"><a href="{{ url_for('report_ranked', page=1)}}">See Our Total Reports List</a></p>
-    <p class="w-25 mx-auto"><a href="{{ url_for('report')}}">Make A Report</a></p>
+    <p class="w-50 mx-auto mb-1"><a href="{{ url_for('report_ranked', page=1)}}">See Our Total Reports List</a></p>
+    <p class="w-50 mx-auto mb-5"><a href="{{ url_for('report')}}">Make A Report</a></p>
 
-    <div class="w-25 mx-auto mt-5">
-        <h2><b>Recent Reports</b></h2>
+    <div class="w-75 mx-auto">
+        <h2 class="border-bottom mb-4"><b>Recent Reports</b></h2>
         {% for report in reports.items %}
-            <h2>Report on <a href ="{{url_for('database_search', username=report.account_id)}}"> {{ report.account_id }} </a></h2>
-            <h3>Time: {{ report.date_submitted.strftime("%d-%m-%Y at %H:%M:%S") }} </h3>
-            <h3>Threat Type: {{ report.threat_type }}
+        <div class="border border-report m-2 pt-3 pb-3">
+            <h2 class="display-4">Report on <a href ="{{url_for('database_search', username=report.account_id)}}"> {{ report.account_id }} </a></h2>
+            <h3><b>Time:</b> {{ report.date_submitted.strftime("%d-%m-%Y at %H:%M:%S") }} </h3>
+            <h3><b>Threat Type:</b> {{ report.threat_type }}
             <p><b>Summary: </b>{{ report.summary }}</p>
+        </div>
         {% endfor %}
     
         {% for page_num in reports.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
