@@ -14,4 +14,4 @@ access_key = '2370053247-7ekzTGu6iihSjE4wtB6TEUeGvTzwm1utj5Swmdd'
 access_secret = 'AoIFIBPYi2IcEAgrJne2Eem2MeXpKym3FGmK2TxfY3Vzi'
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_key, access_secret)
-api = tweepy.API(auth)
+api = tweepy.API(auth, wait_on_rate_limit=True)

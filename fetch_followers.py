@@ -15,9 +15,9 @@ def get_followers(screenname, limit):
     follower_list = []
     if limit < 0:
         raise Exception("Enter a number above 0!")
-    elif limit > 100:  # Basic error control
+    elif limit > 200:  # Basic error control
         raise Exception("Max limit 200")
     else:
         limit = 200  # if limit not met auto set too max
-    for follower in tweepy.Cursor(api.followers, screenname).items(int(limit)):  # Uses tweepys cursor function to add most recent followers to a list
-        follower_list.append(follower)
+    for follower in tweepy.Cursor(api.friends, screenname).items(int(limit)):  # Uses tweepys cursor function to add most recent followers to a list
+        follower_list.append(follower.screen_name)
