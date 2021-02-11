@@ -1,20 +1,43 @@
 {% extends "layout.html" %}
 {% block main %}
-    <form method="POST" action="">
-    <fieldset class="form-group">
-        <legend>Choose up to 50 of your most recent followers to scan</legend>
-        <div>
-            {{ form.follower_count.label }}:
-            {{ form.follower_count(min=0, max=50, oninput="outputUpdate(value)") }}
-            <output for="follower_count" id="selected-followers">{{ form.follower_count.data }}</output>
-        </div>
-    </fieldset>
-        <div>
-                {{ form.submit(class="btn btn-outline-info") }}
-        </div>
+<h1>Choose up to 50 of your most recent followers to scan</h1>
+    <form class="mb-5" method="POST" action="">
+        <fieldset class="form-group">
+            <div class="row">
+                <div class="col-12">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+
+                </div>
+                <div class="col-7">
+                    {{ form.follower_count.label }}:
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+
+                </div>
+                <div class="col-6">
+                    {{ form.follower_count(min=0, max=50, oninput="outputUpdate(value)", class="form-control-range") }}
+                </div>
+                <div class="col-3">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                </div>            
+            </div>
+            <div class="row">
+                <div class="col-3">
+
+                </div>
+                <div class="col-9">
+                    <output for="follower_count" id="selected-followers">{{ form.follower_count.data }}</output>
+                </div>
+            </div>
+        </fieldset>
     </form>
+    <h1>Or select from recent followers using the list below!</h1>
     <div>
-        <h2>Or select from recent followers using the list below!</h2>
         {% for follower in follower_list %}
             <p><img src="{{follower[2]}}">{{follower[0]}}</p>
         {% endfor %}
