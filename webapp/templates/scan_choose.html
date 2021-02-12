@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block main %}
+
 <h1>Choose up to 50 of your most recent followers to scan</h1>
     <form class="mb-5" method="POST" action="">
         <fieldset class="form-group">
@@ -36,11 +37,33 @@
             </div>
         </fieldset>
     </form>
-    <h1>Or select from recent followers using the list below!</h1>
-    <div>
-        {% for follower in follower_list %}
-            <p><img src="{{follower[2]}}">{{follower[0]}}</p>
-        {% endfor %}
+    <h1 class="mb-5">Or select from your followers using the list below!</h1>
+    <div class="grid w-50 mx-auto p-5 border">
+        <div class="row mb-3">
+            <script type="text/javascript">
+                function displayFollowers() {
+                    let followerList = JSON.parse('{{follower_list|tojson}}');
+                    console.log(typeof followerList);
+                    let grid = document.querySelector(".grid");
+                    let row = grid.lastChild;
+                    for (i=0; i<followerList.length; i++) {
+                        if (i == 5) {
+                            let newRow = document.createElement("div");
+                            newRow.className = "row mt-5";
+                            grid.appendChild(newRow);
+                            row = grid.lastChild;
+                        }
+                        let col = document.createElement("div");
+                        col.className = "col";
+                        row.appendChild(col);
+                        col.innerHTML = "<img src='" + followerList[i][2] + "'><p class= 'mb-3'>" + followerList[i][0] + "</p>";
+                    }
+                }
+            </script>
+            <script>
+                displayFollowers();
+            </script>
+        </div>
     </div>
     <script>
         function outputUpdate(age) {
