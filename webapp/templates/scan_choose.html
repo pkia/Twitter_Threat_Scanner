@@ -43,7 +43,6 @@
             <script type="text/javascript">
                 function displayFollowers() {
                     let followerList = JSON.parse('{{follower_list|tojson}}');
-                    console.log(typeof followerList);
                     let grid = document.querySelector(".grid");
                     let row = grid.lastChild;
                     for (i=0; i<followerList.length; i++) {
