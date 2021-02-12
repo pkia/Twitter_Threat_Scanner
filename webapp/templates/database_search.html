@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block main %}
-    <h1> All Results for @{{ user_profile[0] }}</h1>
+    <h1 class="border-bottom w-50 mx-auto"> All Results for <span>@{{ user_profile[0] }}</span></h1>
     <h2>Name: {{ user_profile[1] }}</h2>
-    <h2><img src={{ user_profile[2] }} alt="User's Picture"</h2>
+    <h2 class="mb-4"><img src={{ user_profile[2] }} alt="User's Picture"</h2>
     <section>
-        <h2><b>Scan Results</b></h2>
+        <h2 class="border-bottom w-50 mx-auto"><b>Scan Results</b></h2>
         {% if scan_results %}
             <p>Threat Detected: {{scan_results.threat_detected}}</p>
             <p>Date Scanned: {{scan_results.date_scanned}}</p>
@@ -15,7 +15,7 @@
     </section>
     
     <section>
-        <h2><b>User-made Reports</b></h2> 
+        <h2 class="border-bottom w-50 mx-auto"><b>User-made Reports</b></h2> 
         {% if reports %}
             <h3>Total: {{reports.total }} </h3>
             {% for report in reports.items %}
