@@ -15,7 +15,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 from joblib import dump
-from auth import auth
 
 data = pd.read_csv('dataset/hate.csv')
 data.head()
