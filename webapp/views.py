@@ -1,20 +1,56 @@
 from flask import render_template, url_for, flash, redirect, request
-from webapp.forms import ReportForm, SearchForm, ScanForm1, ScanForm2, LoginForm, RegisterForm, SliderForm
-from webapp.models import Account, Report, ScanResult
+from webapp.forms import ReportForm, SearchForm, ScanForm1, ScanForm2, SliderForm
+from webapp.models import Account, Report, ScanResult, User, OAuth
+from flask_login import login_user, current_user, logout_user, login_required
+from flask_dance.contrib.twitter import twitter
+from flask_dance.consumer import oauth_authorized
+from sqlalchemy.orm.exc import NoResultFound
 from webapp import app
-from webapp import db
+from webapp import db, twitter_blueprint
 from sqlalchemy import func, desc
 from webapp import api
 from datetime import datetime, timedelta
 from webapp import tweepy
 import random
 
+
 @app.route("/")
-@app.route("/home")
-def home():
-    return render_template('index.html', title="Home Page")
+@app.route("/index")
+def index():
+    return render_template('index.html')
+
+@app.route("/login")
+def login():
+    if not twitter.authorized:
+        return redirect(url_for('twitter.login'))
+    settings = twitter.get('account/settings.json')
+    settings_json = settings.json() # convert to dictionary
+    return '@{} is logged in to Tweet Guard'.format(settings_json['screen_name'])
+
+@oauth_authorized.connect_via(twitter_blueprint)
+def logged_in(blueprint, token):
+    settings = blueprint.session.get('account/settings.json')
+    if settings.ok:
+        settings_json = settings.json()
+        username = settings_json['screen_name']
+        query = User.query.filter_by(username=username)
+        try:
+            user = query.one()
+        except NoResultFound:
+            user = User(username=username)
+            db.session.add(user)
+            db.session.commit()
+        login_user(user)
+        
+@app.route("/logout")
+def logout():
+    logout_user()
+    del twitter_blueprint.token
+    return redirect(url_for('index'))
+
 
 @app.route("/scan", methods=["GET", "POST"])
+@login_required
 def scan():
     
     scan_all_form = ScanForm1()
@@ -80,6 +116,7 @@ def scan_all(username, follower_count):
 
 
 @app.route("/report", methods=["GET", "POST"])
+@login_required
 def report():
     form = ReportForm()
     if form.validate_on_submit():
@@ -100,6 +137,7 @@ def report():
 
 
 @app.route("/database", methods=["GET", "POST"])
+@login_required
 def database():
     form = SearchForm()
     if form.validate_on_submit():
@@ -140,23 +178,6 @@ def report_ranked():
         user_profiles.append(user_profile)
     length = len(user_profiles)
     return render_template('report_ranked.html', count=count, counts2=counts2, user_profiles=user_profiles, length=length, title="Reports Ranked")
-
-
-@app.route("/register", methods=['GET', 'POST'])
-def register():
-    form = RegisterForm()
-    if form.validate_on_submit():
-        return redirect(url_for('scan'))
-    return render_template('register.html', title='Register', form=form)
-
-
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        if form.email.data == '123456@gmail.com' and form.password.data == '123456':
-            return redirect(url_for('scan'))
-    return render_template('login.html', title='Login', form=form)
 
 
 
