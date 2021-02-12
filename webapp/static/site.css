@@ -82,6 +82,10 @@ h1, h2, h3 + div > h3 ,h2 ~ h3, h2 ~ p, legend, .num-reports, .num-reports-title
 	width: 27%;
 }
 
+.scan-fields {
+	font-size: 2em;
+}
+
 h1 > span {
 	color: #ff0000;
 }
