@@ -70,10 +70,18 @@ form > div > .btn-primary:hover {
 	border-radius: 5px !important;
 }
 
-h1, h2, h3 + div > h3 ,h2 ~ h3, h2 ~ p, legend, .num-reports, #num-reports-title {
+h1, h2, h3 + div > h3 ,h2 ~ h3, h2 ~ p, legend, .num-reports, .num-reports-title, .user-profile {
 	text-align: center;
 }
 
 .num-reports {
 	font-size: 2em;
+}
+
+.w-scan_followers {
+	width: 27%;
+}
+
+h1 > span {
+	color: #ff0000;
 }
