@@ -98,7 +98,8 @@ def scan_choose(username):
     for follower in followers:
         follower_profile = get_twitter_info(follower)
         follower_list.append(follower_profile)
-    return render_template("scan_choose.html", follower_list=follower_list, form=slider_form, title="Choose Followers To Scan")
+    user_profile = get_twitter_info(username)
+    return render_template("scan_choose.html", follower_list=follower_list, form=slider_form, title="Choose Followers To Scan", user_profile=user_profile)
     
     
 @app.route("/scan/all/<string:username>/<int:follower_count>")

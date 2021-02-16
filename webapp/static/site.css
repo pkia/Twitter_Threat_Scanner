@@ -63,19 +63,20 @@ form > div > .btn-primary:hover {
 
 .border {
 	border-width: 3px !important;
-	border-radius: 20px;
+	border-radius: 15px;
 }
 
 .border-report {
 	border-radius: 5px !important;
 }
 
-h1, h2, h3 + div > h3 ,h2 ~ h3, h2 ~ p, legend, .num-reports, .num-reports-title, .user-profile {
+h1, h2, h3 + div > h3 ,h2 ~ h3, h2 ~ p, legend, .num-reports-title, .user-profile {
 	text-align: center;
 }
 
 .num-reports {
 	font-size: 2em;
+	text-align: center;
 }
 
 .w-scan_followers {
@@ -88,4 +89,8 @@ h1, h2, h3 + div > h3 ,h2 ~ h3, h2 ~ p, legend, .num-reports, .num-reports-title
 
 h1 > span {
 	color: #ff0000;
+}
+
+.grid-layout button {
+	width: 100%;
 }
