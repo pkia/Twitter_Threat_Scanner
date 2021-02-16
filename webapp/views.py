@@ -9,15 +9,18 @@ from webapp import app
 from webapp import db, twitter_blueprint
 from sqlalchemy import func, desc
 from webapp import api
-from datetime import datetime, timedelta
+from datetime import datetime
 from webapp import tweepy
 import random
+import pandas as pd
+from joblib import load
 
 
 @app.route("/")
 @app.route("/index")
-def index():
-    return render_template('index.html')
+def home():
+    return render_template('index.html', title="Home Page")
+
 
 @app.route("/login")
 def login():
@@ -50,9 +53,7 @@ def logout():
 
 
 @app.route("/scan", methods=["GET", "POST"])
-@login_required
 def scan():
-    
     scan_all_form = ScanForm1()
     scan_user_form = ScanForm2()
     if scan_user_form.submit2.data and scan_user_form.validate_on_submit():
@@ -82,9 +83,11 @@ def scan():
 
 @app.route("/scan/user/<string:username>")
 def scan_user(username):
-    result = scan_user_function(username)
+    username = username.lower()
+    scan_user_function(username)
     user_profile = get_twitter_info(username)
-    return render_template('scan_user.html', result=result, user_profile=user_profile, title="Scan A User")
+    scan_result = ScanResult.query.filter_by(account_id=username).all()
+    return render_template('scan_user.html', user_profile=user_profile, scan_result=scan_result, title="Scan A User")
 
 
 @app.route("/scan/choose/<string:username>", methods=["GET", "POST"])
@@ -106,17 +109,11 @@ def scan_all(username, follower_count):
     followers = get_followers(username, follower_count)
     results = scan_all_function(username, followers)
     user_profile = get_twitter_info(username)
-    bad_user_profiles=[]
     length = len(results)
-    if length > 0:
-        for result in results:
-            profile = get_twitter_info(result[0])
-            bad_user_profiles.append(profile)
-    return render_template('scan_all.html', user_profile=user_profile, bad_user_profiles=bad_user_profiles, followers=followers, length=length, results=results, title="Scan All")
+    return render_template('scan_all.html', user_profile=user_profile, followers=followers, length=length, results=results, title="Scan All")
 
 
 @app.route("/report", methods=["GET", "POST"])
-@login_required
 def report():
     form = ReportForm()
     if form.validate_on_submit():
@@ -137,7 +134,6 @@ def report():
 
 
 @app.route("/database", methods=["GET", "POST"])
-@login_required
 def database():
     form = SearchForm()
     if form.validate_on_submit():
@@ -180,41 +176,54 @@ def report_ranked():
     return render_template('report_ranked.html', count=count, counts2=counts2, user_profiles=user_profiles, length=length, title="Reports Ranked")
 
 
-
 def scan(username):
     ScanResult.query.filter_by(account_id=username).delete()
     db.session.commit()
-    ran = random.randint(0,5)
-    if ran <= 2:
-        return None
-    if Account.query.filter_by(id=username).first() == None:
-        account = Account(id=username)
-        db.session.add(account)
-    result = ScanResult(threat_detected="racist", threat_level=9, account_id=username)
-    db.session.add(result)
-    db.session.commit()
-    return result
+    tweets = tweetpull(username)
+    pipeline = load("webapp/LogisticRegression/text_class1.joblib")
+    
+    tweets['prediction'] = pipeline.predict(tweets['tweet_text'])
+    data = tweets.prediction.value_counts()
+    bad_tweets = tweets.loc[tweets['prediction'] == 1]
+    results = [bad_tweets["tweet_id"], bad_tweets["tweet_text"], data]
+    return results
 
 def scan_user_function(username): 
-    scan_result = scan(username)
-    return scan_result
+    username = username.lower()
+    results = scan(username)
+    print(results)
+    scan_results = []
+    if len(results[0]) > 0:
+        if Account.query.filter_by(id=username).first() == None:
+            account = Account(id=username)
+            db.session.add(account)
+            db.session.commit()
+        for item in results[0].iteritems():
+            scan_result = ScanResult(id=item[1], threat_detected="hatespeech", account_id=username)
+            db.session.add(scan_result)
+            scan_results.append(scan_result)
+        db.session.commit()
+    return scan_results
     
 def scan_all_function(username, followers):
     bad = [] # list of usernames where something bad was found
     for follower in followers:
-        profile = get_twitter_info(username)
+        profile = get_twitter_info(follower)
+        for thing in profile:
+            print(thing)
         if profile[3] == True:
-        	print("private")
+        	print("private user")
         	continue
-        scan_result = scan_user_function(follower) # get scan_results of every follower
-        if scan_result != None:
-            results = [follower, scan_result] # 
+        scan_results = scan_user_function(follower) # get scan_results of every follower
+        if len(scan_results) > 0:
+            results = [profile, scan_results] # 
             bad.append(results)
     return bad
 
 def get_twitter_info(screen_name):
+    screen_name = screen_name.lower()
     user_info = api.get_user(screen_name)
-    profile = [user_info.screen_name, user_info.name, user_info.profile_image_url, user_info.protected]
+    profile = [user_info.screen_name.lower(), user_info.name, user_info.profile_image_url, user_info.protected]
     return profile
 
 def get_followers(screenname, limit=10):
@@ -226,3 +235,24 @@ def get_followers(screenname, limit=10):
     for follower in tweepy.Cursor(api.followers, screenname).items(int(limit)):  # Uses tweepys cursor function to add most recent followers to a list
         follower_list.append(follower.screen_name)
     return follower_list
+
+
+def tweetpull(screen_name):
+    profile = get_twitter_info(screen_name)
+    alltweets = []  # List to buffer incoming tweets before being formatted for pd.dict
+    if profile[3] is False: # if not protected acc
+        new_tweets = api.user_timeline(screen_name=screen_name, count=200)  # Limitation to amount of tweets able to pull by twitter api
+        alltweets.extend(new_tweets)  # Saving most recent tweets to alltweets
+        if len(alltweets) > 0:
+            oldest = alltweets[-1].id - 1  # Acts as counter for the each iteration starting at the oldest possible tweet -1
+        while len(new_tweets) > 0:
+            new_tweets = api.user_timeline(screen_name=screen_name, count=200, max_id=oldest)
+            alltweets.extend(new_tweets)
+            oldest = alltweets[-1].id - 1  # Asks almost like a pointer that allows the func to see which tweet it needs to pull next
+
+    outtweets = [{'created_at': tweet.created_at,  # Makes new formatted list of tweets using a pandas dict format to allow further data manipulation in future functions
+                  'tweet_id': tweet.id,
+                  'tweet_text': tweet.text} for tweet in alltweets]
+    return pd.DataFrame.from_dict(outtweets)
+
+    
