@@ -3,7 +3,6 @@ from webapp import db, twitter_blueprint, login_manager
 from flask_login import UserMixin, current_user
 from flask_dance.consumer.storage.sqla import OAuthConsumerMixin, SQLAlchemyStorage
 
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -43,8 +42,7 @@ class ScanResult(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     threat_detected = db.Column(db.String(50), nullable=False)
     date_scanned = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    threat_level = db.Column(db.Integer)
     account_id = db.Column(db.Integer, db.ForeignKey("account.id"), nullable=False)
     
     def __repr__(self):
-        return f"ScanResult('{self.id}', '{self.threat_detected}', '{self.date_scanned}', '{self.threat_level}')"
+        return f"ScanResult('{self.id}', '{self.threat_detected}', '{self.date_scanned}')"
