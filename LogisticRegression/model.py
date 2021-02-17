@@ -1,11 +1,6 @@
-__author__ = "Evan Dunbar"
-__version__ = "1.0.1"
-__maintainer__ = "Evan Dunbar"
-__status__ = "Production"
 
 '''
 Model using Logistic regression of TfidVecs
-
 '''
 
 
@@ -18,19 +13,11 @@ from joblib import dump
 
 data = pd.read_csv('dataset/hate.csv')
 data.head()
-'''
-TTS - Splits data into two subsets of arrays for training data and test data
-Stratift makes a split of the sample produced
 
-'''
 
 
 train, test = train_test_split(data, test_size=0.9, stratify=data['label'])
 
-'''
-Returns td-idf score by find words that are distinct and frequent in the training set
-STOPWORDS - Basic linking words you dont want to be taught to the model (I , I AM, THE, ETC)
-'''
 
 tfidf_vectorizer = TfidfVectorizer(lowercase= True, max_features=1000, stop_words=ENGLISH_STOP_WORDS)
 
