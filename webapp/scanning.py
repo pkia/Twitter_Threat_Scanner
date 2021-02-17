@@ -62,9 +62,8 @@ def get_followers(screenname, limit=10):
     return follower_list # screen names of all followers of entered user
 
 def tweetpull(screen_name):
-    profile = get_twitter_info(screen_name)
     alltweets = []  # List to buffer incoming tweets before being formatted for pd.dict
-    if profile[3] is False: # if not protected acc
+    if check_if_protected(screen_name) is False: # if not protected acc
         new_tweets = api.user_timeline(screen_name=screen_name, count=200)  # Limitation to amount of tweets able to pull by twitter api
         alltweets.extend(new_tweets)  # Saving most recent tweets to alltweets
         if len(alltweets) > 0:
