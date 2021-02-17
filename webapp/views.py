@@ -92,10 +92,11 @@ def scan_choose(username):
         return redirect(url_for("scan_all", username=username, follower_count=slider_form.follower_count.data)) # redirect to scan_all page with x amount of followers to scan
     followers = scanning.get_followers(username) # returns list of followers screen_name's
     follower_profiles_list = []
+    user_profile = scanning.get_twitter_info(username)
     for follower in followers:
         follower_profile = scanning.get_twitter_info(follower) # get the twitter profile of all the follower's that there is an option of being scanned
         follower_profiles_list.append(follower_profile) # so that the user can click and select them
-    return render_template("scan_choose.html", follower_list=follower_profiles_list, form=slider_form, title="Choose Followers To Scan")
+    return render_template("scan_choose.html", follower_list=follower_profiles_list, form=slider_form, title="Choose Followers To Scan", user_profile = user_profile)
     
     
 @app.route("/scan/all/<string:username>/<int:follower_count>")

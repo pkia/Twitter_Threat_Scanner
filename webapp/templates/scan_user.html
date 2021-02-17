@@ -5,6 +5,6 @@
     <h2>Name: {{ user_profile[1] }}</h2>
     <h2 class="user-profile"><img src={{ user_profile[2] }} alt="User's Picture"</h2>
     {% for result in scan_result %}
-        <p><a href="https://www.twitter.com/twitter/statuses/{{result.id}}">{{result.id}}</a>: {{result.threat_detected}} tweet detected</p>
+        <p class="tweet">{{result.threat_detected}} tweet detected: <a href="https://www.twitter.com/twitter/statuses/{{result.id}}">{{result.id}}</a></p>
     {% endfor %}
 {% endblock %}
