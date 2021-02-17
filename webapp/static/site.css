@@ -33,5 +33,79 @@ body {
 .btn-primary {
 	 font-size: 2em;
 	 background-color: #216ca3;
-	 border: #216ca3;
+	 border-color: #216ca3;
 }
+
+.btn-primary:hover {
+	font-size: 2em;
+	background-color: transparent;
+	border-color: #216ca3;
+}
+
+.btn-outline-primary {
+	color: #216ca3;
+	border-color: #216ca3;
+}
+
+.btn-outline-primary:hover {
+	color: #fff;
+	background-color: #216ca3;
+	border-color: #216ca3;
+}
+
+form > div > .btn-primary {
+	font-size: 1em;
+}
+
+form > div > .btn-primary:hover {
+	font-size: 1em;
+}
+
+.border {
+	border-width: 3px !important;
+	border-radius: 15px;
+}
+
+.border-report {
+	border-radius: 5px !important;
+}
+
+h1, h2, h3 + div > h3 ,h2 ~ h3, h2 ~ p, legend, .num-reports-title, .user-profile {
+	text-align: center;
+}
+
+.num-reports {
+	font-size: 2em;
+	text-align: center;
+}
+
+.w-scan_followers {
+	width: 27%;
+}
+
+.scan-fields {
+	font-size: 2em;
+}
+
+h1 > span {
+	color: #ff0000;
+}
+
+.grid-layout button {
+	width: 100%;
+}
+
+.tweet > a {
+	display: block;
+}
+
+.user_grid input {
+	display: none;
+}
+
+.user_grid label {
+	text-align: center;
+}
+
+.user_grid input:checked + label img {
+	opacity: 50%;
