@@ -3,25 +3,26 @@
 
     <h1 class="border-bottom w-50 mx-auto"> Scan Results for <span><b>{{ user_profile[0] }}</b></span></h1>
     <h2>Name: {{ user_profile[1] }}</h2>
-    <div class="user-profile"><img src={{ user_profile[2] }} alt="User's Picture"/></div>
-        {% if length > 0 %}
-            {% for i in range(length) %}
-                    <section class="user-profile w-scan_followers mx-auto p-3 border mt-3">
-                        <h1><b>Bad Scanned User {{i+1}}</b></h1>
-                        <h2><b><a href="{{url_for('database_search', username=bad_user_profiles[i][0])}}">{{bad_user_profiles[i][0]}}</a></b></h2>
-                        <img class="mb-3" src="{{bad_user_profiles[i][2]}}">
-                        <h3><b>{{bad_user_profiles[i][1]}}</b></h3>
-                        <p> Date: {{ results[i][1].date_scanned}} </p>
-                        <p> {{results[i][1].threat_level}}</p>
-                        <p> {{results[i][1].threat_detected}}</p>
-                        
-                    </section>
+    <h2 class="user-profile"><img src={{ user_profile[2] }} alt="User's Picture"</h2>
+    {% if length > 0 %}
+        <h1><b>Results Found!</b></h1>
+        {% for i in range(length) %}
+        <section class="user-profile w-scan_followers mx-auto p-3 border mt-3">
+            <h2><b>Scanned User {{i+1}}</b></h12>
+            <h2><b><a href="{{url_for('database_search', username=results[i][0][0])}}">{{results[i][0][1]}}</a></b></h2>
+            <img class="mb-3" src="{{results[i][0][2]}}">
+            {% for result in results[i][1] %}
+                <p> Date: {{ result.date_scanned}} </p>
+                <p> {{result.threat_level}}</p>
+                <p> {{result.threat_detected}}</p>
+                <p><a href="https://www.twitter.com/twitter/statuses/{{result.id}}">{{result.id}}</a></p>
             {% endfor %}
-        {% else %}
-            <section>
-                <p>No threat found in the followers of this user. Hurray!</p>
-            </section>
-        {% endif %}
-    
+        </section>
+        {% endfor %}
+    {% else %}
+        <section>
+            <p>No threat found in the followers of this user. Hurray!</p>
+        </section>
+    {% endif %}
     
 {% endblock %}

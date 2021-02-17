@@ -15,11 +15,11 @@ import pandas as pd
 def tweetpull(screen_name):
 
     alltweets = []  # List to buffer incoming tweets before being formatted for pd.dict
-    new_tweets = api.user_timeline(screen_name=screen_name, count=200)  # Limitation to amount of tweets able to pull by twitter api
+    new_tweets = api.user_timeline(screen_name=screen_name, count=200, tweet_mode='extend')  # Limitation to amount of tweets able to pull by twitter api
     alltweets.extend(new_tweets)  # Saving most recent tweets to alltweets
     oldest = alltweets[-1].id - 1  # Acts as counter for the each iteration starting at the oldest possible tweet -1
     while len(new_tweets) > 0:
-        new_tweets = api.user_timeline(screen_name=screen_name, count=200, max_id=oldest)
+        new_tweets = api.user_timeline(screen_name=screen_name, count=200, max_id=oldest, tweet_mode='extend')
         alltweets.extend(new_tweets)
         oldest = alltweets[-1].id - 1  # Asks almost like a pointer that allows the func to see which tweet it needs to pull next
 

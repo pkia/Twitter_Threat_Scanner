@@ -3,13 +3,8 @@
 
     <h1 class="border-bottom w-50 mx-auto"> Scan results for <a href="{{ url_for("database_search", username=user_profile[0])}}">{{ user_profile[0] }}</a></h1>
     <h2>Name: {{ user_profile[1] }}</h2>
-    <h2 class="user-profile"><img src={{ user_profile[2] }} alt="User's Picture"/></h2>
-    {% if result %}
-        <p class="scan-fields">Date: {{ result.date_scanned}}</p>
-        <p class="scan-fields">Threat Detected: {{ result.threat_detected}}</p>
-        <p class="scan-fields">Threat Level: {{ result.threat_level }}</p>
-    
-    {% else %}
-        <p class="scan-fields">No threat found in the account of this user. Hurray!</p>
-    {% endif %}
+    <h2 class="user-profile"><img src={{ user_profile[2] }} alt="User's Picture"</h2>
+    {% for result in scan_result %}
+        <p><a href="https://www.twitter.com/twitter/statuses/{{result.id}}">{{result.id}}</a>: {{result.threat_detected}} tweet detected</p>
+    {% endfor %}
 {% endblock %}
