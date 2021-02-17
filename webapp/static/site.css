@@ -94,3 +94,7 @@ h1 > span {
 .grid-layout button {
 	width: 100%;
 }
+
+.tweet > a {
+	display: block;
+}
