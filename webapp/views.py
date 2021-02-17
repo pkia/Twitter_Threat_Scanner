@@ -16,7 +16,7 @@ from webapp import scanning
 
 @app.route("/")
 @app.route("/index")
-def home():
+def index():
     return render_template('index.html', title="Home Page") # Home page
 
 
@@ -115,7 +115,7 @@ def report():
         try:
             scanning.get_twitter_info(form.username.data) # check if account exists
             report = Report(account_id=form.username.data, threat_type=form.threat_field.data, summary=form.summary.data) # make report for account if it does
-            if Account.query.filter_by(id=form.username.data).first() == None:
+            if Account.query.get(form.username.data) == None:
                 account = Account(id=form.username.data) # if no db entry exists for this account
                 db.session.add(account) # add account to db
             db.session.add(report) # then add report
@@ -153,7 +153,6 @@ def database_search(username):
     	reports = None
     user_profile = scanning.get_twitter_info(username)
     return render_template('database_search.html', reports=reports, scan_results=scan_results, user_profile=user_profile, title="Database Search")
-
 
 @app.route("/database/report_ranked")
 def report_ranked():
