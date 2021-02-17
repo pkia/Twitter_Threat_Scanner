@@ -22,7 +22,7 @@ def scan_user_function(username):
     results = scan(username) # scan the target and save results
     scan_results = []
     if len(results[0]) > 0: # if there are 1 or more results
-        if Account.query.filter_by(id=username).first() == None: # if there is no account stored in db for this screen_name
+        if Account.query.get(username) == None: # if there is no account stored in db for this screen_name
             account = Account(id=username) # make an account for the target
             db.session.add(account)
             db.session.commit()
@@ -36,9 +36,9 @@ def scan_user_function(username):
 def scan_all_function(username, followers):
     bad = [] # list of usernames where something bad was found
     for follower in followers: # for follower id in follower id list
-        profile = get_twitter_info(follower) # get the follower's profile
-        if profile[3] == True: # if the target is protected then don't scan
-        	continue
+        if check_if_protected(username): # if user is protected don't scan
+            continue
+        profile = get_twitter_info(username)
         scan_results = scan_user_function(follower) # get scan_results of every follower
         if len(scan_results) > 0: # if there were flagged tweets
             results = [profile, scan_results] # save a list with the profile and the results of the follower
@@ -59,13 +59,11 @@ def get_followers(screenname, limit=10):
         raise Exception("Max limit 100")
     for follower in tweepy.Cursor(api.followers, screenname).items(int(limit)):  # Uses tweepys cursor function to add most recent followers to a list
         follower_list.append(follower.screen_name)
-    return follower_list
-
+    return follower_list # screen names of all followers of entered user
 
 def tweetpull(screen_name):
-    profile = get_twitter_info(screen_name)
     alltweets = []  # List to buffer incoming tweets before being formatted for pd.dict
-    if profile[3] is False: # if not protected acc
+    if check_if_protected(screen_name) is False: # if not protected acc
         new_tweets = api.user_timeline(screen_name=screen_name, count=200)  # Limitation to amount of tweets able to pull by twitter api
         alltweets.extend(new_tweets)  # Saving most recent tweets to alltweets
         if len(alltweets) > 0:
@@ -79,3 +77,14 @@ def tweetpull(screen_name):
                   'tweet_id': tweet.id,
                   'tweet_text': tweet.text} for tweet in alltweets]
     return pd.DataFrame.from_dict(outtweets)
+
+def check_if_protected(screen_name):
+    protected = False
+    profile = get_twitter_info(screen_name)
+    if profile[3] == True:
+        protected = True
+    return protected
+    
+    
+def get_account_summary(screen_name):
+    pass
