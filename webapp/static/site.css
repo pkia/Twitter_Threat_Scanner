@@ -98,3 +98,14 @@ h1 > span {
 .tweet > a {
 	display: block;
 }
+
+.user_grid input {
+	display: none;
+}
+
+.user_grid label {
+	text-align: center;
+}
+
+.user_grid input:checked + label img {
+	opacity: 50%;
