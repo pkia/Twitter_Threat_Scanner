@@ -138,6 +138,7 @@ article {
 
 a[href^="/database/"] {
 	color: #fff;
+	font-style: italic;
 }
 
 a[href^="/database/"]:hover {

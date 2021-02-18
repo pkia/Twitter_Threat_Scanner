@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block main %}
 
-    <h1 class="border-bottom w-50 mx-auto"> Scan results for @<a href="{{ url_for('database_search', username=profile[0])}}">{{ profile[0] }}</a></h1>
+    <h1 class="border-bottom w-50 mx-auto"> Scan results for <a href="{{ url_for('database_search', username=profile[0])}}">@{{ profile[0] }}</a></h1>
     <h2><img src={{ profile[2] }} alt="User's Picture"></h2>
     <h2>Name: {{ profile[1] }}</h2>
     {% if length > 0 %}

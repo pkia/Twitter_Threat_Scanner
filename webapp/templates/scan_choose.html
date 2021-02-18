@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block main %}
-    <h1 class="border-bottom w-50 mx-auto">Follower list for <a href="{{ url_for('database_search', username=user_profile[0])}}">{{ user_profile[0] }}</a></h1>
+    <h1 class="border-bottom w-50 mx-auto">Follower list for <a href="{{ url_for('database_search', username=user_profile[0])}}">@{{ user_profile[0] }}</a></h1>
     <div class="grid-layout w-50 mx-auto mt-3">
         <div class="row">
             <div class="col-12">
