@@ -23,7 +23,7 @@
     <div class="w-75 mx-auto">
         <h2 class="border-bottom mb-4"><b>Recent Reports</b></h2>
         {% for report in reports.items %}
-        <div class="border border-report m-2 pt-3 pb-3">
+        <div class="border-bottom m-2 pt-3 pb-3">
             <h2 class="display-4">Report on <a href ="{{url_for('database_search', username=report.account_id)}}"> {{ report.account_id }} </a></h2>
             <h3><b>Time:</b> {{ report.date_submitted.strftime("%d-%m-%Y at %H:%M:%S") }} </h3>
             <h3><b>Threat Type:</b> {{ report.threat_type }}
