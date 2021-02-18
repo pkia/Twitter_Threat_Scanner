@@ -9,7 +9,7 @@ class ReportForm(FlaskForm):
                            validators=[DataRequired(), Length(min=4, max=15)])
     
     threat_field = SelectField('What Bad Thing Did This User Do', 
-                               choices=[("racism", "racism"),("prick", "Being a Prick")],
+                               choices=[("racism", "racism"),("prick", "Being a Prick")], 
                                validators=[DataRequired()])
     
     summary = TextAreaField('Summary Of What Happened (at least 10 characters)', 
@@ -20,7 +20,7 @@ class ReportForm(FlaskForm):
     
 class SearchForm(FlaskForm):
     username = StringField('Twitter Username Of Account To Search For', 
-                           validators=[DataRequired(), Length(min=4, max=15)])
+                           validators=[DataRequired(), Length(min=4, max=15)]) # twitter usernames are between 4 and 15 characters
     submit = SubmitField("Search For Reports On Account")
     
     
@@ -35,6 +35,7 @@ class ScanForm2(FlaskForm):
                            validators=[DataRequired(), Length(min=4, max=15)])
     submit2 = SubmitField("Go!")
     
+
 
 class SliderForm(FlaskForm):
     follower_count = IntegerRangeField('Follower Count', default=0)

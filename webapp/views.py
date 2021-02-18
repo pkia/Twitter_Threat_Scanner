@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from webapp.forms import ReportForm, SearchForm, ScanForm1, ScanForm2, SliderForm
-from webapp.models import Account, Report, ScanResult, User, OAuth
+from webapp.models import Report, User, OAuth
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_dance.contrib.twitter import twitter
 from flask_dance.consumer import oauth_authorized
@@ -79,10 +79,10 @@ def scan():
 
 @app.route("/scan/user/<string:username>")
 def scan_user(username):
-    scanning.scan_user_function(username) # scan the target
-    user_profile = scanning.get_twitter_info(username) # get the target's twitter profile
-    scan_result = ScanResult.query.filter_by(account_id=username).all() # get the target's scan results
-    return render_template('scan_user.html', user_profile=user_profile, scan_result=scan_result, title="Scan A User")
+    tweets, account_summary, profile = scanning.scan(username) # scan the target
+    account_summary = scanning.get_account_summary(username, 10)
+    length = len(tweets)
+    return render_template('scan_user.html', tweets=tweets, account_summary=account_summary, profile=profile, length=length, title="Scan A User")
 
 
 @app.route("/scan/choose/<string:username>", methods=["GET", "POST"])
@@ -96,16 +96,16 @@ def scan_choose(username):
     for follower in followers:
         follower_profile = scanning.get_twitter_info(follower) # get the twitter profile of all the follower's that there is an option of being scanned
         follower_profiles_list.append(follower_profile) # so that the user can click and select them
-    return render_template("scan_choose.html", follower_list=follower_profiles_list, form=slider_form, title="Choose Followers To Scan", user_profile = user_profile)
+    return render_template("scan_choose.html", follower_list=follower_profiles_list, form=slider_form, user_profile=user_profile, title="Choose Followers To Scan")
     
     
 @app.route("/scan/all/<string:username>/<int:follower_count>")
 def scan_all(username, follower_count):
     followers = scanning.get_followers(username, follower_count) # get x most recent followers ids for target's account
-    results = scanning.scan_all_function(username, followers) # scan all these followers and save results 
+    scan_results = scanning.scan_all_function(username, followers) # scan all these followers and save results 
     user_profile = scanning.get_twitter_info(username) # get the user's profile
-    length = len(results) # get the length of the scan results (to iterate through list on the html page)
-    return render_template('scan_all.html', user_profile=user_profile, length=length, results=results, title="Scan All")
+    length = len(scan_results) # get the length of the scan results (to iterate through list on the html page)
+    return render_template('scan_all.html', user_profile=user_profile, length=length, scan_results=scan_results, title="Scan All")
 
 
 @app.route("/report", methods=["GET", "POST"])
@@ -116,9 +116,6 @@ def report():
         try:
             scanning.get_twitter_info(form.username.data) # check if account exists
             report = Report(account_id=form.username.data, threat_type=form.threat_field.data, summary=form.summary.data) # make report for account if it does
-            if Account.query.get(form.username.data) == None:
-                account = Account(id=form.username.data) # if no db entry exists for this account
-                db.session.add(account) # add account to db
             db.session.add(report) # then add report
             db.session.commit() # commit changes
             flash(f"Report Submitted For @{form.username.data}!", "Success") # show a flash message that the operation was a success
@@ -147,13 +144,12 @@ def database():
 @app.route("/database/<string:username>")
 def database_search(username):
     page = request.args.get("page", 1, type=int)
-    scan_results = ScanResult.query.filter_by(account_id=username).first() # fetch reports and scan results if they exist
     if Report.query.filter_by(account_id=username).first() != None:
         reports = Report.query.filter_by(account_id=username).order_by(Report.date_submitted.desc()).paginate(per_page=5)
     else:
     	reports = None
     user_profile = scanning.get_twitter_info(username)
-    return render_template('database_search.html', reports=reports, scan_results=scan_results, user_profile=user_profile, title="Database Search")
+    return render_template('database_search.html', reports=reports, user_profile=user_profile, title="Database Search")
 
 @app.route("/database/report_ranked")
 def report_ranked():
