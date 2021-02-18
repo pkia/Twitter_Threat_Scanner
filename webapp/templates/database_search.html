@@ -2,18 +2,7 @@
 {% block main %}
     <h1 class="border-bottom w-50 mx-auto"> All Results for <span>@{{ user_profile[0] }}</span></h1>
     <h2>Name: {{ user_profile[1] }}</h2>
-    <h2 class="mb-4"><img src={{ user_profile[2] }} alt="User's Picture"</h2>
-    <section>
-        <h2 class="border-bottom w-50 mx-auto"><b>Scan Results</b></h2>
-        {% if scan_results %}
-            <p>Threat Detected: {{scan_results.threat_detected}}</p>
-            <p>Date Scanned: {{scan_results.date_scanned}}</p>
-            <p>Danger Level: {{scan_results.threat_level}}</p>
-        {% else %}
-            <p>User has no scan results! <a href="{{url_for('scan')}}">Scan a user now?</a></p>
-        {% endif %}
-    </section>
-    
+     <h2 class="mb-4"><img src={{ user_profile[2] }} alt="User's Picture"</h2>
     <section>
         <h2 class="border-bottom w-50 mx-auto"><b>User-made Reports</b></h2> 
         {% if reports %}
