@@ -95,10 +95,6 @@ h1 > span {
 	width: 100%;
 }
 
-.tweet > a {
-	display: block;
-}
-
 .user_grid input {
 	display: none;
 }
@@ -109,3 +105,42 @@ h1 > span {
 
 .user_grid input:checked + label img {
 	opacity: 50%;
+}
+ .w-account-summary {
+	width: 30%;
+	margin-left: auto;
+	margin-right: auto;
+ }
+
+.account-summary > p {
+	font-size: 2em;
+	text-align: center;
+	margin-bottom: 0.25em;
+}
+
+.tweet {
+	text-align: center;
+}
+
+.tweet a {
+	font-size: 1em;
+}
+
+.tweet a:hover {
+	font-size: 1em;
+}
+
+
+article {
+	background-color: #fff;
+	color: black;
+}
+
+a[href^="/database/"] {
+	color: #fff;
+}
+
+a[href^="/database/"]:hover {
+	text-decoration: none;
+	opacity: 50%;
+}
