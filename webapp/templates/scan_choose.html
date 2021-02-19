@@ -6,6 +6,7 @@
             <div class="col-12">
                 <h2 class="mb-3">Select from your followers using the list below</h2>
             </div>
+            <span id="res"></span>
         </div>
         <div class="row">
             <div class="col-12">
@@ -48,7 +49,7 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col-5">
-                            <button type="submit" class="btn btn-primary btn-lg">Scan Selected</button>
+                            <button type="submit" onclick=collectResults() class="btn btn-primary btn-lg">Scan Selected</button>
                         </div>
                         <div class="col-2">
                         </div>
@@ -61,7 +62,7 @@
         </div>
         
     </div>
-    <h2 class="mt-5">Or choose up to 50 of your most recent followers to scan</h2>
+    <h2 class="mt-5">Or choose up to 10 of your most recent followers to scan!</h2>
     <form method="POST" action="" onsubmit="showLoader()">
         <fieldset class="form-group">
             <div class="row">
@@ -81,7 +82,7 @@
 
                 </div>
                 <div class="col-6">
-                    {{ form.follower_count(min=0, max=50, oninput="outputUpdate(value)", class="form-control-range") }}
+                    {{ form.follower_count(min=0, max=10, oninput="outputUpdate(value)", class="form-control-range") }}
                 </div>
                 <div class="col-3">
                     {{ form.submit(class="btn btn-outline-info") }}
