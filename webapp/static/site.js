@@ -1,6 +1,7 @@
 function showLoader() {
-    loaderDiv = document.querySelector("#loader-div");
-    console.log(loaderDiv);
+    let siteIcon = document.querySelector(".navbar-brand");
+    let loaderDiv = document.createElement("div");
     loaderDiv.className = "loader";
-    console.log(loaderDiv);
+    siteIcon.replaceWith(loaderDiv);
+    
 }
