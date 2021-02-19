@@ -2,7 +2,7 @@
 {% block main %}
     
     <div class="content-section">
-        <form method="POST" action="" class="w-50 mx-auto mt-5">
+        <form method="POST" action="" onsubmit="showLoader()" class="w-50 mx-auto mt-5">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Search For A Twitter User</legend>
