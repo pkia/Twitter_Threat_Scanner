@@ -150,11 +150,11 @@ a[href^="/database/"]:hover {
 	border: 1em solid white;
 	border-top: 1em solid #216ca3;
 	border-radius: 50%;
-	width: 100px;
-	height: 100px;
-	display: block;
-	margin: 0 auto;
+	width: 90px;
+	height: 90px;
 	animation: loading 2s linear infinite;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 @keyframes loading {
