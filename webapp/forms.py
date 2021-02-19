@@ -9,7 +9,7 @@ class ReportForm(FlaskForm):
                            validators=[DataRequired(), Length(min=4, max=15)])
     
     threat_field = SelectField('What Bad Thing Did This User Do', 
-                               choices=[("racism", "racism"),("prick", "Being a Prick")], 
+                               choices=[("Racism", "Racism"),("Homophobia", "Homophobia"), ("Sexism","Sexism"), ("Transphobia","Transphobia"), ("Fraud", "Fraud")], 
                                validators=[DataRequired()])
     
     summary = TextAreaField('Summary Of What Happened (at least 10 characters)', 
@@ -36,8 +36,6 @@ class ScanForm2(FlaskForm):
     submit2 = SubmitField("Go!")
     
 
-
 class SliderForm(FlaskForm):
     follower_count = IntegerRangeField('Follower Count', default=0)
     submit = SubmitField('Go')
-    
