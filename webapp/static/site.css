@@ -145,3 +145,19 @@ a[href^="/database/"]:hover {
 	text-decoration: none;
 	opacity: 50%;
 }
+
+.loader {
+	border: 1em solid white;
+	border-top: 1em solid #216ca3;
+	border-radius: 50%;
+	width: 100px;
+	height: 100px;
+	display: block;
+	margin: 0 auto;
+	animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+	from { transform: rotate(0deg);}
+	to { transform: rotate(360deg);}
+}
