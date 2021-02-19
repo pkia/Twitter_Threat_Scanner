@@ -80,7 +80,6 @@ def scan():
 @app.route("/scan/user/<string:username>")
 def scan_user(username):
     tweets, account_summary, profile = scanning.scan(username) # scan the target
-    account_summary = scanning.get_account_summary(username, 10)
     length = len(tweets)
     return render_template('scan_user.html', tweets=tweets, account_summary=account_summary, profile=profile, length=length, title="Scan A User")
 

@@ -25,7 +25,7 @@ def scan(username):
     for item in intial_results[2].iteritems():
         account_data.append(item[1])
     tweets = list(zip(tweet_ids, tweet_text))
-    account_summary = get_account_summary(username, 10)
+    account_summary = get_account_summary(username, account_data)
     profile = get_twitter_info(username)
     return tweets, account_summary, profile # returns results (bad tweet ids, the tweet text and the overall account summary) and account summary and profile
     
@@ -38,7 +38,6 @@ def scan_all_function(username, followers):
         if len(tweets) > 0: # if there were flagged tweets
             scanned_user = [tweets, account_summary, profile]# save a list with the profile and the results of the follower
             bad.append(scanned_user) # add it to a list of bad results/profiles
-    print(bad)
     return bad
 
 def get_twitter_info(screen_name):
@@ -84,14 +83,17 @@ def check_if_protected(screen_name):
 
 def get_account_summary(screen_name, data):
     total_reports = len(Report.query.filter_by(account_id=screen_name).all())
-    total_tweets = 10
     print(data)
-    total_scanned_tweets = 5
+    total_tweets = data[0]
+    total_scanned_tweets = data[1]
     danger_level = get_danger_level(screen_name, total_tweets, total_scanned_tweets)
     account_summary = [total_reports, total_tweets, total_scanned_tweets, danger_level]
     return account_summary
 
+
 def get_danger_level(screen_name, total_tweets, total_scanned_tweets):
+    if total_tweets > 100:
+        total_tweets = 100
     percent = total_scanned_tweets / total_tweets
     danger_level = percent * 10
     danger_level = round(danger_level)
