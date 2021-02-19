@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 {% block main %}
+
     <div class="content-section">
-        <form method="POST" action="" class="w-50 mx-auto mt-5">
+        <form method="POST" action="" onsubmit="showLoader()" class="w-50 mx-auto mt-5">
             {{ scan_all_form.hidden_tag() }}
             <fieldset>
                 <legend class="border-bottom mb-4">Enter your handle to start scanning your followers</legend>
@@ -17,7 +18,7 @@
         </form>
     </div>
     <div class="content-section" >
-        <form method="POST" action=""class="w-50 mx-auto mt-5">
+        <form method="POST" action="" onsubmit="showLoader()" class="w-50 mx-auto mt-5">
             {{ scan_user_form.hidden_tag() }}
             <fieldset>
                 <legend class="border-bottom mb-4">Enter a user's handle to see their report information</legend>
@@ -31,5 +32,6 @@
                 {{ scan_user_form.submit2(class="btn btn-primary") }}
             </div>
         </form>
+        <div id="loader-div"></div>
     </div>
 {% endblock %}
