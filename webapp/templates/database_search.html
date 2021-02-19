@@ -31,4 +31,9 @@
             <p>User has no reports made on them <a href="{{url_for('report')}}">Report a user now?</a></p>
             </section>
         {% endif %}
+        
+        
+        <section>
+            <a href="/scan/user/{{user_profile[0]}}">Scan this user now?</a>
+        </section>
 {% endblock %}
