@@ -73,6 +73,7 @@ def tweetpull(screen_name):
                   'tweet_text': tweet.text} for tweet in alltweets]
     return pd.DataFrame.from_dict(outtweets)
 
+
 def check_if_protected(screen_name):
     protected = False
     profile = get_twitter_info(screen_name)
@@ -85,7 +86,11 @@ def get_account_summary(screen_name, data):
     total_reports = len(Report.query.filter_by(account_id=screen_name).all())
     print(data)
     total_tweets = data[0]
-    total_scanned_tweets = data[1]
+    if len(data) > 1:
+        total_scanned_tweets = data[1]
+    else: 
+        total_scanned_tweets = 0
+    print(data)
     danger_level = get_danger_level(screen_name, total_tweets, total_scanned_tweets)
     account_summary = [total_reports, total_tweets, total_scanned_tweets, danger_level]
     return account_summary
@@ -98,3 +103,12 @@ def get_danger_level(screen_name, total_tweets, total_scanned_tweets):
     danger_level = percent * 10
     danger_level = round(danger_level)
     return danger_level
+
+def mute_user(screen_name):
+    api.create_mute(screen_name)
+    
+def unfollow_user(screen_name):
+    api.destroy_friendship(screen_name)
+    
+def block_user(screen_name):
+    api.create_block(screen_name)
