@@ -19,9 +19,9 @@ class ReportForm(FlaskForm):
     
     
 class SearchForm(FlaskForm):
-    username = StringField('Twitter Username Of Account To Search For', 
+    username = StringField('Enter Username To View Reports', 
                            validators=[DataRequired(), Length(min=4, max=15)]) # twitter usernames are between 4 and 15 characters
-    submit = SubmitField("Search For Reports On Account")
+    submit = SubmitField("Search")
     
     
 class ScanForm1(FlaskForm):
