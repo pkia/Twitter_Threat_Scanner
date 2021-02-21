@@ -24,16 +24,10 @@ class SearchForm(FlaskForm):
     submit = SubmitField("Search")
     
     
-class ScanForm1(FlaskForm):
+class ScanForm(FlaskForm):
     username = StringField('', 
                            validators=[DataRequired(), Length(min=4, max=15)])
-    submit1 = SubmitField("Go!")
-    
-    
-class ScanForm2(FlaskForm):
-    username = StringField('', 
-                           validators=[DataRequired(), Length(min=4, max=15)])
-    submit2 = SubmitField("Go!")
+    submit = SubmitField("Go!")
     
 
 class SliderForm(FlaskForm):
