@@ -10,7 +10,11 @@
         </div>
         <div class="row">
             <div class="col-12">
+<<<<<<< HEAD
                 <form class="user_grid p-5 border" action="/selected_followers" onsubmit="showLoader()" method="POST">
+=======
+                <form class="user_grid p-5 border" action="/selected_followers"  onsubmit="showLoader()" method="POST">
+>>>>>>> c3d1956a1c9e0219979362d61b0355a567390f18
                     <input name="{{user_profile[0]}}" type="hidden">
                     <div class="row mt-3">
                         <script type="text/javascript">
@@ -32,7 +36,11 @@
                                     let user_id = "user-" + i.toString();
                                     let user_name = followerList[i][0]
                                     user_checkbox.id = user_id;
+<<<<<<< HEAD
                                     user_checkbox.type="checkbox";
+=======
+                                    user_checkbox.type="checkbox"
+>>>>>>> c3d1956a1c9e0219979362d61b0355a567390f18
                                     user_checkbox.name = user_name;
                                     user_label.htmlFor = user_id;
                                     user_image.src = followerList[i][2];
