@@ -29,7 +29,7 @@ def scan(username):
     profile = get_twitter_info(username)
     return tweets, account_summary, profile # returns results (bad tweet ids, the tweet text and the overall account summary) and account summary and profile
     
-def scan_all_function(username, followers):
+def scan_all_function(followers):
     bad = [] # list of usernames where something bad was found
     for follower in followers: # for follower id in follower id list
         if check_if_protected(follower): # if user is protected don't scan

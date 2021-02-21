@@ -91,7 +91,7 @@ def scan_choose(username):
 @app.route("/scan/all/<string:username>/<int:follower_count>")
 def scan_all(username, follower_count):
     followers = scanning.get_followers(username, follower_count) # get x most recent followers ids for target's account
-    scan_results = scanning.scan_all_function(username, followers) # scan all these followers and save results 
+    scan_results = scanning.scan_all_function(followers) # scan all these followers and save results 
     user_profile = scanning.get_twitter_info(username) # get the user's profile
     length = len(scan_results) # get the length of the scan results (to iterate through list on the html page)
     return render_template('scan_all.html', user_profile=user_profile, length=length, scan_results=scan_results, title="Scan All")
@@ -155,4 +155,8 @@ def report_ranked():
     length = len(user_profiles)
     return render_template('report_ranked.html', count=count, counts2=counts2, user_profiles=user_profiles, length=length, title="Reports Ranked")
 
-    
+@app.route('/unfollow_user/<string:screen_name>', methods = ['GET', 'POST'])
+def unfollow_user(screen_name):
+    if request.method == 'POST':
+        scanning.unfollow_user(screen_name)
+        return 'User Unfolllowed!'
