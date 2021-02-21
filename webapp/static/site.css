@@ -87,6 +87,27 @@ h1, h2, h3 + div > h3 ,h2 ~ h3, h2 ~ p, legend, .num-reports-title, .user-profil
 	font-size: 2em;
 }
 
+.profile-pic {
+	width: 100px;
+	height: 100px;
+	border-radius: 100px;
+}
+
+.handle {
+	color: #ee8442;
+}
+
+.report {
+	background-color: #fff;
+	color: #243447;
+	border-radius: 20px;
+	font-size: 1.2em;
+}
+
+.report a {
+	color: #216ca3;
+}
+
 h1 > span {
 	color: #ff0000;
 }
@@ -136,6 +157,7 @@ article {
 	color: black;
 }
 
+/*
 a[href^="/database/"] {
 	color: #fff;
 	font-style: italic;
@@ -144,7 +166,7 @@ a[href^="/database/"] {
 a[href^="/database/"]:hover {
 	text-decoration: none;
 	opacity: 50%;
-}
+}*/
 
 .loader {
 	border: 1em solid white;
@@ -160,4 +182,10 @@ a[href^="/database/"]:hover {
 @keyframes loading {
 	from { transform: rotate(0deg);}
 	to { transform: rotate(360deg);}
+}
+
+@media screen and (max-width: 767.98px) {
+    .w-50 {
+        width: 75% !important;
+    }
 }
