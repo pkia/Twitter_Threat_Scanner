@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request
-from webapp.forms import ReportForm, SearchForm, ScanForm1, ScanForm2, SliderForm
+from webapp.forms import ReportForm, SearchForm, ScanForm, SliderForm
 from webapp.models import Report, User, OAuth
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_dance.contrib.twitter import twitter
@@ -52,9 +52,8 @@ def logout():
 
 @app.route("/scan", methods=["GET", "POST"])
 def scan():
-    scan_all_form = ScanForm1()
-    scan_user_form = ScanForm2() # forms for scanning
-    if scan_user_form.submit2.data and scan_user_form.validate_on_submit(): # if scan "user" form is submitted and validates
+    scan_user_form = ScanForm() # forms for scanning
+    if scan_user_form.submit.data and scan_user_form.validate_on_submit(): # if scan "user" form is submitted and validates
         scan_user_form.username.data = scan_user_form.username.data.lower() # put input into lowercase
         try:
             if scanning.check_if_protected(scan_user_form.username.data):
@@ -63,18 +62,8 @@ def scan():
                 return redirect(url_for("scan_user", username=scan_user_form.username.data)) # else continue to scan_user page and scan the target
         except:
              flash(f"Sorry. That account does not exist", "Failure") # If it can't find the target account then it doesn't exist and notify user
-
-    if scan_all_form.submit1.data and scan_all_form.validate_on_submit(): # if scan "all" form is submitted and validates
-        scan_all_form.username.data = scan_all_form.username.data.lower()
-        try:
-            if scanning.check_if_protected(scan_all_form.username.data):
-                flash(f"Sorry. That account is protected", "Failure")
-            else:
-                return redirect(url_for("scan_choose", username=scan_all_form.username.data)) # redirect to choose followers page if account exists/isnt protected
-        except:
-             flash(f"Sorry. That account does not exist", "Failure")
              
-    return render_template('scan.html', scan_all_form=scan_all_form, scan_user_form=scan_user_form, title="Scan")
+    return render_template('scan.html', scan_user_form=scan_user_form, title="Scan")
 
 
 @app.route("/scan/user/<string:username>")
