@@ -36,8 +36,8 @@
                 {% endfor %}
             {% else %}
                 <h2>User has no reports made on them</h2>
-                <a style="font-size: 1.5em;" class="btn btn-primary mt-3" href="{{url_for('report')}}">Report this user now?</a>
-                <a href="/scan/user/{{user_profile[0]}}">Scan this user now?</a>
+                <p><a style="font-size: 1.5em;" class="btn btn-primary mt-3" href="{{url_for('report')}}">Report this user now?</a></p>
+                <p><a class="text-white" href="/scan/user/{{user_profile[0]}}">Scan this user now?</a></p>
             {% endif %}
         </div>
     </div>
