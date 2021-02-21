@@ -98,7 +98,7 @@ def scan_choose(username):
     return render_template("scan_choose.html", follower_list=follower_profiles_list, form=slider_form, user_profile=user_profile, title="Choose Followers To Scan")
 
 @app.route("/selected_followers", methods=["POST"])
-def process_followers():
+def scan_followers():
     form = request.form.to_dict(flat=True)
     followers = list(form.keys())
     username = followers.pop(0)
