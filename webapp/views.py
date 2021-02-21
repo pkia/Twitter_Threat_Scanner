@@ -85,6 +85,7 @@ def scan_user(username):
 
 
 @app.route("/scan/choose/<string:username>", methods=["GET", "POST"])
+@login_required
 def scan_choose(username):
     slider_form = SliderForm() # slider for choosing the amount of recent followers to scan in an account
     if slider_form.submit.data: # if user submits slider
@@ -108,6 +109,7 @@ def scan_all(username, follower_count):
 
 
 @app.route("/report", methods=["GET", "POST"])
+@login_required
 def report():
     form = ReportForm() # form to report an account
     if form.validate_on_submit(): # if form val on submit
