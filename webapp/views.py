@@ -73,6 +73,16 @@ def scan_user(username):
     return render_template('scan_user.html', tweets=tweets, account_summary=account_summary, profile=profile, length=length, title="Scan A User")
 
 
+@app.route("/selected_followers", methods=["POST"])
+def process_followers():
+    form = request.form
+    followers = list(form.keys())
+    username = followers.pop(0)
+    user_profile = scanning.get_twitter_info(username)
+    scan_results = scanning.scan_all_function(followers)
+    length = len(scan_results)
+    return render_template('scan_all.html', user_profile=user_profile, length=length, scan_results=scan_results, title="Scan All")
+
 @app.route("/scan/choose/<string:username>", methods=["GET", "POST"])
 @login_required
 def scan_choose(username):
