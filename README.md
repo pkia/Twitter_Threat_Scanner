@@ -1,5 +1,5 @@
 # Tweet Guard
-## Credits
+## Credits:
 ### Group 2
 * [Conor McGavin](https://github.com/conormcgavin)
 * [Evan Dunbar](https://github.com/pkia)
