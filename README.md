@@ -1,5 +1,11 @@
 # Tweet Guard
-## Group 2
+## Credits
+### Group 2
+* [Conor McGavin](https://github.com/conormcgavin)
+* [Evan Dunbar](https://github.com/pkia)
+* [Mark Daly](https://github.com/MarkDaly64)
+* [Conor Heeney](https://github.com/ConorH99)
+* Joel McKenna
 
 ## Overview:
 Tweet Guard is a web app used to defend against inappropriate and threatening Twitter users. The app has two functions. A scan function and a report function. 
@@ -47,11 +53,4 @@ python3 run.py
 
 The fetching and scanning of an entire account with a very high amount of followers can be extremely slow from first impressions and this is something that must be looked at 
 A maximum of 3000 tweets can be pulled per user at a time, however this should be ok as recent tweets are the most important.
-
-## Credits
-* [Conor McGavin](https://github.com/conormcgavin)
-* [Evan Dunbar](https://github.com/pkia)
-* [Mark Daly](https://github.com/MarkDaly64)
-* [Conor Heeney](https://github.com/ConorH99)
-* Joel McKenna
 
