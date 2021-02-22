@@ -22,7 +22,8 @@
                 </section>
             {% endfor %}
     {% else %}
-        <section>
+        <section class="no-threat-found w-50 mx-auto">
+            <img src="{{ url_for('static', filename='mr_clean.jpg') }}" alt='Mr. Clean'>
             <p>No threat found. Hurray!</p>
         </section>
     {% endif %}
