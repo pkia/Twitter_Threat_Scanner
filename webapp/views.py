@@ -178,8 +178,8 @@ def report_ranked():
     length = len(user_profiles)
     return render_template('report_ranked.html', count=count, counts2=counts2, user_profiles=user_profiles, length=length, title="Reports Ranked")
 
-@app.route('/unfollow_user/<string:screen_name>', methods = ['GET', 'POST'])
-def unfollow_user(screen_name):
-    if request.method == 'POST':
-        scanning.unfollow_user(screen_name)
-        return 'User Unfolllowed!'
+@app.route('/unfollow_user', methods = ['POST'])
+def unfollow_user():
+    user = request.form.get("user")
+    # scanning.unfollow_user(user)
+    return 'User Unfolllowed!'
