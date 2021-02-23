@@ -94,6 +94,27 @@ legend,
   font-size: 2em;
 }
 
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+}
+
+.handle {
+  color: #ee8442;
+}
+
+.report {
+  background-color: #fff;
+  color: #243447;
+  border-radius: 20px;
+  font-size: 1.2em;
+}
+
+.report a {
+  color: #216ca3;
+}
+
 h1 > span {
   color: #ff0000;
 }
@@ -113,8 +134,8 @@ h1 > span {
 .user_grid input:checked + label img {
   opacity: 50%;
 }
-.account-summary {
-  width: 40%;
+.w-account-summary {
+  width: 30%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -123,10 +144,6 @@ h1 > span {
   font-size: 2em;
   text-align: center;
   margin-bottom: 0.25em;
-}
-
-.account-summary img {
-  border-radius: 50%;
 }
 
 .tweet {
@@ -148,41 +165,16 @@ h1 > span {
   width: 30%;
 }
 
+/*
 a[href^="/database/"] {
-  color: #fff;
+	color: #fff;
+	font-style: italic;
 }
 
 a[href^="/database/"]:hover {
-  text-decoration: none;
-  opacity: 0.5;
-}
-
-.profile-pic {
-  width: 100px;
-  height: 100px;
-  border-radius: 100px;
-}
-
-.handle {
-  color: #ee8442;
-}
-
-.report {
-  background-color: #fff;
-  color: #243447;
-  border-radius: 20px;
-  font-size: 1.2em;
-}
-
-.report a {
-  color: #216ca3;
-  font-style: normal;
-}
-
-.report a:hover {
-  opacity: 1;
-  text-decoration: underline;
-}
+	text-decoration: none;
+	opacity: 50%;
+}*/
 
 .loader {
   border: 1em solid white;
