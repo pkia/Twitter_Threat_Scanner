@@ -6,25 +6,26 @@ from datetime import datetime
 from webapp import tweepy
 import pandas as pd
 from joblib import load
-import preprocessor as p
+
         
 def scan(username):
-    pipeline = load("LogisticRegression/BERT.joblib")
     tweets = tweetpull(username) # get the target's tweets
-    total_tweets = len(tweets)
-    buffer = []
-    for tweet in tweets['tweet_text']:
-        tweets['prediction'] = pipeline.classify_text(tweet)
-        if 'LABEL_1' in str(tweets['prediction']):
-            buffer.append(tweet)
-    bad_tweets = pd.DataFrame.from_dict([{'Flagged_tweets': tweet} for tweet in buffer])
-    intial_results = bad_tweets["Flagged_tweets"] 
-        # gets the bad tweet ids, the tweet text and the overall account summary
-    tweets = []
-    for item in intial_results.iteritems():
-        tweets.append(item)
-    total_scanned_tweets = len(bad_tweets)
-    account_summary = get_account_summary(username, total_scanned_tweets, total_tweets)
+    pipeline = load("LogisticRegression/text_class.joblib") # loads the logistic regression model
+    tweets['prediction'] = pipeline.predict(tweets['tweet_text']) # adds a prediction column to the data which is 1 for hatespeech, 0 for all good
+    data = tweets.prediction.value_counts() # this data is for the summary, contains total tweets and total flagged tweets
+    bad_tweets = tweets.loc[tweets['prediction'] == 1] # these are pandas dataframes, these are all the tweets flagged as hatespeech
+    intial_results = [bad_tweets["tweet_id"], bad_tweets["tweet_text"], data] # gets the bad tweet ids, the tweet text and the overall account summary
+    tweet_ids = []
+    tweet_text = []
+    account_data = []
+    for item in intial_results[0].iteritems():
+        tweet_ids.append(item[1])
+    for item in intial_results[1].iteritems():
+        tweet_text.append(item[1])
+    for item in intial_results[2].iteritems():
+        account_data.append(item[1])
+    tweets = list(zip(tweet_ids, tweet_text))
+    account_summary = get_account_summary(username, account_data)
     profile = get_twitter_info(username)
     return tweets, account_summary, profile # returns results (bad tweet ids, the tweet text and the overall account summary) and account summary and profile
     
@@ -56,20 +57,22 @@ def get_followers(screenname, limit=10):
     return follower_list # screen names of all followers of entered user
 
 def tweetpull(screen_name):
-    all_tweets = []
-    new_tweets = api.user_timeline(screen_name=screen_name, count=200)
-    all_tweets.extend(new_tweets)
-    oldest = all_tweets[-1].id - 1
-    while len(new_tweets) > 0:
-        new_tweets = api.user_timeline(screen_name=screen_name, count=200, max_id=oldest)
-        all_tweets.extend(new_tweets)
-        oldest = all_tweets[-1].id - 1
+    alltweets = []  # List to buffer incoming tweets before being formatted for pd.dict
+    if check_if_protected(screen_name) is False: # if not protected acc
+        new_tweets = api.user_timeline(screen_name=screen_name, count=200)  # Limitation to amount of tweets able to pull by twitter api
+        alltweets.extend(new_tweets)  # Saving most recent tweets to alltweets
+        if len(alltweets) > 0:
+            oldest = alltweets[-1].id - 1  # Acts as counter for the each iteration starting at the oldest possible tweet -1
+        while len(new_tweets) > 0:
+            new_tweets = api.user_timeline(screen_name=screen_name, count=200, max_id=oldest)
+            alltweets.extend(new_tweets)
+            oldest = alltweets[-1].id - 1  # Asks almost like a pointer that allows the func to see which tweet it needs to pull next
 
-    user_tweets = [{'created_at': tweet.created_at,
-                   'tweet_id': tweet.id,
-                   'tweet_text': p.clean(tweet.text)} for tweet in all_tweets]
+    outtweets = [{'created_at': tweet.created_at,  # Makes new formatted list of tweets using a pandas dict format to allow further data manipulation in future functions
+                  'tweet_id': tweet.id,
+                  'tweet_text': tweet.text} for tweet in alltweets]
+    return pd.DataFrame.from_dict(outtweets)
 
-    return pd.DataFrame.from_dict(user_tweets)
 
 def check_if_protected(screen_name):
     protected = False
@@ -79,8 +82,15 @@ def check_if_protected(screen_name):
     return protected
 
 
-def get_account_summary(screen_name, total_scanned_tweets, total_tweets):
+def get_account_summary(screen_name, data):
     total_reports = len(Report.query.filter_by(account_id=screen_name).all())
+    print(data)
+    total_tweets = data[0]
+    if len(data) > 1:
+        total_scanned_tweets = data[1]
+    else: 
+        total_scanned_tweets = 0
+    print(data)
     danger_level = get_danger_level(screen_name, total_tweets, total_scanned_tweets)
     account_summary = [total_reports, total_tweets, total_scanned_tweets, danger_level]
     return account_summary
