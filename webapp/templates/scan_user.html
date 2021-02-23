@@ -1,11 +1,19 @@
 {% extends "layout.html" %}
 {% block main %}
 
-    <h1 class="border-bottom w-50 mx-auto"> Scan results for <a href="{{ url_for('database_search', username=profile[0])}}">@{{ profile[0] }}</a></h1>
-    <h2><img src={{ profile[2] }} alt="User's Picture"></h2>
-    <h2>Name: {{ profile[1] }}</h2>
+    <div class="w-50 mx-auto mt-5">
+        <div class="row pb-4 border-bottom">
+            <div class="col-2-lg">
+                <img class="profile-pic" src="{{ profile[2].replace('_normal', '') }}" alt="User's Picture">
+            </div>
+            <div class="col pt-3">
+                <h3>{{ profile[1] }}</h3>
+                <h4 class="handle"><a href="{{ url_for('database_search', username=profile[0])}}"></a>@{{profile[0] }}</h4>
+            </div>
+        </div>
+    </div>
     {% if length > 0 %}
-        <section class="account-summary w-account-summary mt-3 mb-3 border">
+        <section class="account-summary mt-3 mb-3 border">
             <p>Total Reports on Account: {{account_summary[0]}}</p>
             <p>Total Tweets Scanned: {{account_summary[1]}}</p>
             <p>Total Tweets Flagged: {{account_summary[2]}}</p>

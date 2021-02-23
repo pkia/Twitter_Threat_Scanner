@@ -35,9 +35,10 @@
                                     user_checkbox.type="checkbox";
                                     user_checkbox.name = user_name;
                                     user_label.htmlFor = user_id;
-                                    user_image.src = followerList[i][2];
+                                    user_image.src = followerList[i][2].replace("_normal", "");
+                                    user_image.className = "profile-pic"
                                     user_label.className = "col-3";
-                                    user_handle.append(followerList[i][0])
+                                    user_handle.append("@" + followerList[i][0])
                                     user_label.appendChild(user_image);
                                     user_label.appendChild(user_handle);
                                     row.appendChild(user_checkbox);
