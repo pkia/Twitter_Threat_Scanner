@@ -1,7 +1,9 @@
 from datetime import datetime
-from webapp import db, twitter_blueprint, login_manager
+from webapp import db, twitter_blueprint, login_manager, app
 from flask_login import UserMixin, current_user
 from flask_dance.consumer.storage.sqla import OAuthConsumerMixin, SQLAlchemyStorage
+from flask_admin import Admin, AdminIndexView
+from flask_admin.contrib.sqla import ModelView
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -27,3 +29,10 @@ class Report(db.Model):
     
     def __repr__(self):
         return f"Report('{self.id}', '{self.threat_type}', '{self.summary}', '{self.date_submitted}')"
+
+class MyAdminView(AdminIndexView):
+    def is_accessible(self):
+        return current_user.username == "markdalyy"
+
+admin = Admin(app, index_view=MyAdminView())
+admin.add_view(ModelView(Report, db.session))
