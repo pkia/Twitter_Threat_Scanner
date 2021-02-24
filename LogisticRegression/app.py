@@ -10,10 +10,13 @@ def requestResults(name):
     """Returns flagged tweets for a particular user query"""
     tweets = tweet_pull(name)
     buffer = []
+    c = 0
     for tweet in tweets['tweet_text']:
+        c += 1
         tweets['prediction'] = pipeline.classify_text(tweet)
         if 'LABEL_1' in str(tweets['prediction']):
-            buffer.append(tweet)
+            id = tweets['tweet_id'][c]
+            buffer.append((id,tweet))
     flagged_tweets = pd.DataFrame.from_dict([{'Flagged_tweets': tweet} for tweet in buffer])
     return flagged_tweets
 
