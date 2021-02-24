@@ -18,7 +18,7 @@ def requestResults(name):
             id = tweets['tweet_id'][c]
             buffer.append((id,tweet))
     flagged_tweets = pd.DataFrame.from_dict([{'Flagged_tweets': tweet} for tweet in buffer])
-    return flagged_tweets
+    return flagged_tweets, id
 
 '''
 app = Flask(__name__)
