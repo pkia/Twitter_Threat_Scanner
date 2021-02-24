@@ -32,7 +32,7 @@ class Report(db.Model):
 
 class MyAdminView(AdminIndexView):
     def is_accessible(self):
-        return current_user.username == "markdalyy"
+        return current_user.username == "tweetguardxxx"
 
-admin = Admin(app, index_view=MyAdminView())
+admin = Admin(app, index_view=MyAdminView(), template_mode="bootstrap4")
 admin.add_view(ModelView(Report, db.session))
