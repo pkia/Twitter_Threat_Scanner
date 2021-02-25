@@ -178,7 +178,7 @@ def report_ranked():
     length = len(user_profiles)
     return render_template('report_ranked.html', count=count, counts2=counts2, user_profiles=user_profiles, length=length, title="Reports Ranked")
 
-@app.route("/database/my_reports", methods=["GET", "POST"])
+@app.route("/database/my_reports")
 @login_required
 def my_reports():
     author = User.query.filter_by(username=current_user.username).first()
@@ -190,7 +190,15 @@ def my_reports():
     user_profile = scanning.get_twitter_info(author.username)
     return render_template('database_search.html', reports=reports, user_profile=user_profile, title="My Reports")
 
-
+@app.route("/database/<string:username>/<int:report_id>/delete", methods=["POST"])
+@app.route("/database/my_reports/<int:report_id>/delete", methods=["POST"])
+@login_required
+def delete_report(report_id):
+    report = Report.query.get_or_404(report_id)
+    db.session.delete(report)
+    db.session.commit()
+    flash('Report Withdrawn!', 'info')
+    return redirect(url_for("my_reports"))
 
 @app.route('/unfollow_user/<string:screen_name>', methods = ['GET', 'POST'])
 def unfollow_user(screen_name):
