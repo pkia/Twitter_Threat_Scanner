@@ -178,6 +178,20 @@ def report_ranked():
     length = len(user_profiles)
     return render_template('report_ranked.html', count=count, counts2=counts2, user_profiles=user_profiles, length=length, title="Reports Ranked")
 
+@app.route("/database/my_reports", methods=["GET", "POST"])
+@login_required
+def my_reports():
+    author = User.query.filter_by(username=current_user.username).first()
+    page = request.args.get("page", 1, type=int)
+    if Report.query.filter_by(author=author).first() != None:
+        reports = Report.query.filter_by(author=author).order_by(Report.date_submitted.desc()).paginate(per_page=5)
+    else:
+        reports = None
+    user_profile = scanning.get_twitter_info(author.username)
+    return render_template('database_search.html', reports=reports, user_profile=user_profile, title="My Reports")
+
+
+
 @app.route('/unfollow_user/<string:screen_name>', methods = ['GET', 'POST'])
 def unfollow_user(screen_name):
     if request.method == 'POST':
