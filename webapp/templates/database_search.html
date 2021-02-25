@@ -30,7 +30,7 @@
                             <p>Report: {{ report.summary }}</p>
                         </div>
                         <div class="text-right mb-4">
-                            <a class="btn btn-danger" href="#">Delete</a>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#withdrawReport">Delete</button>
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -51,5 +51,24 @@
                 <p><a class="text-white" href="/scan/user/{{user_profile[0]}}">Scan this user now?</a></p>
             {% endif %}
         </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="withdrawReport" tabindex="-1" role="dialog" aria-labelledby="withdrawReportLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="withdrawReportLabel">Are you sure you want to withdraw this report?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-dark" data-dismiss="modal">Cancel</button>
+            <form action="" method="post">
+                <input class="btn btn-danger" type="submit" value="Confirm">
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
 {% endblock %}
