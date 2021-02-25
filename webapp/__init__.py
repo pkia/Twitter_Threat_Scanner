@@ -8,11 +8,12 @@ app = Flask(__name__)
 #secrets.token_hex(16)
 app.config["SECRET_KEY"] = '0e1892da231b615d2c3144c49ed3fe69'
 
+
 #marks keys
-consumer_key = 'yY98pqqvjxSQtua2IjCx0GOhP'
-consumer_secret = 'z2Umqy3CnS484yOjDZ9hw0pT0JEG36p9AfiBhd57xwhGNnT3zF'
-access_key = '1354421821744029700-G4y8X7P2pwLbKIo3KVXHF3iQs1MSb3'
-access_secret = '9MWD5hMyf4UEThXdMFL4wuiwyiX77oxZyGQIakM8nXAtb'
+consumer_key = 'ltNaOnGftDF5dFfCLhwSRAcbT'
+consumer_secret = 'KFNkCJUhhwd887Feunm89UHV3ePqRKmnQSuz8anzzMfBLGDveD'
+access_key = '1354421821744029700-XpVPmzhduRZoadRl6I0sSLcief0XEg'
+access_secret = 'YEPi451YAO9IYqw9mY5vnOrb3Myvkk8E1f2a38yIfnakl'
 
 '''
 #evans keys
