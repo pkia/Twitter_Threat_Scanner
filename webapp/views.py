@@ -66,7 +66,7 @@ def scan():
     return render_template('scan.html', scan_user_form=scan_user_form, title="Scan")
 
 
-@app.route("/scan/user/<string:username>")
+@app.route("/scan/user/<string:username>", methods=["GET", "POST"])
 def scan_user(username):
     tweets, account_summary, profile = scanning.scan(username) # scan the target
     length = len(tweets)
@@ -181,5 +181,17 @@ def report_ranked():
 @app.route('/unfollow_user', methods = ['POST'])
 def unfollow_user():
     user = request.form.get("user")
-    # scanning.unfollow_user(user)
+    scanning.unfollow_user(user)
+    return 'User Unfolllowed!'
+    
+@app.route('/block_user', methods = ['POST'])
+def block_user():
+    user = request.form.get("user")
+    scanning.block_user(user)
+    return 'User Unfolllowed!'
+    
+@app.route('/mute_user', methods = ['POST'])
+def mute_user():
+    user = request.form.get("user")
+    scanning.mute_user(user)
     return 'User Unfolllowed!'

@@ -1,28 +1,47 @@
 {% extends "layout.html" %}
 {% block main %}
 
-    <h1 class="border-bottom w-50 mx-auto"> Scan results for <a href="{{ url_for('database_search', username=profile[0])}}">@{{ profile[0] }}</a></h1>
-    <h2><img src="{{ profile[2] }}" alt="User's Picture"></h2>
-    <h2>Name: {{ profile[1] }}</h2>
+    <div class="w-50 mx-auto mt-5">
+        <div class="row pb-4 border-bottom">
+            <div class="col-2-lg">
+                <img class="profile-pic" src="{{ profile[2].replace('_normal', '') }}" alt="User's Picture">
+            </div>
+            <div class="col pt-3">
+                <h3>{{ profile[1] }}</h3>
+                <h4 class="handle"><a href="{{ url_for('database_search', username=profile[0])}}"></a>@{{profile[0] }}</h4>
+            </div>
+        </div>
+    </div>
     {% if length > 0 %}
-        <section class="account-summary w-account-summary mt-3 mb-3 border">
+        <section class="account-summary mt-3 mb-3 border">
             <p>Total Reports on Account: {{account_summary[0]}}</p>
             <p>Total Tweets Scanned: {{account_summary[1]}}</p>
             <p>Total Tweets Flagged: {{account_summary[2]}}</p>
             <p>Danger Level: {{account_summary[3]}}</p>
         </section>
-
-        <form method="POST"  id="form">
+        
+        <form method="POST"  id="unfollow_form">
             <input type="hidden" name="user" value="{{ profile[0]}}">
-            <button type="submit"  class="btn btn-primary"  id="bttn">Submit</button>
+            <button type="submit"  class="btn btn-primary"  id="bttn">Unfollow</button>
         </form>
+        
+        <form method="POST"  id="mute_form">
+            <input type="hidden" name="user" value="{{ profile[0]}}">
+            <button type="submit"  class="btn btn-primary"  id="bttn">Mute</button>
+        </form>
+        
+        <form method="POST"  id="block_form">
+            <input type="hidden" name="user" value="{{ profile[0]}}">
+            <button type="submit"  class="btn btn-primary"  id="bttn">Block</button>
+        </form>
+            
         <h2 class="mt-3">Threatening Tweets Found:</h2>
             {% for tweet in tweets %}
                 <section class="tweet w-50 mx-auto p-2 border-bottom">
                     <article class="w-50 mx-auto">
-                        <p>{{tweet[1]}}</p> 
+                        <p>{{tweet[1][1]}}</p> 
                     </article>
-                    <a class="btn btn-primary" href="https://twitter.com/twitter/statuses/{{tweet[0]}}" target="_blank">View Tweet</a>
+                    <a class="btn btn-primary" href="https://twitter.com/twitter/statuses/{{tweet[1][0]}}" target="_blank">View Tweet</a>
                 </section>
             {% endfor %}
     {% else %}
