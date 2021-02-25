@@ -24,9 +24,9 @@
             {% for tweet in tweets %}
                 <section class="tweet w-50 mx-auto p-2 border-bottom">
                     <article class="w-50 mx-auto">
-                        <p>{{tweet[1]}}</p> 
+                        <p>{{tweet[1][1]}}</p> 
                     </article>
-                    <a class="btn btn-primary" href="https://twitter.com/twitter/statuses/{{tweet[0]}}" target="_blank">View Tweet</a>
+                    <a class="btn btn-primary" href="https://twitter.com/twitter/statuses/{{tweet[1][0]}}" target="_blank">View Tweet</a>
                 </section>
             {% endfor %}
     {% else %}
