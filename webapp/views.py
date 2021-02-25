@@ -128,7 +128,7 @@ def report():
         form.username.data = form.username.data.lower() # turn input to lowercase
         try:
             scanning.get_twitter_info(form.username.data) # check if account exists
-            report = Report(account_id=form.username.data, threat_type=form.threat_field.data, summary=form.summary.data) # make report for account if it does
+            report = Report(account_id=form.username.data, threat_type=form.threat_field.data, summary=form.summary.data, author=current_user) # make report for account if it does
             db.session.add(report) # then add report
             db.session.commit() # commit changes
             flash(f"Report Submitted For @{form.username.data}!", "Success") # show a flash message that the operation was a success
@@ -177,6 +177,28 @@ def report_ranked():
         user_profiles.append(user_profile) # add it to a list
     length = len(user_profiles)
     return render_template('report_ranked.html', count=count, counts2=counts2, user_profiles=user_profiles, length=length, title="Reports Ranked")
+
+@app.route("/database/my_reports")
+@login_required
+def my_reports():
+    author = User.query.filter_by(username=current_user.username).first()
+    page = request.args.get("page", 1, type=int)
+    if Report.query.filter_by(author=author).first() != None:
+        reports = Report.query.filter_by(author=author).order_by(Report.date_submitted.desc()).paginate(per_page=5)
+    else:
+        reports = None
+    user_profile = scanning.get_twitter_info(author.username)
+    return render_template('database_search.html', reports=reports, user_profile=user_profile, title="My Reports")
+
+@app.route("/database/<string:username>/<int:report_id>/delete", methods=["POST"])
+@app.route("/database/my_reports/<int:report_id>/delete", methods=["POST"])
+@login_required
+def delete_report(report_id):
+    report = Report.query.get_or_404(report_id)
+    db.session.delete(report)
+    db.session.commit()
+    flash('Report Withdrawn!', 'info')
+    return redirect(url_for("my_reports"))
 
 @app.route('/unfollow_user/<string:screen_name>', methods = ['GET', 'POST'])
 def unfollow_user(screen_name):
