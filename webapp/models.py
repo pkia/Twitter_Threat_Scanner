@@ -12,6 +12,7 @@ def load_user(user_id):
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(250), unique=True)
+    reports = db.relationship('Report', backref='author', lazy=True)
 
 class OAuth(OAuthConsumerMixin, db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(User.id))
@@ -26,7 +27,8 @@ class Report(db.Model):
     summary = db.Column(db.Text, nullable=False)
     date_submitted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     account_id = db.Column(db.String(15), nullable=False)
-    
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
     def __repr__(self):
         return f"Report('{self.id}', '{self.threat_type}', '{self.summary}', '{self.date_submitted}')"
 
