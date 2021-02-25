@@ -128,7 +128,7 @@ def report():
         form.username.data = form.username.data.lower() # turn input to lowercase
         try:
             scanning.get_twitter_info(form.username.data) # check if account exists
-            report = Report(account_id=form.username.data, threat_type=form.threat_field.data, summary=form.summary.data) # make report for account if it does
+            report = Report(account_id=form.username.data, threat_type=form.threat_field.data, summary=form.summary.data, author=current_user) # make report for account if it does
             db.session.add(report) # then add report
             db.session.commit() # commit changes
             flash(f"Report Submitted For @{form.username.data}!", "Success") # show a flash message that the operation was a success
