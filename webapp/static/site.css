@@ -184,6 +184,16 @@ a[href^="/database/"]:hover {
   text-decoration: underline;
 }
 
+.pagination {
+  margin-top: 2rem;
+  text-align: center;
+}
+.pagination button {
+  background-color: #fff;
+  color: #216ca3;
+  border: 1px solid #216ca3;
+}
+
 .loader {
   border: 1em solid white;
   border-top: 1em solid #216ca3;

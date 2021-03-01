@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block main %}
 
+    <script>
+        let tweets = JSON.parse('{{ tweets | tojson}}');
+        console.log(tweets);
+    </script>
     <div class="w-50 mx-auto mt-5">
         <div class="row pb-4 border-bottom">
             <div class="col-2-lg">
@@ -21,19 +25,50 @@
         </section>
             
         <h2 class="mt-3">Threatening Tweets Found:</h2>
-            {% for tweet in tweets %}
-                <section class="tweet w-50 mx-auto p-2 border-bottom">
-                    <article class="w-50 mx-auto">
-                        <p>{{tweet[1][1]}}</p> 
-                    </article>
-                    <a class="btn btn-primary" href="https://twitter.com/twitter/statuses/{{tweet[1][0]}}" target="_blank">View Tweet</a>
-                </section>
-            {% endfor %}
+
+        <script>
+            let main = document.querySelector("main");
+            let tweetArray = tweets["tweet-0"]["array"];
+            let pageLength = tweets["tweet-0"]["length"];
+            let pageList = document.createElement("ul");
+            pageList.className = "pagination w-75 mx-auto"
+            for (i=0; i<pageLength; i++) {
+                let tweetSection = document.createElement("section");
+                tweetSection.className = "tweet w-50 mx-auto p-2 border-bottom";
+                let tweetArticle = document.createElement("article");
+                tweetArticle.className = "w-50 mx-auto";
+                let tweetContentElement = document.createElement("p");
+                let tweetContent = tweetArray[i][1][1];
+                tweetContentElement.innerText = tweetContent;
+                tweetArticle.append(tweetContentElement);
+                tweetSection.append(tweetArticle);
+                main.append(tweetSection);
+            }
+
+            let tweetsLength = Object.keys(tweets).length;
+            for (i=0; i<tweetsLength; i++) {
+                let pageListItem = document.createElement("li");
+                let pageNum = document.createElement("button");
+                pageNum.className = "btn btn-link";
+                pageNum.innerText = (i + 1).toString();
+                pageNum.addEventListener("click", function () {
+                    let num = parseInt(this.textContent)-1;
+                    modifyDom(num.toString(), tweets);
+                });
+                pageListItem.append(pageNum);
+                pageList.append(pageListItem);
+                main.append(pageList);
+            }
+
+
+        </script>
     {% else %}
         <section class="no-threat-found w-50 mx-auto">
             <img src="{{ url_for('static', filename='mr_clean.jpg') }}" alt='Mr. Clean'>
             <p>No threat found. Hurray!</p>
         </section>
     {% endif %}
+
+
     
 {% endblock %}
