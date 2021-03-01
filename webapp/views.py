@@ -11,8 +11,9 @@ from sqlalchemy import func, desc
 from webapp import api
 from datetime import datetime
 from webapp import tweepy
-import pandas as pd
 from webapp import scanning
+import pandas as pd
+import json
 
 @app.route("/")
 @app.route("/index")
@@ -68,10 +69,30 @@ def scan():
 
 @app.route("/scan/user/<string:username>")
 def scan_user(username):
+    tweets_json = {}
     tweets, account_summary, profile = scanning.scan(username) # scan the target
-    length = len(tweets)
-    return render_template('scan_user.html', tweets=tweets, account_summary=account_summary, profile=profile, length=length, title="Scan A User")
+    tweets_split = list(divide_tweets(tweets, 5))
+    for i in range(len(tweets_split)):
+        tweets_split[i] = remove_ids(tweets_split[i])
+    for i in range(len(tweets_split)):
+        tweet_and_length = {
+            'array': tweets_split[i],
+            'length': len(tweets_split[i])
+        }
+        tweets_json[f"tweet-{i}"] = tweet_and_length
+    length=len(tweets)
+    return render_template('scan_user.html', tweets=tweets_json, length=length, account_summary=account_summary, profile=profile, title="Scan A User")
 
+def divide_tweets(tweets, n):
+    for i in range(0, len(tweets), n):  
+        yield tweets[i:i + n]
+
+def remove_ids(arrays):
+    for i in range(len(arrays)):
+        arrays[i] = list(arrays[i])
+        arrays[i][1] = list(arrays[i][1])
+        arrays[i][1][0] = str(arrays[i][1][0])
+    return arrays
 
 @app.route("/selected_followers", methods=["POST"])
 def process_followers():
@@ -105,7 +126,6 @@ def scan_followers():
     user_profile = scanning.get_twitter_info(username)
     scan_results = scanning.scan_all_function(username, followers)
     length = len(scan_results)
-    print(scan_results)
     return render_template('scan_all.html', user_profile=user_profile, length=length, scan_results=scan_results, title="Scan Selected")
 
     
