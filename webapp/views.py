@@ -71,7 +71,7 @@ def scan():
 def scan_user(username):
     tweets_json = {}
     tweets, account_summary, profile = scanning.scan(username) # scan the target
-    tweets_split = list(divide_tweets(tweets, 5))
+    tweets_split = list(divide_tweets(tweets, 10))
     for i in range(len(tweets_split)):
         tweets_split[i] = remove_ids(tweets_split[i])
     for i in range(len(tweets_split)):
