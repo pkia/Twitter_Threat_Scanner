@@ -21,7 +21,7 @@ def scan(username):
             id = tweets['tweet_id'][c]
             buffer.append((id,tweet))
     bad_tweets = pd.DataFrame.from_dict([{'Flagged_tweets': tweet} for tweet in buffer])
-    intial_results = bad_tweets["Flagged_tweets"] 
+    intial_results = bad_tweets 
         # gets the bad tweet ids, the tweet text and the overall account summary
     tweet_ids = []
     tweet_text = []
