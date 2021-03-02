@@ -49,7 +49,7 @@
             for (i=0; i<tweetsLength; i++) {
                 let pageListItem = document.createElement("li");
                 let pageNum = document.createElement("button");
-                pageNum.className = "btn btn-link";
+                pageNum.className = "btn btn-info";
                 pageNum.innerText = (i + 1).toString();
                 pageNum.addEventListener("click", function () {
                     let num = parseInt(this.textContent)-1;
