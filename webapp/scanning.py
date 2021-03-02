@@ -9,7 +9,7 @@ from joblib import load
 import preprocessor as p
         
 def scan(username):
-    pipeline = load("LogisticRegression/BERT.joblib")
+    pipeline = load("webapp/BERT.joblib")
     tweets = tweetpull(username) # get the target's tweets
     total_tweets = len(tweets)
     buffer = []
