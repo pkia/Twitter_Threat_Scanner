@@ -188,11 +188,6 @@ a[href^="/database/"]:hover {
   margin-top: 2rem;
   text-align: center;
 }
-.pagination button {
-  background-color: #fff;
-  color: #216ca3;
-  border: 1px solid #216ca3;
-}
 
 .alert {
   text-align: center;
