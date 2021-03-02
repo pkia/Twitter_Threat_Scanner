@@ -194,6 +194,26 @@ a[href^="/database/"]:hover {
   border: 1px solid #216ca3;
 }
 
+.alert {
+  text-align: center;
+  color: #fff;
+}
+
+.alert-info {
+  color: #000;
+  background-color: #fff;
+}
+
+.alert-success {
+  background-color: #479c3a;
+  border-color: #479c3a;
+}
+
+.alert-danger {
+  background-color: #ff0000;
+  border-color: #ff0000;
+}
+
 .loader {
   border: 1em solid white;
   border-top: 1em solid #216ca3;

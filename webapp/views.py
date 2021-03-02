@@ -58,11 +58,11 @@ def scan():
         scan_user_form.username.data = scan_user_form.username.data.lower() # put input into lowercase
         try:
             if scanning.check_if_protected(scan_user_form.username.data):
-                flash(f"Sorry. That account is protected", "Failure")
+                flash(f"Sorry. That account is protected", "danger")
             else:
                 return redirect(url_for("scan_user", username=scan_user_form.username.data)) # else continue to scan_user page and scan the target
         except:
-             flash(f"Sorry. That account does not exist", "Failure") # If it can't find the target account then it doesn't exist and notify user
+             flash(f"Sorry. That account does not exist", "danger") # If it can't find the target account then it doesn't exist and notify user
              
     return render_template('scan.html', scan_user_form=scan_user_form, title="Scan")
 
@@ -151,10 +151,10 @@ def report():
             report = Report(account_id=form.username.data, threat_type=form.threat_field.data, summary=form.summary.data, author=current_user) # make report for account if it does
             db.session.add(report) # then add report
             db.session.commit() # commit changes
-            flash(f"Report Submitted For @{form.username.data}!", "Success") # show a flash message that the operation was a success
+            flash(f"Report Submitted For @{form.username.data}!", "success") # show a flash message that the operation was a success
             return redirect(url_for("database"))
         except:
-            flash(f"Sorry. That account does not exist", "Failure") # if account doesn't exist then flash this
+            flash(f"Sorry. That account does not exist", "danger") # if account doesn't exist then flash this
     return render_template('report.html', form=form, title="Make A Report")
 
 
@@ -167,7 +167,7 @@ def database():
             scanning.get_twitter_info(form.username.data) # if the user exists then report them
             return redirect(url_for("database_search", username=form.username.data, page=1))
         except:
-            flash(f"Sorry. That account does not exist", "Failure")
+            flash(f"Sorry. That account does not exist", "danger")
         
     page = request.args.get("page", 1, type=int)
     reports = Report.query.order_by(Report.date_submitted.desc()).paginate(per_page=5) # fetch a paginated list of recent reports in order of date submitted desc
