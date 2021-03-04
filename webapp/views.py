@@ -100,7 +100,9 @@ def process_followers():
     followers = list(form.keys())
     username = followers.pop(0)
     user_profile = scanning.get_twitter_info(username)
+    #print(user_profile)
     scan_results = scanning.scan_all_function(followers)
+    print(scan_results)
     length = len(scan_results)
     return render_template('scan_all.html', user_profile=user_profile, length=length, scan_results=scan_results, title="Scan All")
 
@@ -111,22 +113,12 @@ def scan_choose(username):
     if slider_form.submit.data: # if user submits slider
         return redirect(url_for("scan_all", username=username, follower_count=slider_form.follower_count.data)) # redirect to scan_all page with x amount of followers to scan
     followers = scanning.get_followers(username) # returns list of followers screen_name's
-    follower_profiles_list = []
+    follower_profiles = []
     user_profile = scanning.get_twitter_info(username)
-    for follower in followers:
-        follower_profile = scanning.get_twitter_info(follower) # get the twitter profile of all the follower's that there is an option of being scanned
-        follower_profiles_list.append(follower_profile) # so that the user can click and select them
-    return render_template("scan_choose.html", follower_list=follower_profiles_list, form=slider_form, user_profile=user_profile, title="Choose Followers To Scan")
-
-@app.route("/selected_followers", methods=["POST"])
-def scan_followers():
-    form = request.form.to_dict(flat=True)
-    followers = list(form.keys())
-    username = followers.pop(0)
-    user_profile = scanning.get_twitter_info(username)
-    scan_results = scanning.scan_all_function(username, followers)
-    length = len(scan_results)
-    return render_template('scan_all.html', user_profile=user_profile, length=length, scan_results=scan_results, title="Scan Selected")
+    for i in range(len(followers)):
+        follower_profile = scanning.get_twitter_info(followers[i]) # get the twitter profile of all the follower's that there is an option of being scanned
+        follower_profiles.append(follower_profile) # so that the user can click and select them
+    return render_template("scan_choose.html", follower_list=follower_profiles, form=slider_form, user_profile=user_profile, title="Choose Followers To Scan")
 
     
     
@@ -136,7 +128,6 @@ def scan_all(username, follower_count):
     scan_results = scanning.scan_all_function(followers) # scan all these followers and save results 
     user_profile = scanning.get_twitter_info(username) # get the user's profile
     length = len(scan_results) # get the length of the scan results (to iterate through list on the html page)
-    print(scan_results)
     return render_template('scan_all.html', user_profile=user_profile, length=length, scan_results=scan_results, title="Scan All")
 
 

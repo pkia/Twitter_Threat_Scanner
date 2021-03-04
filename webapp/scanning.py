@@ -19,16 +19,13 @@ def scan(username):
         tweets['prediction'] = pipeline.classify_text(tweet)
         if 'LABEL_1' in str(tweets['prediction']):
             id = tweets['tweet_id'][c]
-            buffer.append((id,tweet))
+            buffer.append([id,tweet])
     bad_tweets = pd.DataFrame.from_dict([{'Flagged_tweets': tweet} for tweet in buffer])
-    intial_results = bad_tweets 
-        # gets the bad tweet ids, the tweet text and the overall account summary
+    tweets = [] 
+    for tweet in bad_tweets.values.tolist():
+        tweets.append(tweet[0])
     tweet_ids = []
     tweet_text = []
-    for item in intial_results.iteritems():
-        tweet_ids.append(item[0])
-        tweet_text.append(item[1])
-    tweets = list(zip(tweet_ids, tweet_text))
     total_scanned_tweets = len(bad_tweets)
     account_summary = get_account_summary(username, total_scanned_tweets, total_tweets)
     profile = get_twitter_info(username)

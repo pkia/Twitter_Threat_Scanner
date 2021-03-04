@@ -15,7 +15,8 @@
                     <div class="row mt-3">
                         <script type="text/javascript">
                             function displayFollowers() {
-                                let followerList = JSON.parse('{{follower_list|tojson}}');
+                                let followerList = JSON.parse('{{follower_list | tojson}}');
+                                console.log(followerList);
                                 let grid = document.querySelector(".user_grid");
                                 let row = grid.lastChild;
                                 for (i=0; i<followerList.length; i++) {
@@ -29,8 +30,8 @@
                                     let user_checkbox = document.createElement("input");
                                     let user_handle = document.createElement("p");
                                     let user_image = document.createElement("img");
-                                    let user_id = "user-" + i.toString();
-                                    let user_name = followerList[i][0]
+                                    let user_id = "user" + i.toString();
+                                    let user_name = followerList[i][0];
                                     user_checkbox.id = user_id;
                                     user_checkbox.type="checkbox";
                                     user_checkbox.name = user_name;
