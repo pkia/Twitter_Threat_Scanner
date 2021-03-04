@@ -16,6 +16,6 @@ function modifyDom(num, tweets) {
     let arrayLength = tweets["tweet-" + num.toString()]["length"];
     for (i=0; i<arrayLength; i++) {
         tweetContainers[i].style.display = "block";
-        tweetElements[i].innerText = tweetArray[i][1][1];
+        tweetElements[i].innerText = tweetArray[i][1];
     }
 }

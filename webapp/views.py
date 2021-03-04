@@ -72,8 +72,9 @@ def scan_user(username):
     tweets_json = {}
     tweets, account_summary, profile = scanning.scan(username) # scan the target
     tweets_split = list(divide_tweets(tweets, 10))
-    for i in range(len(tweets_split)):
-        tweets_split[i] = remove_ids(tweets_split[i])
+    print(tweets_split)
+    for tweet_array in tweets_split:
+        remove_ids(tweet_array)
     for i in range(len(tweets_split)):
         tweet_and_length = {
             'array': tweets_split[i],
@@ -87,12 +88,10 @@ def divide_tweets(tweets, n):
     for i in range(0, len(tweets), n):  
         yield tweets[i:i + n]
 
-def remove_ids(arrays):
-    for i in range(len(arrays)):
-        arrays[i] = list(arrays[i])
-        arrays[i][1] = list(arrays[i][1])
-        arrays[i][1][0] = str(arrays[i][1][0])
-    return arrays
+def remove_ids(tweet_array):
+    for tweet in tweet_array:
+        tweet[0] = str(tweet[0])
+    return tweet_array
 
 @app.route("/selected_followers", methods=["POST"])
 def process_followers():
@@ -100,9 +99,7 @@ def process_followers():
     followers = list(form.keys())
     username = followers.pop(0)
     user_profile = scanning.get_twitter_info(username)
-    #print(user_profile)
     scan_results = scanning.scan_all_function(followers)
-    print(scan_results)
     length = len(scan_results)
     return render_template('scan_all.html', user_profile=user_profile, length=length, scan_results=scan_results, title="Scan All")
 
