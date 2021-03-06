@@ -22,6 +22,7 @@ Flask-Admin==1.5.7
 Flask-Dance==3.3.1
 Flask-Login==0.5.0
 Flask-WTF==0.14.3
+Flask-SQLAlchemy==2.4.4
 furl==2.1.0
 geographiclib==1.50
 geopy==2.1.0
@@ -32,18 +33,14 @@ infinity==1.5
 intervals==0.9.1
 kiwisolver==1.3.1
 MarkupSafe==1.1.1
+pandas==1.2.2
 matplotlib==3.3.3
-mkl-fft==1.3.0
-mkl-random==1.1.1
-mkl-service==2.3.0
-multidict==5.1.0
 oauthlib==3.1.0
 opencv-python==4.5.1.48
 orderedmultidict==1.0.1
 packaging==20.9
 passlib==1.7.4
 Pillow==8.1.0
-preprocessor==1.1.3
 protobuf==3.15.4
 pycares==3.1.1
 pycparser==2.20
@@ -54,7 +51,6 @@ python-dateutil==2.8.1
 python-socks==1.2.0
 pytz==2021.1
 regex==2020.11.13
-reportlab==3.5.60
 requests==2.25.1
 requests-oauthlib==1.3.0
 sacremoses==0.0.43
@@ -68,6 +64,7 @@ torch==1.7.1
 tqdm==4.58.0
 transformers==4.3.3
 tweepy==3.10.0
+tweet-preprocessor==0.6.0
 typing-extensions==3.7.4.3
 urllib3==1.26.3
 URLObject==2.4.3
