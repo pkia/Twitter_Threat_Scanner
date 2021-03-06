@@ -1,8 +1,5 @@
 from webapp.models import Report
-from webapp import app
-from webapp import db
 from webapp import api
-from datetime import datetime
 from webapp import tweepy
 import pandas as pd
 from joblib import load
@@ -38,8 +35,6 @@ def scan(username):
     profile_info_df = pd.DataFrame.from_dict(profile_info)
     scan_results = profile_info_df.join(bad_tweets_df)
     return scan_results
-    # returns results (bad tweet ids, the tweet text and the overall account summary) and account summary and profile
-
 
 def get_twitter_info(screen_name):
     screen_name = screen_name.lower()  # make sure it is lowercase
