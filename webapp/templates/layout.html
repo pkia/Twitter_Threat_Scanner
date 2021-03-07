@@ -37,7 +37,7 @@
       </nav>
     </header>
     
-    <main>
+    <main class="pb-5">
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
               {% for category, message in messages %}
@@ -52,10 +52,11 @@
         {% endblock main %}
     </main>
     
-    <footer>
-      
+    <footer class="w-100 px-5 py-3">
+        Follow us on Twitter <a href="https://twitter.com/tweetguardxxx">@tweetguardxxx</a>
     </footer>
-      <script type="text/javascript">
+
+    <script type="text/javascript">
         anchors = document.getElementsByClassName("nav-link");
         for (i = 0; i < anchors.length; i++) {
           if (anchors[i] == window.location.href) {
