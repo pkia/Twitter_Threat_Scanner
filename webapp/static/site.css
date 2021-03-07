@@ -1,7 +1,13 @@
+html {
+  
+}
+
 body {
   background-color: #243447;
   color: #fff;
   font-family: Verdana, Helvetica, sans-serif;
+  position: relative;
+  min-height: 100vh;
 }
 
 .site-header {
@@ -28,6 +34,12 @@ body {
 
 .navbar-toggler:focus {
   outline: none;
+}
+
+footer {
+  background-color: #ee8442;
+  position: absolute;
+  bottom: 0;
 }
 
 .btn-primary {
