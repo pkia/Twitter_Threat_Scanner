@@ -23,6 +23,16 @@ To download the code and run it on your local machine:
 2. Change into the top-level directory of the repository.
 3. To install the requirements, run the command:
 
+Docker:
+
+```
+build:
+docker build -t threat .
+
+run:
+docker run -ti -p 5000:5000 threat
+```
+
 Windows:
 ``` shell
 pip install -r requirements.txt
@@ -50,7 +60,14 @@ python3 run.py
 6. Enjoy the app!
 
 ## Possible Limitations
+8gb+ RAM required to run efficiently or user may find the app to be resource intensive when running locally.
+
 
 The fetching and scanning of an entire account with a very high amount of followers can be extremely slow from first impressions and this is something that must be looked at 
 A maximum of 3000 tweets can be pulled per user at a time, however this should be ok as recent tweets are the most important.
+
+
+##Deployment:
+Deployed as a containerized web application
+http://tweetguard.me
 
