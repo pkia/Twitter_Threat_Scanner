@@ -19,9 +19,9 @@
     
     <p class="w-50 mx-auto mb-1"><a class="text-white" href="{{ url_for('report_ranked', page=1)}}">View Total Reports List</a></p>
     <p class="w-50 mx-auto mb-1"><a class="text-white" href="{{ url_for('my_reports')}}">My Reports</a></p>
-    <p class="w-50 mx-auto mb-4"><a class="text-white" href="{{ url_for('report')}}">Make A Report</a></p>
+    <p class="w-50 mx-auto mb-4"><a id="three" class="text-white" href="{{ url_for('report')}}">Make A Report</a></p>
 
-    <div class="w-50 mx-auto">
+    <div class="w-50 mx-auto mb-4">
         <h2 class="border-bottom mb-4">Recent Reports</h2>
         {% for report in reports.items %}
         <div class="report my-3 px-3 py-1">
