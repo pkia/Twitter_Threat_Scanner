@@ -164,7 +164,7 @@ a[href^="/database/"] {
   color: #fff;
 }
 
-a[href^="/database/"]:hover {
+a[href^="/database/"]:hover, #three:hover {
   text-decoration: none;
   opacity: 0.5;
 }
