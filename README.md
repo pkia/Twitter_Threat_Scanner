@@ -60,6 +60,7 @@ python3 run.py
 6. Enjoy the app!
 
 ## Possible Limitations
+
 8gb+ RAM required to run efficiently or user may find the app to be resource intensive when running locally.
 
 
@@ -67,7 +68,7 @@ The fetching and scanning of an entire account with a very high amount of follow
 A maximum of 3000 tweets can be pulled per user at a time, however this should be ok as recent tweets are the most important.
 
 
-##Deployment:
+### Deployment:
 Deployed as a containerized web application
 http://tweetguard.me
 
