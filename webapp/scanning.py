@@ -1,8 +1,5 @@
 from webapp.models import Report
-from webapp import app
-from webapp import db
 from webapp import api
-from datetime import datetime
 from webapp import tweepy
 import pandas as pd
 from joblib import load
@@ -24,8 +21,6 @@ def scan(username):
     tweets = [] 
     for tweet in bad_tweets.values.tolist():
         tweets.append(tweet[0])
-    tweet_ids = []
-    tweet_text = []
     total_scanned_tweets = len(bad_tweets)
     account_summary = get_account_summary(username, total_scanned_tweets, total_tweets)
     profile = get_twitter_info(username)
@@ -60,13 +55,13 @@ def get_followers(screenname, limit=10):
 
 def tweetpull(screen_name):
     all_tweets = []
-    new_tweets = api.user_timeline(screen_name=screen_name, count=200)
+    new_tweets = api.user_timeline(screen_name=screen_name, count=100)
     all_tweets.extend(new_tweets)
     oldest = all_tweets[-1].id - 1
     while len(new_tweets) > 0:
-        new_tweets = api.user_timeline(screen_name=screen_name, count=200, max_id=oldest)
+        new_tweets = api.user_timeline(screen_name=screen_name, count=100, max_id=oldest)
         all_tweets.extend(new_tweets)
-        oldest = all_tweets[-1].id - 1
+        oldest = 1
 
     user_tweets = [{'created_at': tweet.created_at,
                    'tweet_id': tweet.id,
@@ -89,7 +84,7 @@ def get_account_summary(screen_name, total_scanned_tweets, total_tweets):
     return account_summary
 
 
-def get_danger_level(screen_name, total_tweets, total_scanned_tweets):
+def get_danger_level(total_tweets, total_scanned_tweets):
     if total_tweets > 100:
         total_tweets = 100
     percent = total_scanned_tweets / total_tweets
