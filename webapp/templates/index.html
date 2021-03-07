@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block main %}
-    <div class="container border p-4 mt-4">
+    <div class="container border p-4 my-4">
         <div class="row">
             <div class="col-12">
                 <h1 class="display-1 mb-1 text-center"> Tweet Guard </h1>
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-4">
+            <div class="col-8 col-md-4">
                 {% if current_user.is_authenticated %}
                     <a class="btn btn-primary btn-lg btn-block" type="button" href="{{url_for('logout')}}">Log Out</a>
                 {% else %}
