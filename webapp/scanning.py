@@ -84,7 +84,7 @@ def get_account_summary(screen_name, total_scanned_tweets, total_tweets):
     return account_summary
 
 
-def get_danger_level(total_tweets, total_scanned_tweets):
+def get_danger_level(screen_name, total_tweets, total_scanned_tweets):
     if total_tweets > 100:
         total_tweets = 100
     percent = total_scanned_tweets / total_tweets
