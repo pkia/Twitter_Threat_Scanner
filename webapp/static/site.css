@@ -249,4 +249,13 @@ a[href^="/database/"]:hover, #three:hover {
   .w-50 {
     width: 75% !important;
   }
+
+  .navbar-brand {
+    margin-bottom: .5em;
+  }
+
+  .navbar-nav > .nav-link  {
+    margin-top: .5em;
+    margin-left: 0 !important;
+  }
 }
