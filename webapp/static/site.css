@@ -1,7 +1,13 @@
+html {
+  
+}
+
 body {
   background-color: #243447;
   color: #fff;
   font-family: Verdana, Helvetica, sans-serif;
+  position: relative;
+  min-height: 100vh;
 }
 
 .site-header {
@@ -28,6 +34,12 @@ body {
 
 .navbar-toggler:focus {
   outline: none;
+}
+
+footer {
+  background-color: #ee8442;
+  position: absolute;
+  bottom: 0;
 }
 
 .btn-primary {
@@ -152,7 +164,7 @@ a[href^="/database/"] {
   color: #fff;
 }
 
-a[href^="/database/"]:hover {
+a[href^="/database/"]:hover, #three:hover {
   text-decoration: none;
   opacity: 0.5;
 }
@@ -236,5 +248,14 @@ a[href^="/database/"]:hover {
 @media screen and (max-width: 767.98px) {
   .w-50 {
     width: 75% !important;
+  }
+
+  .navbar-brand {
+    margin-bottom: .5em;
+  }
+
+  .navbar-nav > .nav-link  {
+    margin-top: .5em;
+    margin-left: 0 !important;
   }
 }
