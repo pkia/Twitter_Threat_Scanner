@@ -27,6 +27,9 @@ Docker:
 
 ```
 build:
+cd webapp
+python3 BERT_model.py
+cd..
 docker build -t threat .
 
 run:
