@@ -8,20 +8,20 @@ app = Flask(__name__)
 #secrets.token_hex(16)
 app.config["SECRET_KEY"] = '0e1892da231b615d2c3144c49ed3fe69'
 
-
-#marks keys
+'''
+#deploy keys
 consumer_key = 'ltNaOnGftDF5dFfCLhwSRAcbT'
 consumer_secret = 'KFNkCJUhhwd887Feunm89UHV3ePqRKmnQSuz8anzzMfBLGDveD'
 access_key = '1354421821744029700-XpVPmzhduRZoadRl6I0sSLcief0XEg'
 access_secret = 'YEPi451YAO9IYqw9mY5vnOrb3Myvkk8E1f2a38yIfnakl'
+'''
 
-'''
-#evans keys
-consumer_key = 'T9Zf9RjXPzUR74MElwXSc322V'
-consumer_secret = 'EcFc0W8ZMVHVr9zPViClxeinjkNDSaMRH33vC9SRkv4J5CgB58'
-access_key = '2370053247-nuZnBzC316VEGYtCHPDWP47VFh7wAis3blVtoLZ'
-access_secret = 'Ra6uNqSNztob2UmLQG6nVTuFNF608CI3190CkxndNSeik'
-'''
+#localhost keys
+consumer_key = 'Q2NUpbG72s2gh5zcVkIrEhrWK'
+consumer_secret = 'ccMterplEvPFV94FCH0HyL7IvfkovYb1AYS7JOkeOyztKvN0yR'
+access_key = '2370053247-UyXnLLZzMlF34zXUuN53BKjHSebOA0XN6eJiTCG'
+access_secret = 'DRPc1pY88rvkIyEa0yxIyKrraVNiVp5l4MxSVAWSV2CyH'
+
 
 import tweepy
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
