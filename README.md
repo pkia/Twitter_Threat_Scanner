@@ -27,6 +27,9 @@ Docker:
 
 ```
 build:
+cd webapp
+python3 BERT_model.py
+cd..
 docker build -t threat .
 
 run:
@@ -75,6 +78,6 @@ A maximum of 3000 tweets can be pulled per user at a time, however this should b
 
 
 ### Deployment:
-Deployed as a containerized web application
+Deployed as a containerized web application on Azure
 http://tweetguard.me
 
