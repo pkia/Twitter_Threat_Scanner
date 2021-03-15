@@ -2,6 +2,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, TextAreaField
 from wtforms.fields.html5 import IntegerRangeField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
+from markupsafe import Markup
+
 
 
 class ReportForm(FlaskForm):
@@ -19,9 +21,9 @@ class ReportForm(FlaskForm):
     
     
 class SearchForm(FlaskForm):
-    username = StringField('Enter Username To View Reports', 
+    username = StringField('Search username to View Reports', 
                            validators=[DataRequired(), Length(min=4, max=15)]) # twitter usernames are between 4 and 15 characters
-    submit = SubmitField("Search")
+    submit = SubmitField(Markup('&#x276F;'))
     
     
 class ScanForm(FlaskForm):
