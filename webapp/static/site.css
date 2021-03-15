@@ -159,7 +159,7 @@ h1 > span {
 .no-threat-found img {
   width: 30%;
 }
-
+/*
 a[href^="/database/"] {
   color: #fff;
 }
@@ -167,6 +167,58 @@ a[href^="/database/"] {
 a[href^="/database/"]:hover, #three:hover {
   text-decoration: none;
   opacity: 0.5;
+}*/
+
+.new-form .form-control {
+  background-color: rgba(29, 155, 240, 0.19);
+  border: none;
+  border-color: #fff;
+  border-radius: 100px;
+  color: #fff;
+}
+
+.new-form .form-control:focus {
+  box-shadow: -1px -1px 5px white, 1px 1px 5px white;
+}
+
+.new-form {
+  display: flex;
+  justify-content: center;
+}
+
+.new-form .angle-right {
+  background-color: transparent;
+  border: none;
+  font-size: 2em;
+  color: #1D9BF0;
+  margin-top: 1.5em;
+  margin-left: .3em;
+}
+
+.database-reports {
+  display: block;
+  list-style: none;
+  padding: 0 1em;
+  margin-bottom: 8em;
+}
+
+.database-reports > li {
+    display: inline;
+}
+
+.database-reports a {
+    float: left;
+    background-color: rgba(29, 155, 240, 0.19);
+    padding: .8em 1em;
+    border-radius: 100px;
+    text-decoration: none;
+    color: white;
+    border: 2px solid white;
+    margin: .2em .3em;
+}
+
+.database-reports a:hover {
+    background-color: #9894a6;
 }
 
 .profile-pic {
@@ -273,5 +325,9 @@ a[href^="/database/"]:hover, #three:hover {
 
   .ranked-handle {
     font-size: 1em;
+  }
+
+  .new-form .angle-right {
+    margin-top: 2.5em;
   }
 }
