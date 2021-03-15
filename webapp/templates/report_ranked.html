@@ -1,46 +1,51 @@
 {% extends "database.html" %}
 {% block main %}
-    <h1 class="display-4 pt-4">Total Reports Made on Accounts</h1>
-    <h2 class="display-5">Sorted by number of reports</h2>
-    
-    <div class="w-50 mx-auto pt-5">
-        <div class="row p-2">
-            <div class="col-8">
-                <h3 class="display-6">Account</h3>
-            </div>
-            <div class="col-4">
-                <h3 id="num-reports-title" class="display-6"># of reports</h3>
-            </div>
+    <div class="w-50 mx-auto mt-5 mb-4">
+        <div class="border-bottom">
+            <h3>Total Reports On Each Account</h3>
+            <h4 class="handle">Sorted by number of reports</h4>
         </div>
-        {% for i in range(length) %}
-        <div class="row p-2">
-            <div class="col-4">
-                <img src={{user_profiles[i][2]}}>
+
+        
+        <div class="mt-5">
+            <div class="row p-2">
+                <div class="col-8 col-sm-9">
+                    <h3>Account</h3>
+                </div>
+                <div class="num-reports-title col-4 col-sm-3">
+                    <h3>Reports</h3>
+                </div>
             </div>
-            <div class="col-4">
-                <p class="mb-1">{{user_profiles[i][1]}}</p>
-                <a href="{{ url_for('database_search', username=count[i][0], page=1)}}"><b>{{ count[i][0] }}</b></a>
+            {% for i in range(length) %}
+            <div class="row p-2">
+                <div class="col-4">
+                    <img class="profile-pic-2" src={{user_profiles[i][2].replace('_normal', '')}}>
+                </div>
+                <div class="col-5 mt-3">
+                    <p class="mb-1 h6">{{user_profiles[i][1]}}</p>
+                    <a class="h5 ranked-handle" href="{{ url_for('database_search', username=count[i][0], page=1)}}"><b>@{{ count[i][0] }}</b></a>
+                </div>
+                
+                <div class="col-3 mt-3">
+                    <p class="num-reports" href="{{ url_for('database_search', username=count[i][0], page=1)}}"> {{ count[i][1] }}</p>
+                </div>
             </div>
-            
-            <div class="col-4">
-                <p class="num-reports" href="{{ url_for('database_search', username=count[i][0], page=1)}}"> {{ count[i][1] }}</p>
-            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-    
-    <div class="w-50 mx-auto p-2">
-        {% for page_num in counts2.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
-            {% if page_num %}
-                {% if counts2.page == page_num %}
-                    <a class="btn btn-info mb-4" href="{{ url_for("report_ranked", page=page_num)}} "> {{page_num}} </a>
+        
+        <div class="mt-4 mx-2">
+            {% for page_num in counts2.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+                {% if page_num %}
+                    {% if counts2.page == page_num %}
+                        <a class="btn btn-info mb-4" href="{{ url_for("report_ranked", page=page_num)}} "> {{page_num}} </a>
+                    {% else %}
+                        <a class="btn btn-outline-info mb-4" href="{{ url_for("report_ranked", page=page_num)}} "> {{page_num}} </a>
+                    {% endif %}
                 {% else %}
-                    <a class="btn btn-outline-info mb-4" href="{{ url_for("report_ranked", page=page_num)}} "> {{page_num}} </a>
+                    ...
                 {% endif %}
-            {% else %}
-                ...
-            {% endif %}
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
     
