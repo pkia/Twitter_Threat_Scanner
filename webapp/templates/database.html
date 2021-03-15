@@ -1,27 +1,26 @@
 {% extends "layout.html" %}
 {% block main %}
     
-    <div class="content-section">
-        <form method="POST" action="" onsubmit="showLoader()" class="w-50 mx-auto mt-5">
+    <div class="content-section mb-4">
+        <form method="POST" action="" onsubmit="showLoader()" class="w-50 mx-auto mt-5 new-form">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom h3 mb-4">Search For A Twitter User</legend>
-                <div class="form-group h5 mt-1 mb-0">
-                    {{ form.username.label(class="form-control-label") }}
+                <div class="form-group h4 mt-1 mb-0">
+                    {{ form.username.label(class="form-control-label mb-3") }}
                     {{ form.username(class="form-control form-control-lg") }}
                 </div>
             </fieldset>
-            <div class="form-group h5">
-                {{ form.submit(class="btn btn-primary btn-lg") }}
+            <div class="form-group">
+                {{ form.submit(class="angle-right") }}
             </div>
         </form>
     </div>
-    
-    <p class="w-50 mx-auto mb-1"><a class="text-white" href="{{ url_for('report_ranked', page=1)}}">View Total Reports List</a></p>
-    <p class="w-50 mx-auto mb-1"><a class="text-white" href="{{ url_for('my_reports')}}">My Reports</a></p>
-    <p class="w-50 mx-auto mb-4"><a id="three" class="text-white" href="{{ url_for('report')}}">Make A Report</a></p>
-
-    <div class="w-50 mx-auto mb-4">
+    <ul class="w-50 mx-auto mt-3 h5 database-reports">
+        <li><a href="{{ url_for('report_ranked', page=1)}}">View Total Reports List</a></li>
+        <li><a href="{{ url_for('my_reports')}}">My Reports</a></li>
+        <li><a id="three" href="{{ url_for('report')}}" class="mb-5">Make A Report</a></li>
+    </ul>
+    <div class="w-50 mx-auto mb-4" style="clear: left;">
         <h2 class="border-bottom mb-4">Recent Reports</h2>
         {% for report in reports.items %}
         <div class="report my-3 px-3 py-1">
