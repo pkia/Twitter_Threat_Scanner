@@ -42,6 +42,12 @@
                 tweetContentElement.innerText = tweetContent;
                 tweetArticle.append(tweetContentElement);
                 tweetSection.append(tweetArticle);
+                let viewTweetButton = document.createElement("a");
+                viewTweetButton.className = "btn btn-primary";
+                viewTweetButton.href = "https://twitter.com/twitter/statuses/" + tweetArray[i][0];
+                viewTweetButton.target = "_blank"
+                viewTweetButton.innerText = "View Tweet"
+                tweetSection.append(viewTweetButton);
                 main.append(tweetSection);
             }
 
