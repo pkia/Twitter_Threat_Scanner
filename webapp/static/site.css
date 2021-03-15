@@ -175,6 +175,12 @@ a[href^="/database/"]:hover, #three:hover {
   border-radius: 100px;
 }
 
+.profile-pic-2 {
+  width: 80px;
+  height: 80px;
+  border-radius: 80px;
+}
+
 .handle {
   color: #ee8442;
 }
@@ -257,5 +263,15 @@ a[href^="/database/"]:hover, #three:hover {
   .navbar-nav > .nav-link  {
     margin-top: .5em;
     margin-left: 0 !important;
+  }
+}
+
+@media screen and (max-width: 575.98px) {
+  .num-reports {
+    text-align: right;
+  }
+
+  .ranked-handle {
+    font-size: 1em;
   }
 }
