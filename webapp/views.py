@@ -8,24 +8,29 @@ from sqlalchemy.orm.exc import NoResultFound
 from webapp import app
 from webapp import db, twitter_blueprint
 from sqlalchemy import func, desc
-from webapp import api
+from webapp import auth, api
 from datetime import datetime
 from webapp import tweepy
 from webapp import scanning
 import pandas as pd
 import json
+import tweepy
+
 
 @app.route("/")
 @app.route("/index")
 def index():
+    if twitter.authorized and auth.access_token is None:
+        access_key = twitter_blueprint.token['oauth_token']
+        access_secret = twitter_blueprint.token['oauth_token_secret']
+        auth.set_access_token(access_key, access_secret)
+        api = tweepy.API(auth)
     return render_template('index.html', title="Home Page") # Home page
-
 
 @app.route("/login")
 def login():
     if not twitter.authorized:
         return redirect(url_for('twitter.login'))
-    session.set('request_token', auth.request_token['oauth_token'])
     settings = twitter.get('account/settings.json')
     settings_json = settings.json() # convert to dictionary
     return '@{} is logged in to Tweet Guard'.format(settings_json['screen_name'])
