@@ -27,9 +27,6 @@ Docker:
 
 ```
 build:
-cd webapp
-python3 BERT_model.py
-cd..
 docker build -t threat .
 
 run:
@@ -50,17 +47,11 @@ pip3 install -r requirements.txt
 
 Windows:
 ``` shell
-cd webapp
-python BERT_model.py
-cd..
 python run.py
 ```
 
 Linux:
 ```shell
-cd webapp
-python3 BERT_model.py
-cd..
 python3 run.py
 ```
 
