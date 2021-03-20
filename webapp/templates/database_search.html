@@ -11,6 +11,7 @@
             </div>
         </div>
         <div class="mt-5">
+            {% set my_reports = (current_user.username == user_profile[0]) %}
             {% if reports %}
                 <h2 class="text-left">List of reports</h2>
                 <h3 class="text-left">Total: {{reports.total }} </h3>
@@ -45,9 +46,12 @@
                         ...
                     {% endif %}
                 {% endfor %}
-            {% else %}
+            {% elif not my_reports %}
                 <h2>User has no reports made on them</h2>
+            {% else %}
+                <h2>You have not submitted any reports</h2>
             {% endif %}
+            {% if not my_reports %}
                 <p><a style="font-size: 1.5em;" class="btn btn-primary mt-3" href="{{url_for('report')}}">Report this user now?</a></p>
                 <p><a class="text-white" href="/scan/user/{{user_profile[0]}}">Scan this user now?</a></p>
                 
@@ -57,6 +61,9 @@
                     <a class="btn btn-primary" href="{{ url_for('mute_user', screen_name=user_profile[0])}} ">Mute</a>
                     <a class="btn btn-primary" href="{{ url_for('block_user', screen_name=user_profile[0])}} ">Block</a>
                 </div>
+            {% else %}
+                 <p><a style="font-size: 1.5em;" class="btn btn-primary mt-3" href="{{url_for('report')}}">Report a user now?</a></p>
+            {% endif %}
         </div>
     </div>
     <!-- Modal -->
