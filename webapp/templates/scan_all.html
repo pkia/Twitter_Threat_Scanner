@@ -8,14 +8,17 @@
             </div>
             <div class="col pt-3">
                 <h3>{{ user_profile[1] }}</h3>
-                <h4 class="handle"><a  href="{{ url_for('database_search', username=user_profile[0])}}"></a> @{{ user_profile[0] }}</h4>
+                <h4 class="handle"><a  href="{{ url_for('database_search', username=user_profile[0])}}">@{{ user_profile[0] }}</a></h4>
             </div>
+        </div>
+        <div>
+            <p>Click on a threatening user's handle to <b>unfollow, mute, block</b>, or <b>view user-made reports</b> on them!</p>
         </div>
     </div>
 
     {% if length > 0 %}
         {% for i in range(length) %}
-        <h2>Scanned Follower {{i+1}}</h2>
+        <h2>Threatening Follower {{i+1}}</h2>
             <section class="account-summary w-50 mx-auto mb-3 p-3 border">
                 <div class="w-50 mx-auto mb-3">
                     <div class="row">
@@ -24,7 +27,7 @@
                         </div>
                         <div class="col pt-3">
                             <h3>{{scan_results[i][2][1]}}</h3>
-                            <h4 class="handle">@{{scan_results[i][2][0]}}</h4>
+                            <h4 class="handle"><a href="{{url_for("database_search", username=scan_results[i][2][0])}}">@{{scan_results[i][2][0]}}</a></h4>
                         </div>
                     </div>
                 </div>

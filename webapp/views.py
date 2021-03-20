@@ -25,6 +25,7 @@ def index():
 def login():
     if not twitter.authorized:
         return redirect(url_for('twitter.login'))
+    session.set('request_token', auth.request_token['oauth_token'])
     settings = twitter.get('account/settings.json')
     settings_json = settings.json() # convert to dictionary
     return '@{} is logged in to Tweet Guard'.format(settings_json['screen_name'])
@@ -216,6 +217,27 @@ def delete_report(report_id):
 
 @app.route('/unfollow_user/<string:screen_name>', methods = ['GET', 'POST'])
 def unfollow_user(screen_name):
-    if request.method == 'POST':
+    try:
         scanning.unfollow_user(screen_name)
-        return 'User Unfolllowed!'
+        flash(f"User unfollowed!", "success")
+    except:
+        flash(f"Unable to unfollow user", "danger")
+    return redirect(url_for("database_search", username=screen_name))
+
+@app.route('/mute_user/<string:screen_name>', methods = ['GET', 'POST'])
+def mute_user(screen_name):
+    try:
+        scanning.mute_user(screen_name)
+        flash(f"User Muted!", "success")
+    except:
+        flash(f"Unable to mute user", "danger")
+    return redirect(url_for("database_search", username=screen_name))
+
+@app.route('/block_user/<string:screen_name>', methods = ['GET', 'POST'])
+def block_user(screen_name):
+    try:
+        scanning.block_user(screen_name)
+        flash(f"User blocked!", "success")
+    except:
+        flash(f"Unable to block user", "danger")
+    return redirect(url_for("database_search", username=screen_name))

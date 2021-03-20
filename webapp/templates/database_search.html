@@ -10,6 +10,12 @@
                 <h4 class="handle">@{{ user_profile[0] }}</h4>
             </div>
         </div>
+        <div>
+            <h3>Been wronged by this user in the past? Check out these options:</h3>
+            <a href="{{ url_for("unfollow_user", screen_name=user_profile[0])}} ">Unfollow</a>
+            <a href="{{ url_for("mute_user", screen_name=user_profile[0])}} ">Mute</a>
+            <a href="{{ url_for("block_user", screen_name=user_profile[0])}} ">Block</a>
+        </div>
         <div class="mt-5">
             {% if reports %}
                 <h2 class="text-left">List of reports</h2>
@@ -47,9 +53,9 @@
                 {% endfor %}
             {% else %}
                 <h2>User has no reports made on them</h2>
+            {% endif %}
                 <p><a style="font-size: 1.5em;" class="btn btn-primary mt-3" href="{{url_for('report')}}">Report this user now?</a></p>
                 <p><a class="text-white" href="/scan/user/{{user_profile[0]}}">Scan this user now?</a></p>
-            {% endif %}
         </div>
     </div>
     <!-- Modal -->
