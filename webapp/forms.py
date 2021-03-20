@@ -8,7 +8,7 @@ from markupsafe import Markup
 
 class ReportForm(FlaskForm):
     username = StringField('Twitter Username Of Account To Be Reported', 
-                           validators=[DataRequired(), Length(min=4, max=15)])
+                           validators=[DataRequired(), Length(min=3, max=15)])
     
     threat_field = SelectField('What Bad Thing Did This User Do', 
                                choices=[("Racism", "Racism"),("Homophobia", "Homophobia"), ("Sexism","Sexism"), ("Transphobia","Transphobia"), ("Fraud", "Fraud")], 
@@ -22,13 +22,13 @@ class ReportForm(FlaskForm):
     
 class SearchForm(FlaskForm):
     username = StringField('Search username to View Reports', 
-                           validators=[DataRequired(), Length(min=4, max=15)]) # twitter usernames are between 4 and 15 characters
+                           validators=[DataRequired(), Length(min=3, max=15)]) # twitter usernames are between 4 and 15 characters
     submit = SubmitField(Markup('&#x276F;'))
     
     
 class ScanForm(FlaskForm):
     username = StringField('', 
-                           validators=[DataRequired(), Length(min=4, max=15)])
+                           validators=[DataRequired(), Length(min=3, max=15)])
     submit = SubmitField("Go!")
     
 
