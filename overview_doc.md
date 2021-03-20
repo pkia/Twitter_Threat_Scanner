@@ -19,8 +19,6 @@ This file gives a breakdown of the folder structure of the project and a summary
     - static
     - templates
     - \_\_init\_\_&#46;py
-    - BERT_model&#46;py
-    - BERT&#46;joblib
     - forms&#46;py
     - models&#46;py
     - scanning&#46;py
@@ -78,10 +76,6 @@ This file gives a breakdown of the folder structure of the project and a summary
 
 [**\_\_init\_\_&#46;py**][12] - Assembles the application files and creates the database connection and Twitter API connection to pass to run&#46;py&#46;
 
-[**BERT_model&#46;py**][13] - Creates the BERT.joblib file.
-
-**BERT&#46;joblib** - Runs the BERT model.
-
 [**forms&#46;py**][14] - Used by Flask to construct forms programatically rather than in the HTML templates&#46;
 
 [**models&#46;py**][15] - Used to construct the schemas of the database tables&#46;
@@ -138,23 +132,22 @@ This file gives a breakdown of the folder structure of the project and a summary
 [10]: <documents/product_evolution.pdf>
 [11]: <documents/product_brief.pdf>
 [12]: <webapp/__init__.py>
-[13]: <webapp/BERT_model.py>
-[14]: <webapp/forms.py>
-[15]: <webapp/models.py>
-[16]: <webapp/scanning.py>
-[17]: <webapp/views.py>
-[18]: <webapp/static/mr_clean.jpg>
-[19]: <webapp/static/site.css>
-[20]: <webapp/static/site.js>
-[21]: <webapp/static/twitter-bird-pixy.png>
-[22]: <webapp/templates/database_search.html>
-[23]: <webapp/templates/database.html>
-[24]: <webapp/templates/index.html>
-[25]: <webapp/templates/layout.html>
-[26]: <webapp/templates/report_ranked.html>
-[27]: <webapp/templates/report.html>
-[28]: <webapp/templates/scan_all.html>
-[29]: <webapp/templates/scan_choose.html>
-[30]: <webapp/templates/scan_user.html>
-[31]: <webapp/templates/scan.html>
-[32]: <run.py>
+[13]: <webapp/forms.py>
+[14]: <webapp/models.py>
+[15]: <webapp/scanning.py>
+[16]: <webapp/views.py>
+[17]: <webapp/static/mr_clean.jpg>
+[18]: <webapp/static/site.css>
+[19]: <webapp/static/site.js>
+[20]: <webapp/static/twitter-bird-pixy.png>
+[21]: <webapp/templates/database_search.html>
+[22]: <webapp/templates/database.html>
+[23]: <webapp/templates/index.html>
+[24]: <webapp/templates/layout.html>
+[25]: <webapp/templates/report_ranked.html>
+[26]: <webapp/templates/report.html>
+[27]: <webapp/templates/scan_all.html>
+[28]: <webapp/templates/scan_choose.html>
+[29]: <webapp/templates/scan_user.html>
+[30]: <webapp/templates/scan.html>
+[31]: <run.py>
