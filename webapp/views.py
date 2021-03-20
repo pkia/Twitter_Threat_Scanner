@@ -144,6 +144,8 @@ def report():
             return redirect(url_for("database"))
         except:
             flash(f"Sorry. That account does not exist", "danger") # if account doesn't exist then flash this
+    else:
+    	flash(f"Sorry. That username is invalid", "danger")
     return render_template('report.html', form=form, title="Make A Report")
 
 
@@ -159,6 +161,8 @@ def database():
             return redirect(url_for("database_search", username=form.username.data, page=1))
         except:
             flash(f"Sorry. That account does not exist", "danger")
+    else:
+    	    flash(f"Sorry. That username is invalid", "danger")
         
     page = request.args.get("page", 1, type=int)
     reports = Report.query.order_by(Report.date_submitted.desc()).paginate(per_page=5) # fetch a paginated list of recent reports in order of date submitted desc
