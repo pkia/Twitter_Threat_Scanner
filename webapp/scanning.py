@@ -2,18 +2,20 @@ from webapp.models import Report
 from webapp import api
 from webapp import tweepy
 import pandas as pd
-from joblib import load
 import preprocessor as p
+from happytransformer import HappyTextClassification
+
+happy_tc = HappyTextClassification('BERT', 'Hate-speech-CNERG/dehatebert-mono-english', 2)
+model = happy_tc
         
 def scan(username):
-    pipeline = load("webapp/BERT.joblib")
     tweets = tweetpull(username) # get the target's tweets
     total_tweets = len(tweets)
     buffer = []
     c = -1
     for tweet in tweets['tweet_text']:
         c += 1
-        tweets['prediction'] = pipeline.classify_text(tweet)
+        tweets['prediction'] = model.classify_text(tweet)
         if 'LABEL_1' in str(tweets['prediction']):
             id = tweets['tweet_id'][c]
             buffer.append([id,tweet])
