@@ -25,7 +25,7 @@ access_secret = 'DRPc1pY88rvkIyEa0yxIyKrraVNiVp5l4MxSVAWSV2CyH'
 
 import tweepy
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_key, access_secret)
+#auth.set_access_token(access_key, access_secret)
 api = tweepy.API(auth) 
 
 twitter_blueprint = make_twitter_blueprint(api_key=consumer_key, api_secret=consumer_secret)
