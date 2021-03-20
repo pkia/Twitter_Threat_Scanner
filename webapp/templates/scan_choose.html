@@ -53,13 +53,8 @@
                         </script>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-5">
+                        <div class="col">
                             <button type="submit" class="btn btn-primary btn-lg">Scan Selected</button>
-                        </div>
-                        <div class="col-2">
-                        </div>
-                        <div class="col-5">
-                            <button type="button" class="btn btn-primary btn-lg">Scan All</button>
                         </div>
                     </div>
                 </form>
@@ -90,7 +85,7 @@
                     {{ form.follower_count(min=0, max=10, oninput="outputUpdate(value)", class="form-control-range") }}
                 </div>
                 <div class="col-3">
-                    {{ form.submit(class="btn btn-outline-info") }}
+                    {{ form.submit(class="btn btn-primary") }}
                 </div>            
             </div>
             <div class="row">
