@@ -39,7 +39,7 @@ def scan_all_function(followers):
 
 def get_twitter_info(screen_name):
     screen_name = screen_name.lower() # make sure it is lowercase
-    user_info = api.get_user(screen_name) # use tweepy to get user object or return error if doesn't exist
+    user_info = api.get_user(screen_name=screen_name) # use tweepy to get user object or return error if doesn't exist
     profile = [user_info.screen_name.lower(), user_info.name, user_info.profile_image_url, user_info.protected]# [0]screen_name [1]name [2]profile picture [3] boolean if they're protected or not
     return profile
 
@@ -71,7 +71,7 @@ def tweetpull(screen_name):
 
 def check_if_protected(screen_name):
     protected = False
-    profile = get_twitter_info(screen_name)
+    profile = get_twitter_info(screen_name=screen_name)
     if profile[3] == True:
         protected = True
     return protected
@@ -93,10 +93,10 @@ def get_danger_level(screen_name, total_tweets, total_scanned_tweets):
     return danger_level
 
 def mute_user(screen_name):
-    api.create_mute(screen_name)
+    api.create_mute(screen_name=screen_name)
     
 def unfollow_user(screen_name):
-    api.destroy_friendship(screen_name)
+    api.destroy_friendship(screen_name=screen_name)
     
 def block_user(screen_name):
-    api.create_block(screen_name)
+    api.create_block(screen_name=screen_name)
