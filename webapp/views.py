@@ -133,6 +133,8 @@ def report():
     form = ReportForm() # form to report an account
     if form.validate_on_submit(): # if form val on submit
         form.username.data = form.username.data.lower() # turn input to lowercase
+        if form.username.data[0] == "@":
+            form.username.data = form.username.data[1:]
         try:
             scanning.get_twitter_info(form.username.data) # check if account exists
             report = Report(account_id=form.username.data, threat_type=form.threat_field.data, summary=form.summary.data, author=current_user) # make report for account if it does
@@ -150,6 +152,8 @@ def database():
     form = SearchForm()
     if form.validate_on_submit():
         form.username.data = form.username.data.lower()
+        if form.username.data[0] == "@":
+            form.username.data = form.username.data[1:]
         try:
             scanning.get_twitter_info(form.username.data) # if the user exists then report them
             return redirect(url_for("database_search", username=form.username.data, page=1))
