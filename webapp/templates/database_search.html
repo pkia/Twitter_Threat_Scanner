@@ -91,6 +91,9 @@
       </div>
     </div>
     <script type="text/javascript">
+        /* jquery function to pass the URL of report to be deleted
+        into the action attribute of the confirm withdrawal form
+        (invokes on the click of a delete button) */
         $(document).on("click", ".btn-danger", function () {
             var url = $(this).data('url');
             $('#confirm').attr('action', url);

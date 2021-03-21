@@ -16,6 +16,7 @@
                     <h3>Reports</h3>
                 </div>
             </div>
+            <!-- show 5 accounts per page -->
             {% set start = (page-1)*5 %}
             {% for i in range(start, start+5) %}
             {% if i < length %}
@@ -37,6 +38,7 @@
         </div>
         
         <div class="mt-4 mx-2">
+            <!-- Generates page links at bottom of list -->
             {% for page_num in counts2.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
                 {% if page_num %}
                     {% if counts2.page == page_num %}
