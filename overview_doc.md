@@ -56,7 +56,7 @@ This file gives a breakdown of the folder structure of the project and a summary
 
 [**requirements&#46;txt**][8] - Used by PIP (The Python Package Manager) to install dependencies with one command (pip install -r requirements&#46;txt)&#46;
 
-[**run&#46;py**][32] - The file that is used to start running the server&#46;
+[**run&#46;py**][31] - The file that is used to start running the server&#46;
 
 ## documents Directory
 
