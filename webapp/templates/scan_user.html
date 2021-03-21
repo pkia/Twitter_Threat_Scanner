@@ -2,8 +2,8 @@
 {% block main %}
 
     <script>
+        // Converts the tweet data structure to json structure that javascript can use
         let tweets = JSON.parse('{{ tweets | tojson}}');
-        console.log(tweets);
     </script>
     <div class="w-50 mx-auto mt-5">
         <div class="row pb-4 border-bottom">
@@ -26,6 +26,7 @@
             
         <h2 class="mt-3">Threatening Tweets Found:</h2>
 
+        <!-- This script tag adds the capability to paginate the scan results based off which page button is clicked -->
         <script>
             let main = document.querySelector("main");
             let tweetArray = tweets["tweet-0"]["array"];
