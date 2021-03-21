@@ -10,8 +10,8 @@ class ReportForm(FlaskForm):
     username = StringField('Twitter Username Of Account To Be Reported', 
                            validators=[DataRequired(), Length(min=3, max=15)])
     
-    threat_field = SelectField('What Bad Thing Did This User Do', 
-                               choices=[("Racism", "Racism"),("Homophobia", "Homophobia"), ("Sexism","Sexism"), ("Transphobia","Transphobia"), ("Fraud", "Fraud")], 
+    threat_field = SelectField('Type Of Threat',
+                               choices=["Racism", "Hate", "Violence", "Sexism", "Homophobia", "Transphobia", "Offensive", "Fraud"], 
                                validators=[DataRequired()])
     
     summary = TextAreaField('Summary Of What Happened (at least 10 characters)', 
