@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block main %}
     <h1 class="border-bottom w-50 mx-auto">Follower list for <a href="{{ url_for('database_search', username=user_profile[0])}}">@{{ user_profile[0] }}</a></h1>
+    <!-- Outer grid used for general page layout -->
     <div class="grid-layout w-50 mx-auto mt-3">
         <div class="row">
             <div class="col-12">
@@ -10,11 +11,15 @@
         </div>
         <div class="row">
             <div class="col-12">
+                <!-- Form is also used as another Bootstrap grid layout -->
                 <form class="user_grid p-5 border" action="/selected_followers" onsubmit="showLoader()" method="POST">
                     <input name="{{user_profile[0]}}" type="hidden">
                     <div class="row mt-3">
                         <script type="text/javascript">
+                            // displayFollowers function is used to add a new row to the layout when the number of followers
+                            // on the current line exceeds four
                             function displayFollowers() {
+                                // Converts the follower list passed into the template to a json object javascript can parse
                                 let followerList = JSON.parse('{{follower_list | tojson}}');
                                 console.log(followerList);
                                 let grid = document.querySelector(".user_grid");
@@ -100,6 +105,7 @@
     </form>
     
     <script>
+        // function to change the slider counter as the user slides up and down
         function outputUpdate(age) {
             document.querySelector('#selected-followers').value = follower_count.value;
         }
