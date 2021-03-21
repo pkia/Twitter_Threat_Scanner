@@ -5,42 +5,42 @@ This file gives a breakdown of the folder structure of the project and a summary
 ## Table of Contents
 
 - [Top-level Directory][1]
-    - documents
-    - webapp
-    - &#46;gitignore
-    - Dockerfile
-    - README&#46;md
-    - requirements&#46;txt
+  - documents
+  - webapp
+  - &#46;gitignore
+  - Dockerfile
+  - README&#46;md
+  - requirements&#46;txt
 - [documents Directory][2]
-    - Product Document&#46;pdf
-    - Project Evolution&#46;pdf
-    - Project Brief&#46;pdf
+  - Product Document&#46;pdf
+  - Project Evolution&#46;pdf
+  - Project Brief&#46;pdf
 - [webapp Directory][3]
-    - static
-    - templates
-    - \_\_init\_\_&#46;py
-    - forms&#46;py
-    - models&#46;py
-    - scanning&#46;py
-    - site&#46;db
-    - views&#46;py
+  - static
+  - templates
+  - \_\_init\_\_&#46;py
+  - forms&#46;py
+  - models&#46;py
+  - scanning&#46;py
+  - site&#46;db
+  - views&#46;py
 - [webapp/static Directory][4]
-    - mr_clean&#46;jpg
-    - site&#46;css
-    - site&#46;js
-    - twitter-bird-pixy&#46;png
+  - mr_clean&#46;jpg
+  - site&#46;css
+  - site&#46;js
+  - twitter-bird-pixy&#46;png
 - [webapp/templates Directory][5]
-    - admin
-    - database_search&#46;html
-    - database&#46;html
-    - index&#46;html
-    - layout&#46;html
-    - report_ranked&#46;html
-    - report&#46;html
-    - scan_all&#46;html
-    - scan_choose&#46;html
-    - scan_user&#46;html
-    - scan&#46;html
+  - admin
+  - database_search&#46;html
+  - database&#46;html
+  - index&#46;html
+  - layout&#46;html
+  - report_ranked&#46;html
+  - report&#46;html
+  - scan_all&#46;html
+  - scan_choose&#46;html
+  - scan_user&#46;html
+  - scan&#46;html
 
 ## Top-Level Directory
 
@@ -57,8 +57,6 @@ This file gives a breakdown of the folder structure of the project and a summary
 [**requirements&#46;txt**][8] - Used by PIP (The Python Package Manager) to install dependencies with one command (pip install -r requirements&#46;txt)&#46;
 
 [**run&#46;py**][32] - The file that is used to start running the server&#46;
-
-
 
 ## documents Directory
 
@@ -120,34 +118,34 @@ This file gives a breakdown of the folder structure of the project and a summary
 
 [**scan&#46;html**][31] - Layout file for the scan homepage&#46;
 
-[1]: <#top-level-directory>
-[2]: <#documents-directory>
-[3]: <#webapp-directory>
-[4]: <#webapp/static-directory>
-[5]: <#webapp/templates-directory>
-[6]: <Dockerfile>
-[7]: <README.md>
-[8]: <requirements.txt>
-[9]: <documents/product_document.pdf>
-[10]: <documents/product_evolution.pdf>
-[11]: <documents/product_brief.pdf>
-[12]: <webapp/__init__.py>
-[13]: <webapp/forms.py>
-[14]: <webapp/models.py>
-[15]: <webapp/scanning.py>
-[16]: <webapp/views.py>
-[17]: <webapp/static/mr_clean.jpg>
-[18]: <webapp/static/site.css>
-[19]: <webapp/static/site.js>
-[20]: <webapp/static/twitter-bird-pixy.png>
-[21]: <webapp/templates/database_search.html>
-[22]: <webapp/templates/database.html>
-[23]: <webapp/templates/index.html>
-[24]: <webapp/templates/layout.html>
-[25]: <webapp/templates/report_ranked.html>
-[26]: <webapp/templates/report.html>
-[27]: <webapp/templates/scan_all.html>
-[28]: <webapp/templates/scan_choose.html>
-[29]: <webapp/templates/scan_user.html>
-[30]: <webapp/templates/scan.html>
-[31]: <run.py>
+[1]: #top-level-directory
+[2]: #documents-directory
+[3]: #webapp-directory
+[4]: #webapp/static-directory
+[5]: #webapp/templates-directory
+[6]: Dockerfile
+[7]: README.md
+[8]: requirements.txt
+[9]: documents/product_document.pdf
+[10]: documents/product_evolution.pdf
+[11]: documents/product_brief.pdf
+[12]: webapp/__init__.py
+[13]: webapp/forms.py
+[14]: webapp/models.py
+[15]: webapp/scanning.py
+[16]: webapp/views.py
+[17]: webapp/static/mr_clean.jpg
+[18]: webapp/static/site.css
+[19]: webapp/static/site.js
+[20]: webapp/static/twitter-bird-pixy.png
+[21]: webapp/templates/database_search.html
+[22]: webapp/templates/database.html
+[23]: webapp/templates/index.html
+[24]: webapp/templates/layout.html
+[25]: webapp/templates/report_ranked.html
+[26]: webapp/templates/report.html
+[27]: webapp/templates/scan_all.html
+[28]: webapp/templates/scan_choose.html
+[29]: webapp/templates/scan_user.html
+[30]: webapp/templates/scan.html
+[31]: run.py
