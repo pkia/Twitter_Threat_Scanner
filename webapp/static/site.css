@@ -228,13 +228,22 @@ a[href^="/database/"]:hover, #three:hover {
 }
 
 .profile-pic-2 {
-  width: 80px;
-  height: 80px;
-  border-radius: 80px;
+  width: 75px;
+  height: 75px;
+  border-radius: 75px;
+}
+
+.rank-division {
+  border-top: 1px dashed white;
 }
 
 .handle {
   color: #ee8442;
+}
+
+.ranked-handle:hover {
+  color: white;
+  text-decoration: none;
 }
 
 .report {

@@ -37,19 +37,26 @@
                 {% endfor %}
                 {% for page_num in reports.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
                     {% if page_num %}
-                        {% if reports.page == page_num %}
-                            <a class="btn btn-info btn-lg mb-4" href="{{ url_for("database_search", username=reports.items[0].account_id, page=page_num)}} "> {{page_num}} </a>
+                        {% if not my_reports %}
+                            {% if reports.page == page_num %}
+                                <a class="btn btn-info btn-lg mb-4" href="{{ url_for("database_search", username=reports.items[0].account_id, page=page_num)}} "> {{page_num}} </a>
+                            {% else %}
+                                <a class="btn btn-outline-info btn-lg mb-4" href="{{ url_for("database_search", username=reports.items[0].account_id, page=page_num)}} "> {{page_num}} </a>
+                            {% endif %}
                         {% else %}
-                            <a class="btn btn-outline-info btn-lg mb-4" href="{{ url_for("database_search", username=reports.items[0].account_id, page=page_num)}} "> {{page_num}} </a>
+                            {% if reports.page == page_num %}
+                                <a class="btn btn-info btn-lg mb-4" href="{{ url_for("my_reports", page=page_num)}} "> {{page_num}} </a>
+                            {% else %}
+                                <a class="btn btn-outline-info btn-lg mb-4" href="{{ url_for("my_reports", page=page_num)}} "> {{page_num}} </a>
+                            {% endif %}
                         {% endif %}
-                    {% else %}
-                        ...
                     {% endif %}
                 {% endfor %}
-            {% elif not my_reports %}
-                <h2>User has no reports made on them</h2>
-            {% else %}
+            {% elif my_reports %}
                 <h2>You have not submitted any reports</h2>
+                 <p><a style="font-size: 1.5em;" class="btn btn-primary mt-3" href="{{url_for('report')}}">Report a user now?</a></p>
+            {% else %}
+                <h2>User has no reports made on them</h2>
             {% endif %}
             {% if not my_reports %}
                 <p><a style="font-size: 1.5em;" class="btn btn-primary mt-3" href="{{url_for('report')}}">Report this user now?</a></p>
@@ -61,8 +68,6 @@
                     <a class="btn btn-primary" href="{{ url_for('mute_user', screen_name=user_profile[0])}} ">Mute</a>
                     <a class="btn btn-primary" href="{{ url_for('block_user', screen_name=user_profile[0])}} ">Block</a>
                 </div>
-            {% else %}
-                 <p><a style="font-size: 1.5em;" class="btn btn-primary mt-3" href="{{url_for('report')}}">Report a user now?</a></p>
             {% endif %}
         </div>
     </div>
