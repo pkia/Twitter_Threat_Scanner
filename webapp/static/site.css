@@ -169,7 +169,7 @@ a[href^="/database/"]:hover, #three:hover {
   opacity: 0.5;
 }*/
 
-.new-form .form-control {
+.new-form .form-control, .report-form .form-control {
   background-color: rgba(29, 155, 240, 0.19);
   border: none;
   border-color: #fff;
@@ -177,8 +177,27 @@ a[href^="/database/"]:hover, #three:hover {
   color: #fff;
 }
 
-.new-form .form-control:focus {
+.new-form .form-control:focus, .report-form .form-control:focus {
   box-shadow: -1px -1px 5px white, 1px 1px 5px white;
+}
+
+.report-form fieldset .form-group {
+  display: flex;
+  margin-bottom: 1.5em;
+}
+
+.report-form fieldset .form-control-label {
+  flex-basis: 40%;
+  padding-right: 1em;
+}
+
+.report-form fieldset .form-control {
+  flex-basis: 60%;
+  border-radius: 10px;
+}
+
+.report-form {
+  margin-bottom: 4em;
 }
 
 .control-font {
