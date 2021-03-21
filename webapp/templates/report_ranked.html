@@ -1,7 +1,7 @@
 {% extends "database.html" %}
 {% block main %}
     <div class="w-50 mx-auto mt-5 mb-4">
-        <div class="border-bottom">
+        <div>
             <h3>Total Reports On Each Account</h3>
             <h4 class="handle">Sorted by number of reports</h4>
         </div>
@@ -17,13 +17,13 @@
                 </div>
             </div>
             {% for i in range(length) %}
-            <div class="row p-2">
+            <div class="row p-3 rank-division">
                 <div class="col-4">
                     <img class="profile-pic-2" src={{user_profiles[i][2].replace('_normal', '')}}>
                 </div>
                 <div class="col-5 mt-3">
                     <p class="mb-1 h6">{{user_profiles[i][1]}}</p>
-                    <a class="h5 ranked-handle text-white" href="{{ url_for('database_search', username=count[i][0], page=1)}}"><b>@{{ count[i][0] }}</b></a>
+                    <a class="h5 ranked-handle handle" href="{{ url_for('database_search', username=count[i][0], page=1)}}"><b>@{{ count[i][0] }}</b></a>
                 </div>
                 
                 <div class="col-3 mt-3">
