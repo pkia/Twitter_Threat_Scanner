@@ -57,13 +57,12 @@
                  <p><a style="font-size: 1.5em;" class="btn btn-primary mt-3" href="{{url_for('report')}}">Report a user now?</a></p>
             {% else %}
                 <h2>User has no reports made on them</h2>
-            {% endif %}
-            {% if not my_reports %}
                 <p><a style="font-size: 1.5em;" class="btn btn-primary mt-3" href="{{url_for('report')}}">Report this user now?</a></p>
                 <p><a class="text-white" href="/scan/user/{{user_profile[0]}}">Scan this user now?</a></p>
-                
+            {% endif %}
+            {% if not my_reports %}
                 <h3 class="border-top pt-2">You can unfollow, mute or block this user below:</h3>
-                <div class="umb-btns p-3">
+                <div class="umb-btns p-3 text-center">
                     <a class="btn btn-primary" href="{{ url_for('unfollow_user', screen_name=user_profile[0])}} ">Unfollow</a>
                     <a class="btn btn-primary" href="{{ url_for('mute_user', screen_name=user_profile[0])}} ">Mute</a>
                     <a class="btn btn-primary" href="{{ url_for('block_user', screen_name=user_profile[0])}} ">Block</a>
