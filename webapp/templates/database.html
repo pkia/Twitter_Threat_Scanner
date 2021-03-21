@@ -11,7 +11,7 @@
                 </div>
             </fieldset>
             <div class="form-group">
-                {{ form.submit(class="angle-right") }}
+                {{ form.submit(class="angle-right angle-right-sm") }}
             </div>
         </form>
     </div>
@@ -21,10 +21,10 @@
         <li><a id="three" href="{{ url_for('report')}}" class="mb-5">Make A Report</a></li>
     </ul>
     <div class="w-50 mx-auto mb-4" style="clear: left;">
-        <h2 class="border-bottom mb-4">Recent Reports</h2>
+        <h2 class="mb-4 text-left">Recently Reported</h2>
         {% for report in reports.items %}
         <div class="report my-3 px-3 py-1">
-            <p class="h3 my-3">Report on <a href ="{{url_for('database_search', username=report.account_id)}}">@{{ report.account_id }}</a></p>
+            <p class="h3 my-3"><a href ="{{url_for('database_search', username=report.account_id)}}">@{{ report.account_id }}</a></p>
             <p>Submitted: {{ report.date_submitted.strftime("%d/%m/%Y @ %H:%M") }}</p>
             <p>Threat Type: {{ report.threat_type}}</p>
             <p>Report: {{ report.summary }}</p>

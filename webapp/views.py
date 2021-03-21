@@ -150,8 +150,11 @@ def report():
             return redirect(url_for("database"))
         except:
             flash(f"Sorry. That account does not exist", "danger") # if account doesn't exist then flash this
-    elif form.submit.data:
-        flash(f"Sorry. That username is invalid.", "danger")
+    elif form.summary.data is not None:
+        if len(form.summary.data) < 10:
+            flash(f"Summary must contain a minimum of 10 characters", "danger")
+        else:
+            flash(f"Sorry. That username is invalid.", "danger")
     return render_template('report.html', form=form, title="Make A Report")
 
 
