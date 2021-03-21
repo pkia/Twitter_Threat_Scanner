@@ -27,9 +27,9 @@ class SearchForm(FlaskForm):
     
     
 class ScanForm(FlaskForm):
-    username = StringField('', 
+    username = StringField("Enter another user's handle to scan", 
                            validators=[DataRequired(), Length(min=3, max=15)])
-    submit = SubmitField("Go!")
+    submit = SubmitField(Markup('&#x276F;'))
     
 
 class SliderForm(FlaskForm):

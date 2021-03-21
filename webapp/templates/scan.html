@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block main %}
-    <div style="padding: 4em 0;" class="w-50 mx-auto">
+    <div style="padding: 4em 0;" class="w-50 mx-auto scan-text">
         <div class="mb-5 mt-4">
             {% if current_user.username %}
                 {% set user = current_user.username %}
@@ -10,18 +10,17 @@
             <a class="btn btn-primary btn-lg w-100 my-4" href="{{ url_for('scan_choose', username=user) }}" onclick="showLoader()">Scan Personal Account</a>
         </div>
         <div class="content-section mb-5" >
-            <form method="POST" action="" onsubmit="showLoader()">
+            <form class="new-form" method="POST" action="" onsubmit="showLoader()">
                 {{ scan_user_form.hidden_tag() }}
                 <fieldset>
-                    <legend class="border-bottom h3 mb-0">Enter another username to Scan</legend>
-                    <div class="form-group mb-3">
-                        {{ scan_user_form.username.label(class="form-control-label") }}
-                        {{ scan_user_form.username(class="form-control form-control-lg") }}
+                    <div class="form-group h2 my-3">
+                        {{ scan_user_form.username.label(class="form-control-label mb-4") }}
+                        {{ scan_user_form.username(class="form-control form-control-lg control-font") }}
                     </div>
                 </fieldset>
                 
                 <div class="form-group h5">
-                    {{ scan_user_form.submit(class="btn btn-primary btn-lg") }}
+                    {{ scan_user_form.submit(class="angle-right angle-right-lg") }}
                 </div>
             </form>
         </div>
