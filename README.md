@@ -6,11 +6,11 @@ CSIT: https://www.ucc.ie/en/compsci/
 # Tweet Guard
 ## Credits:
 ### Group 2
-* [Conor McGavin](https://github.com/conormcgavin)
+* Joel McKenna
 * [Evan Dunbar](https://github.com/pkia)
 * [Mark Daly](https://github.com/MarkDaly64)
 * [Conor Heeney](https://github.com/ConorH99)
-* Joel McKenna
+* [Conor McGavin](https://github.com/conormcgavin)
 
 ## Overview:
 Tweet Guard is a web app used to defend against inappropriate and threatening Twitter users. The app has two functions. A scan function and a report function. 
