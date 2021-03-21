@@ -2,12 +2,14 @@
 {% block main %}
     <div style="padding: 4em 0;" class="w-50 mx-auto scan-text">
         <div class="mb-5 mt-4">
+            <!-- if user is logged in scan their account -->
             {% if current_user.username %}
                 {% set user = current_user.username %}
+                <a class="btn btn-primary btn-lg w-100 my-4" href="{{ url_for('scan_choose', username=user) }}" onclick="showLoader()">Scan Personal Account</a>
+            <!-- else redirect to login -->
             {% else %}
-                {% set user = "tweetguardxxx" %}
+                <a class="btn btn-primary btn-lg w-100 my-4" href="{{ url_for('login') }}">Scan Personal Account</a>
             {% endif %}
-            <a class="btn btn-primary btn-lg w-100 my-4" href="{{ url_for('scan_choose', username=user) }}" onclick="showLoader()">Scan Personal Account</a>
         </div>
         <div class="content-section mb-5" >
             <form class="new-form" method="POST" action="" onsubmit="showLoader()">
