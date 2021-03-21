@@ -73,7 +73,7 @@ def tweetpull(screen_name):
 
 def check_if_protected(screen_name):
     protected = False
-    profile = get_twitter_info(screen_name=screen_name)
+    profile = get_twitter_info(screen_name=screen_name) # returns true or false if a user has a private/public acc
     if profile[3] == True:
         protected = True
     return protected
