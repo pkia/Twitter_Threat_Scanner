@@ -159,17 +159,8 @@ h1 > span {
 .no-threat-found img {
   width: 30%;
 }
-/*
-a[href^="/database/"] {
-  color: #fff;
-}
 
-a[href^="/database/"]:hover, #three:hover {
-  text-decoration: none;
-  opacity: 0.5;
-}*/
-
-.new-form .form-control {
+.new-form .form-control, .report-form .form-control {
   background-color: rgba(29, 155, 240, 0.19);
   border: none;
   border-color: #fff;
@@ -177,13 +168,38 @@ a[href^="/database/"]:hover, #three:hover {
   color: #fff;
 }
 
-.new-form .form-control:focus {
+.new-form .form-control:focus, .report-form .form-control:focus {
   box-shadow: -1px -1px 5px white, 1px 1px 5px white;
+}
+
+.report-form fieldset .form-group {
+  display: flex;
+  margin-bottom: 1.5em;
+}
+
+.report-form fieldset .form-control-label {
+  flex-basis: 40%;
+  padding-right: 1em;
+}
+
+.report-form fieldset .form-control {
+  flex-basis: 60%;
+  border-radius: 10px;
+}
+
+.report-form {
+  margin-bottom: 4em;
+}
+
+.control-font {
+  /*padding: 1.5em;*/
+  font-size: .8em;
 }
 
 .new-form {
   display: flex;
   justify-content: center;
+  text-align: center;
 }
 
 .new-form .angle-right {
@@ -191,7 +207,15 @@ a[href^="/database/"]:hover, #three:hover {
   border: none;
   font-size: 2em;
   color: #1D9BF0;
+}
+
+.angle-right-sm {
   margin-top: 1.5em;
+  margin-left: .3em;
+}
+
+.angle-right-lg {
+  margin-top: 2em;
   margin-left: .3em;
 }
 
@@ -200,6 +224,7 @@ a[href^="/database/"]:hover, #three:hover {
   list-style: none;
   padding: 0 1em;
   margin-bottom: 8em;
+
 }
 
 .database-reports > li {
@@ -214,7 +239,7 @@ a[href^="/database/"]:hover, #three:hover {
     text-decoration: none;
     color: white;
     border: 2px solid white;
-    margin: .2em .3em;
+    margin: .3em .3em;
 }
 
 .database-reports a:hover {
@@ -312,6 +337,13 @@ a[href^="/database/"]:hover, #three:hover {
   }
 }
 
+
+@media screen and (max-width: 1199.98px) {
+  .angle-right-lg {
+    margin-top: 3.1em;
+  }
+}
+
 @media screen and (max-width: 767.98px) {
   .w-50 {
     width: 75% !important;
@@ -336,7 +368,15 @@ a[href^="/database/"]:hover, #three:hover {
     font-size: 1em;
   }
 
-  .new-form .angle-right {
+  .angle-right {
     margin-top: 2.5em;
+  }
+
+  .scan-text {
+    font-size: .8em;
+  }
+
+  .scan-text fieldset .form-group {
+    font-size: 2em;
   }
 }
