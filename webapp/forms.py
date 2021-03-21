@@ -7,14 +7,14 @@ from markupsafe import Markup
 
 
 class ReportForm(FlaskForm):
-    username = StringField('Twitter Username Of Account To Be Reported', 
+    username = StringField('Account Name', 
                            validators=[DataRequired(), Length(min=3, max=15)])
     
-    threat_field = SelectField('Type Of Threat',
+    threat_field = SelectField('Threat Type',
                                choices=["Racism", "Hate", "Violence", "Sexism", "Homophobia", "Transphobia", "Offensive", "Fraud"], 
                                validators=[DataRequired()])
     
-    summary = TextAreaField('Summary Of What Happened (at least 10 characters)', 
+    summary = TextAreaField("Report Summary" + Markup('<br>') + Markup('<small>') + "(at least 10 characters)" + Markup('</small>'), 
                            validators=[DataRequired(), Length(min=10, max=500)])
     
     submit = SubmitField("Report Account")
