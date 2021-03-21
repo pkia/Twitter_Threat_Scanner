@@ -1,3 +1,8 @@
+This GitHub repo began as a Team Software Project in the third year CS3305 Module of the Computer Science Degree course (2020/21 term) at the School of Computer Science and Information Technology (CSIT) at University College Cork (UCC), Ireland. The lecturer was Dr. Jason Quinlan.
+
+UCC: https://www.ucc.ie/en/
+CSIT: https://www.ucc.ie/en/compsci/
+
 # Tweet Guard
 ## Credits:
 ### Group 2
