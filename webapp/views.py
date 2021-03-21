@@ -20,6 +20,7 @@ import tweepy
 @app.route("/")
 @app.route("/index")
 def index():
+    # get access keys if not yet retrieved from a logged in user
     if twitter.authorized and auth.access_token is None:
         access_key = twitter_blueprint.token['oauth_token']
         access_secret = twitter_blueprint.token['oauth_token_secret']
@@ -30,6 +31,7 @@ def index():
 
 @app.route("/login")
 def login():
+    # if not logged in redirect to oauth twitter login
     if not twitter.authorized:
         return redirect(url_for('twitter.login'))
     settings = twitter.get('account/settings.json')
@@ -39,13 +41,14 @@ def login():
 
 @oauth_authorized.connect_via(twitter_blueprint)
 def logged_in(blueprint, token):
+    # check if user settings ok before logging them in and adding them to the db
     settings = blueprint.session.get('account/settings.json')
     if settings.ok:
         settings_json = settings.json()
         username = settings_json['screen_name']
         query = User.query.filter_by(username=username)
         try:
-            user = query.one()
+            user = query.one() # check if user already exists in db
         except NoResultFound:
             user = User(username=username)
             db.session.add(user)
@@ -55,6 +58,7 @@ def logged_in(blueprint, token):
 
 @app.route("/logout")
 def logout():
+    # logout user and removed their access token
     logout_user()
     del twitter_blueprint.token
     return redirect(url_for('index'))
@@ -183,7 +187,7 @@ def report():
             flash(f"Sorry. That account does not exist", "danger")
     elif form.summary.data is not None:
         if len(form.summary.data) < 10:
-            flash(f"Summary must contain a minimum of 10 characters", "danger")
+            flash(f"Summary must contain a minimum of 10 characters", "danger") # flash if summary not long enough 
         else:
             flash(f"Sorry. That username is invalid.", "danger") # if username is invalid then flash this
     return render_template('report.html', form=form, title="Make A Report")
@@ -215,8 +219,9 @@ def database():
 def database_search(username):
     page = request.args.get("page", 1, type=int)
     if Report.query.filter_by(account_id=username).first() != None:
-        reports = Report.query.filter_by(account_id=username).order_by( # returns list of all recently submitted reports
+        reports = Report.query.filter_by(account_id=username).order_by(
             Report.date_submitted.desc()).paginate(per_page=5)
+            # returns list of all recently submitted reports
     else:
         reports = None
     user_profile = scanning.get_twitter_info(username)
@@ -244,8 +249,10 @@ def report_ranked():
 @app.route("/database/my_reports")
 @login_required
 def my_reports():
+    # set author to current user
     author = User.query.filter_by(username=current_user.username).first()
     page = request.args.get("page", 1, type=int)
+    # fileter database report by this user as author
     if Report.query.filter_by(author=author).first() != None:
         reports = Report.query.filter_by(author=author).order_by(
             Report.date_submitted.desc()).paginate(per_page=5)
@@ -259,6 +266,7 @@ def my_reports():
 @app.route("/database/my_reports/<int:report_id>/delete", methods=["POST"])
 @login_required
 def delete_report(report_id):
+    # get report if exists and delete it from db
     report = Report.query.get_or_404(report_id)
     db.session.delete(report)
     db.session.commit()
