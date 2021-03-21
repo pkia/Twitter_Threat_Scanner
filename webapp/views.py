@@ -196,7 +196,7 @@ def report_ranked():
         user_profile= scanning.get_twitter_info(tup[0]) # get the twitter profile of the screen_name
         user_profiles.append(user_profile) # add it to a list
     length = len(user_profiles)
-    return render_template('report_ranked.html', count=count, counts2=counts2, user_profiles=user_profiles, length=length, title="Reports Ranked")
+    return render_template('report_ranked.html', count=count, counts2=counts2, user_profiles=user_profiles, length=length, page=page, title="Reports Ranked")
 
 @app.route("/database/my_reports")
 @login_required

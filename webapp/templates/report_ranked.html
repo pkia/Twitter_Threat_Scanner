@@ -16,7 +16,9 @@
                     <h3>Reports</h3>
                 </div>
             </div>
-            {% for i in range(length) %}
+            {% set start = (page-1)*5 %}
+            {% for i in range(start, start+5) %}
+            {% if i < length %}
             <div class="row p-3 rank-division">
                 <div class="col-4">
                     <img class="profile-pic-2" src={{user_profiles[i][2].replace('_normal', '')}}>
@@ -27,9 +29,10 @@
                 </div>
                 
                 <div class="col-3 mt-3">
-                    <p class="num-reports" href="{{ url_for('database_search', username=count[i][0], page=1)}}"> {{ count[i][1] }}</p>
+                    <p class="num-reports"> {{ count[i][1] }}</p>
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
         </div>
         
@@ -41,8 +44,6 @@
                     {% else %}
                         <a class="btn btn-outline-info mb-4" href="{{ url_for("report_ranked", page=page_num)}} "> {{page_num}} </a>
                     {% endif %}
-                {% else %}
-                    ...
                 {% endif %}
             {% endfor %}
         </div>
