@@ -7,13 +7,14 @@ from markupsafe import Markup
 
 
 class ReportForm(FlaskForm):
+    # twitter username are 4 to 15 chars, some verified accounts can be 3 chars
     username = StringField('Account Name', 
                            validators=[DataRequired(), Length(min=3, max=15)])
-    
+    # dropdown menue of different threat types
     threat_field = SelectField('Threat Type',
                                choices=["Racism", "Hate", "Violence", "Sexism", "Homophobia", "Transphobia", "Offensive", "Fraud"], 
                                validators=[DataRequired()])
-    
+    # input summary of report, Markup() is used to add html to label
     summary = TextAreaField("Report Summary" + Markup('<br>') + Markup('<small>') + "(at least 10 characters)" + Markup('</small>'), 
                            validators=[DataRequired(), Length(min=10, max=500)])
     
