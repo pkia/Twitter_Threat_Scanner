@@ -71,5 +71,4 @@ A maximum of 3000 tweets can be pulled per user at a time, however this should b
 
 ### Deployment:
 Deployed as a containerized web application on Azure
-http://tweetguard.me
-
+http://tweetguard.me (offline due to high cost of running)
