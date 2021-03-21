@@ -21,7 +21,7 @@ class OAuth(OAuthConsumerMixin, db.Model):
 twitter_blueprint.backend = SQLAlchemyStorage(OAuth, db.session, user=current_user)
 
 
-class Report(db.Model):
+class Report(db.Model): # Simple database table to store reports submitted by users.
     id = db.Column(db.Integer, primary_key=True)
     threat_type = db.Column(db.String(50), nullable=False)
     summary = db.Column(db.Text, nullable=False)

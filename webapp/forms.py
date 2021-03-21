@@ -22,7 +22,7 @@ class ReportForm(FlaskForm):
     
 class SearchForm(FlaskForm):
     username = StringField('Search username to View Reports', 
-                           validators=[DataRequired(), Length(min=3, max=15)]) # twitter usernames are between 4 and 15 characters
+                           validators=[DataRequired(), Length(min=3, max=15)]) # created twitter usernames are between 4 and 15 characters, but some old accounts can have 3 chars
     submit = SubmitField(Markup('&#x276F;'))
     
     
@@ -33,5 +33,5 @@ class ScanForm(FlaskForm):
     
 
 class SliderForm(FlaskForm):
-    follower_count = IntegerRangeField('Follower Count', default=0)
+    follower_count = IntegerRangeField('Follower Count', default=0) # this forms a slider that can be slid from 0 to 10 to increase follower count to be scanned
     submit = SubmitField('Go')

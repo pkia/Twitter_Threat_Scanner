@@ -68,11 +68,11 @@ def scan():
         # put input into lowercase
         scan_user_form.username.data = scan_user_form.username.data.lower()
         try:
-            if scanning.check_if_protected(scan_user_form.username.data):
+            if scanning.check_if_protected(scan_user_form.username.data): # if account protected
                 flash(f"Sorry. That account is protected", "danger")
             else:
                 # else continue to scan_user page and scan the target
-                return redirect(url_for("scan_user", username=scan_user_form.username.data))
+                return redirect(url_for("scan_user", username=scan_user_form.username.data)) 
         except:
             # If it can't find the target account then it doesn't exist and notify user
             flash(f"Sorry. That account does not exist", "danger")
@@ -136,9 +136,9 @@ def scan_choose(username):
         # redirect to scan_all page with x amount of followers to scan
         return redirect(url_for("scan_all", username=username, follower_count=slider_form.follower_count.data))
     # returns list of followers screen_name's
-    followers = scanning.get_followers(username)
+    followers = scanning.get_followers(username) 
     follower_profiles = []
-    user_profile = scanning.get_twitter_info(username)
+    user_profile = scanning.get_twitter_info(username) # fetch the info of the person making the scan
     for i in range(len(followers)):
         # get the twitter profile of all the follower's that there is an option of being scanned
         follower_profile = scanning.get_twitter_info(followers[i])
@@ -166,8 +166,8 @@ def report():
     form = ReportForm()  # form to report an account
     if form.validate_on_submit():  # if form val on submit
         form.username.data = form.username.data.lower()  # turn input to lowercase
-        if form.username.data[0] == "@":
-            form.username.data = form.username.data[1:]
+        if form.username.data[0] == "@": # if username was entered with an @ at the start
+            form.username.data = form.username.data[1:] # remove it
         try:
             # check if account exists
             scanning.get_twitter_info(form.username.data)
@@ -185,14 +185,14 @@ def report():
         if len(form.summary.data) < 10:
             flash(f"Summary must contain a minimum of 10 characters", "danger")
         else:
-            flash(f"Sorry. That username is invalid.", "danger")
+            flash(f"Sorry. That username is invalid.", "danger") # if username is invalid then flash this
     return render_template('report.html', form=form, title="Make A Report")
 
 
 @app.route("/database", methods=["GET", "POST"])
 def database():
     form = SearchForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit(): # if validates on sub then put it in lowercase and take the "@" sign if there is one
         form.username.data = form.username.data.lower()
         if form.username.data[0] == "@":
             form.username.data = form.username.data[1:]
@@ -215,7 +215,7 @@ def database():
 def database_search(username):
     page = request.args.get("page", 1, type=int)
     if Report.query.filter_by(account_id=username).first() != None:
-        reports = Report.query.filter_by(account_id=username).order_by(
+        reports = Report.query.filter_by(account_id=username).order_by( # returns list of all recently submitted reports
             Report.date_submitted.desc()).paginate(per_page=5)
     else:
         reports = None
@@ -269,7 +269,7 @@ def delete_report(report_id):
 @app.route('/unfollow_user/<string:screen_name>', methods=['GET', 'POST'])
 def unfollow_user(screen_name):
     try:
-        scanning.unfollow_user(screen_name)
+        scanning.unfollow_user(screen_name) # tries unfollowing user x and flashes success or failure.
         flash(f"User unfollowed!", "success")
     except:
         flash(f"Unable to unfollow user", "danger")
@@ -279,7 +279,7 @@ def unfollow_user(screen_name):
 @app.route('/mute_user/<string:screen_name>', methods=['GET', 'POST'])
 def mute_user(screen_name):
     try:
-        scanning.mute_user(screen_name)
+        scanning.mute_user(screen_name) # tries muting user x and flashes success or failure.
         flash(f"User Muted!", "success")
     except:
         flash(f"Unable to mute user", "danger")
@@ -289,7 +289,7 @@ def mute_user(screen_name):
 @app.route('/block_user/<string:screen_name>', methods=['GET', 'POST'])
 def block_user(screen_name):
     try:
-        scanning.block_user(screen_name)
+        scanning.block_user(screen_name) # tries block user x and flashes success or failure.
         flash(f"User blocked!", "success")
     except:
         flash(f"Unable to block user", "danger")
