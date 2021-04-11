@@ -6,23 +6,10 @@ from flask_login import LoginManager
 app = Flask(__name__)
 #import secrets
 #secrets.token_hex(16)
-app.config["SECRET_KEY"] = '0e1892da231b615d2c3144c49ed3fe69'
+app.config["SECRET_KEY"] = ''
 #  for securely signing session cookies and extension requirements
 
 '''
-#deploy keys
-consumer_key = 'ltNaOnGftDF5dFfCLhwSRAcbT'
-consumer_secret = 'KFNkCJUhhwd887Feunm89UHV3ePqRKmnQSuz8anzzMfBLGDveD'
-access_key = '1354421821744029700-XpVPmzhduRZoadRl6I0sSLcief0XEg'
-access_secret = 'YEPi451YAO9IYqw9mY5vnOrb3Myvkk8E1f2a38yIfnakl'
-'''
-
-#localhost keys
-consumer_key = 'Q2NUpbG72s2gh5zcVkIrEhrWK'
-consumer_secret = 'ccMterplEvPFV94FCH0HyL7IvfkovYb1AYS7JOkeOyztKvN0yR'
-access_key = '2370053247-UyXnLLZzMlF34zXUuN53BKjHSebOA0XN6eJiTCG'
-access_secret = 'DRPc1pY88rvkIyEa0yxIyKrraVNiVp5l4MxSVAWSV2CyH'
-
 
 import tweepy
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
