@@ -1,2 +1,4 @@
 *.pyc
 instance/
+# JetBrains IDE
+.idea/
